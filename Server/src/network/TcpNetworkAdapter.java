@@ -1,26 +1,26 @@
-package client;
-
-import network.NetworkAdapter;
+package network;
 
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ClientNetworkAdapter extends NetworkAdapter {
+/**
+ * Basic TCP server adapter for receiving and sending over TCP socket connection.
+ */
+public class TcpNetworkAdapter {
 
+    private ServerSocket serverSocket;
     private Socket socket;
 
-    private int port;
-
-    public ClientNetworkAdapter(int port) {
-        this.port = port;
+    public TcpNetworkAdapter() {
     }
 
-    public void listen() {
-        try {
-            socket = listen(port);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void initialize(int port) throws IOException {
+        serverSocket = new ServerSocket(port);
+    }
+
+    public void accept() throws IOException {
+        socket = serverSocket.accept();
     }
 
     public byte[] readBytes() {
