@@ -1,6 +1,6 @@
 package network;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -12,6 +12,10 @@ public class TcpNetworkAdapter {
     private ServerSocket serverSocket;
     private Socket socket;
 
+    private DataInputStream in;
+    private DataOutputStream out;
+    private byte[] bytes;
+
     public TcpNetworkAdapter() {
     }
 
@@ -21,13 +25,20 @@ public class TcpNetworkAdapter {
 
     public void accept() throws IOException {
         socket = serverSocket.accept();
+        in = new DataInputStream(socket.getInputStream());
+        out = new DataOutputStream(socket.getOutputStream());
+        bytes = new byte[1024];
+    }
+
+    public boolean isConnected() {
+        return socket != null && socket.isConnected();
     }
 
     public byte[] readBytes() {
-        byte[] bytes = {};
         if (socket != null && socket.isConnected()) {
             try {
-                bytes = socket.getInputStream().readAllBytes();
+                int len = in.readByte();
+                in.read(bytes, 0, len);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -36,7 +47,7 @@ public class TcpNetworkAdapter {
     }
 
     public void sendBytes(byte[] bytes) {
-        if (socket != null && socket.isConnected()) {
+        if (isConnected()) {
             try {
                 socket.getOutputStream().write(bytes);
             } catch (IOException e) {
