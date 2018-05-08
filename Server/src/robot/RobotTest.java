@@ -2,6 +2,7 @@ package robot;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class RobotTest {
     private int port;
@@ -27,8 +28,27 @@ public class RobotTest {
         }
     }
 
+    public Thread start() {
+        Thread thread = new Thread(() -> {
+            connect();
+
+            for (int i = 1; i <= 5; i++) {
+                send("Message " + i);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+        return thread;
+    }
+
     public void send(String message) {
-        if(socket != null && socket.isConnected()) {
+        if (socket != null && socket.isConnected()) {
             try {
                 out.writeByte(message.getBytes().length);
                 out.writeBytes(message);
@@ -36,6 +56,21 @@ public class RobotTest {
                 e.printStackTrace();
             }
         }
+    }
+
+    public String receive() {
+        String res = null;
+        if (socket != null && socket.isConnected()) {
+            try {
+                int len = in.readByte();
+                byte[] bytes = new byte[1024];
+                int result = in.read(bytes, 0, len);
+                res = new String(bytes, StandardCharsets.UTF_8);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return res;
     }
 
     public void disconnect() {

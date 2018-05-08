@@ -3,11 +3,12 @@ package network;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Basic TCP server adapter for receiving and sending over TCP socket connection.
  */
-public class TcpNetworkAdapter {
+public class TcpServerAdapter {
 
     private ServerSocket serverSocket;
     private Socket socket;
@@ -16,7 +17,7 @@ public class TcpNetworkAdapter {
     private DataOutputStream out;
     private byte[] bytes;
 
-    public TcpNetworkAdapter() {
+    public TcpServerAdapter() {
     }
 
     public void initialize(int port) throws IOException {
@@ -34,7 +35,7 @@ public class TcpNetworkAdapter {
         return socket != null && socket.isConnected();
     }
 
-    public byte[] readBytes() {
+    private byte[] readBytes() {
         if (socket != null && socket.isConnected()) {
             try {
                 int len = in.readByte();
@@ -46,13 +47,27 @@ public class TcpNetworkAdapter {
         return bytes;
     }
 
+    public String readBytesAsStringUTF8() {
+        byte[] bytes = readBytes();
+
+        String s = new String(bytes, StandardCharsets.UTF_8);
+
+        return s;
+    }
+
     public void sendBytes(byte[] bytes) {
         if (isConnected()) {
             try {
-                socket.getOutputStream().write(bytes);
+                int len = bytes.length;
+                out.writeByte(len);
+                out.write(bytes, 0, len);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void sendStringUTF8asBytes(String message) {
+        sendBytes(message.getBytes());
     }
 }

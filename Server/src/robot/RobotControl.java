@@ -1,6 +1,6 @@
 package robot;
 
-import network.TcpNetworkAdapter;
+import network.TcpServerAdapter;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -9,10 +9,10 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 public class RobotControl {
-    private TcpNetworkAdapter adapter;
+    private TcpServerAdapter adapter;
 
-    private BlockingQueue<byte[]> in;
-    private BlockingQueue<byte[]> out;
+    private BlockingQueue<String> in;
+    private BlockingQueue<String> out;
 
     private boolean isAlive;
 
@@ -20,7 +20,7 @@ public class RobotControl {
         in = new ArrayBlockingQueue<>(100);
         out = new ArrayBlockingQueue<>(100);
 
-        adapter = new TcpNetworkAdapter();
+        adapter = new TcpServerAdapter();
     }
 
     public void initialize(int port) {
@@ -34,9 +34,9 @@ public class RobotControl {
 
     private void waitForConnection() {
         try {
-            System.out.println("RobotControl: Waiting for connection.");
+            System.out.println("[RobotControl] Waiting for connection...");
             adapter.accept();
-            System.out.println("RobotControl: Connection accepted.");
+            System.out.println("[RobotControl] Connection accepted.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,23 +44,20 @@ public class RobotControl {
 
     public Thread start() {
         Thread thread = new Thread(() -> {
-
             while (isAlive) {
                 if (adapter.isConnected()) {
-                    byte[] send;
+                    String send;
                     try {
                         send = out.poll(500, TimeUnit.MILLISECONDS);
-                        System.out.println("RobotControl: Sending data: " + send);
                         if (send != null) {
-                            adapter.sendBytes(send);
+                            System.out.println("[RobotControl] Sending data to Robot: " + send);
+                            adapter.sendStringUTF8asBytes(send);
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
-                    System.out.println("Reading data.");
-                    byte[] receive = adapter.readBytes();
-                    System.out.println("Read data: " + new String(receive, StandardCharsets.UTF_8));
+                    String receive = adapter.readBytesAsStringUTF8();
+                    System.out.println("[RobotControl] Receiving data from Robot: " + receive);
                     in.offer(receive);
                 } else {
                     waitForConnection();
@@ -73,11 +70,11 @@ public class RobotControl {
         return thread;
     }
 
-    public byte[] pollBytes() {
+    public String pollString() {
         return in.poll();
     }
 
-    public boolean offerBytes(byte[] bytes) {
-        return out.offer(bytes);
+    public boolean offerString(String string) {
+        return out.offer(string);
     }
 }
