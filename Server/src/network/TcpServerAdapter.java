@@ -17,6 +17,8 @@ public class TcpServerAdapter {
     private DataOutputStream out;
     private byte[] bytes;
 
+    private boolean isAlive;
+
     public TcpServerAdapter() {
     }
 
@@ -29,17 +31,22 @@ public class TcpServerAdapter {
         in = new DataInputStream(socket.getInputStream());
         out = new DataOutputStream(socket.getOutputStream());
         bytes = new byte[1024];
+
+        isAlive = true;
     }
 
     public boolean isConnected() {
-        return socket != null && socket.isConnected();
+        return isAlive;
     }
 
     private byte[] readBytes() {
-        if (socket != null && socket.isConnected()) {
+        if (isConnected()) {
             try {
                 int len = in.readByte();
                 in.read(bytes, 0, len);
+            } catch (EOFException e2) {
+                isAlive = false;
+                return null;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -50,17 +57,23 @@ public class TcpServerAdapter {
     public String readBytesAsStringUTF8() {
         byte[] bytes = readBytes();
 
-        String s = new String(bytes, StandardCharsets.UTF_8);
+        String s = null;
+
+        if (bytes != null) {
+            s = new String(bytes, StandardCharsets.UTF_8);
+        }
 
         return s;
     }
 
-    public void sendBytes(byte[] bytes) {
+    private void sendBytes(byte[] bytes) {
         if (isConnected()) {
             try {
                 int len = bytes.length;
                 out.writeByte(len);
                 out.write(bytes, 0, len);
+            } catch (EOFException e2) {
+                isAlive = false;
             } catch (IOException e) {
                 e.printStackTrace();
             }

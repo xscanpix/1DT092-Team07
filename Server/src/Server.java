@@ -5,7 +5,9 @@ import warehouse.WarehousePackage;
 import warehouse.WarehouseRobot;
 
 import java.awt.*;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 /*
  * Main entry point for the server.
@@ -18,12 +20,11 @@ public class Server {
     private static RobotTest robotTest;
 
     private static Thread serverThread;
-    private static Thread robotControlThread;
-    private static Thread robotThread;
+    private static Thread serverControlThread;
 
-    private boolean isAlive;
+    private static boolean isAlive;
 
-    public Server() {
+    private Server() {
         warehouse = new Warehouse(16, 16);
         warehouse.addObject(new WarehousePackage(0, 0));
         warehouse.addObject(new WarehouseRobot(1, 0));
@@ -32,15 +33,28 @@ public class Server {
         robotControl.initialize(5555);
     }
 
-
-
     public static void main(String[] args) {
         server = new Server();
         serverThread = server.start();
-        robotControlThread = robotControl.start();
 
+        serverControlThread = new Thread(() -> {
+            Scanner sc = new Scanner(System.in);
+
+            while (isAlive) {
+                String cmd = sc.nextLine();
+
+                if (cmd.equals("quit")) {
+                    isAlive = false;
+                }
+            }
+        });
+        serverControlThread.start();
+
+        /*
+         * Test robots
+         */
         robotTest = new RobotTest("127.0.0.1", 5555);
-        robotThread = robotTest.start();
+        robotTest.connect();
 
         try {
             serverThread.join();
@@ -55,10 +69,10 @@ public class Server {
         isAlive = true;
 
         Thread thread = new Thread(() -> {
-            while(isAlive)  {
+            while (isAlive) {
                 try {
                     String s = robotControl.pollString();
-                    if(s != null) {
+                    if (s != null) {
                         System.out.println("[Server] Data from RobotControl: " + s);
                     }
                     Thread.sleep(500);
@@ -66,6 +80,8 @@ public class Server {
                     e.printStackTrace();
                 }
             }
+
+            robotControl.stop();
         });
 
         thread.start();

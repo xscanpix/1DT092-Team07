@@ -3,7 +3,6 @@ package robot;
 import network.TcpServerAdapter;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +12,8 @@ public class RobotControl {
 
     private BlockingQueue<String> in;
     private BlockingQueue<String> out;
+
+    private Thread thread;
 
     private boolean isAlive;
 
@@ -26,7 +27,7 @@ public class RobotControl {
     public void initialize(int port) {
         try {
             adapter.initialize(port);
-            isAlive = true;
+            thread = start();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -42,8 +43,16 @@ public class RobotControl {
         }
     }
 
-    public Thread start() {
+    public void stop() {
+        isAlive = false;
+    }
+
+    private Thread start() {
+        isAlive = true;
+
         Thread thread = new Thread(() -> {
+            waitForConnection();
+
             while (isAlive) {
                 if (adapter.isConnected()) {
                     String send;
@@ -57,10 +66,10 @@ public class RobotControl {
                         e.printStackTrace();
                     }
                     String receive = adapter.readBytesAsStringUTF8();
-                    System.out.println("[RobotControl] Receiving data from Robot: " + receive);
-                    in.offer(receive);
-                } else {
-                    waitForConnection();
+                    if (receive != null) {
+                        System.out.println("[RobotControl] Receiving data from Robot: " + receive);
+                        in.offer(receive);
+                    }
                 }
             }
         });
