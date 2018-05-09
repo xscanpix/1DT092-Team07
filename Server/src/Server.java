@@ -17,7 +17,6 @@ public class Server {
     private static Warehouse warehouse;
     private static Server server;
     private static RobotControl robotControl;
-    private static RobotTest robotTest;
 
     private static Thread serverThread;
     private static Thread serverControlThread;
@@ -28,6 +27,9 @@ public class Server {
         warehouse = new Warehouse(16, 16);
         warehouse.addObject(new WarehousePackage(0, 0));
         warehouse.addObject(new WarehouseRobot(1, 0));
+        warehouse.addPath(3, 3, 6, 3);
+        warehouse.addPath(6, 3, 6, 9);
+        System.out.println(warehouse);
 
         robotControl = new RobotControl();
         robotControl.initialize(5555);
@@ -53,7 +55,7 @@ public class Server {
         /*
          * Test robots
          */
-        robotTest = new RobotTest("127.0.0.1", 5555);
+        RobotTest robotTest = new RobotTest("127.0.0.1", 5555);
         robotTest.connect();
 
         try {

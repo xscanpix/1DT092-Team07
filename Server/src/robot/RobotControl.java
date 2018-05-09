@@ -20,17 +20,15 @@ public class RobotControl {
     public RobotControl() {
         in = new ArrayBlockingQueue<>(100);
         out = new ArrayBlockingQueue<>(100);
-
-        adapter = new TcpServerAdapter();
     }
 
     public void initialize(int port) {
         try {
-            adapter.initialize(port);
-            thread = start();
+            adapter = new TcpServerAdapter(port);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        thread = start();
     }
 
     private void waitForConnection() {

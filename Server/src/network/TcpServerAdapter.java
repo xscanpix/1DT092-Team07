@@ -19,11 +19,8 @@ public class TcpServerAdapter {
 
     private boolean isAlive;
 
-    public TcpServerAdapter() {
-    }
-
-    public void initialize(int port) throws IOException {
-        serverSocket = new ServerSocket(port);
+    public TcpServerAdapter(int port) throws IOException {
+            serverSocket = new ServerSocket(port);
     }
 
     public void accept() throws IOException {
