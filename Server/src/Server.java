@@ -1,4 +1,6 @@
 import robot.RobotControl;
+import robot.RobotMessage;
+import robot.RobotMessageException;
 import robot.RobotTest;
 import warehouse.Warehouse;
 import warehouse.WarehousePackage;
@@ -6,6 +8,7 @@ import warehouse.WarehouseRobot;
 
 import java.awt.*;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
@@ -29,41 +32,52 @@ public class Server {
         warehouse.addObject(new WarehouseRobot(1, 0));
         warehouse.addPath(3, 3, 6, 3);
         warehouse.addPath(6, 3, 6, 9);
-        System.out.println(warehouse);
 
         robotControl = new RobotControl();
         robotControl.initialize(5555);
     }
 
     public static void main(String[] args) {
-        server = new Server();
-        serverThread = server.start();
 
-        serverControlThread = new Thread(() -> {
-            Scanner sc = new Scanner(System.in);
-
-            while (isAlive) {
-                String cmd = sc.nextLine();
-
-                if (cmd.equals("quit")) {
-                    isAlive = false;
-                }
-            }
-        });
-        serverControlThread.start();
-
-        /*
-         * Test robots
-         */
-        RobotTest robotTest = new RobotTest("127.0.0.1", 5555);
-        robotTest.connect();
+        byte[] m = new byte[1024];
+        m[0] = 3;
 
         try {
-            serverThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            RobotMessage msg = new RobotMessage(m).parseMessage();
+        } catch (RobotMessageException e) {
+            System.err.println(e.getMessage());
         }
 
+        if (false) {
+
+            server = new Server();
+            serverThread = server.start();
+
+            serverControlThread = new Thread(() -> {
+                Scanner sc = new Scanner(System.in);
+
+                while (isAlive) {
+                    String cmd = sc.nextLine();
+
+                    if (cmd.equals("quit")) {
+                        isAlive = false;
+                    }
+                }
+            });
+            serverControlThread.start();
+
+            /*
+             * Test robots
+             */
+            RobotTest robotTest = new RobotTest("127.0.0.1", 5555);
+            robotTest.connect();
+
+            try {
+                serverThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         System.exit(0);
     }
 
