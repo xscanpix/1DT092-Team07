@@ -1,31 +1,23 @@
 package warehouse;
 
+import javafx.util.Pair;
+
 public class WarehousePath {
-    private int x1;
-    private int y1;
-    private int x2;
-    private int y2;
+    private final Pair<Tuple2<Integer>, Tuple2<Integer>> pair;
 
-    public WarehousePath(int x1, int y1, int x2, int y2) {
-        this.x1 = x1;
-        this.x2 = x2;
-        this.y1 = y1;
-        this.y2 = y2;
+    public WarehousePath(Tuple2<Integer> start, Tuple2<Integer> end) {
+        pair = new Pair<>(start, end);
     }
 
-    public int getX1() {
-        return x1;
+    public Tuple2<Integer> getFirst() {
+        return pair.getKey();
     }
 
-    public int getY1() {
-        return y1;
+    public Tuple2<Integer> getSecond() {
+        return pair.getValue();
     }
 
-    public int getX2() {
-        return x2;
-    }
-
-    public int getY2() {
-        return y2;
+    public Pair<Tuple2<Integer>, Tuple2<Integer>> getPair() {
+        return pair;
     }
 }

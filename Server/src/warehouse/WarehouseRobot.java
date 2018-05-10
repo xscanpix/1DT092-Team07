@@ -6,7 +6,8 @@ public class WarehouseRobot extends WarehouseObject {
         super(x, y);
     }
 
-    public String toString() {
-        return "R";
+    @Override
+    public char toChar() {
+        return Warehouse.ROBOT;
     }
 }

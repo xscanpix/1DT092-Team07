@@ -7,7 +7,7 @@ public class WarehousePackage extends WarehouseObject {
     }
 
     @Override
-    public String toString() {
-        return "P";
+    public char toChar() {
+        return Warehouse.PACKAGE;
     }
 }

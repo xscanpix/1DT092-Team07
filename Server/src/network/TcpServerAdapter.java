@@ -3,7 +3,7 @@ package network;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
+import java.nio.ByteBuffer;
 
 /**
  * Basic TCP server adapter for receiving and sending over TCP socket connection.
@@ -11,63 +11,64 @@ import java.nio.charset.StandardCharsets;
 public class TcpServerAdapter {
 
     private ServerSocket serverSocket;
-    private Socket socket;
 
     private DataInputStream in;
     private DataOutputStream out;
-    private byte[] bytes;
 
-    public TcpServerAdapter() {
-    }
+    private boolean isAlive;
 
-    public void initialize(int port) throws IOException {
+    public TcpServerAdapter(int port) throws IOException {
         serverSocket = new ServerSocket(port);
     }
 
     public void accept() throws IOException {
-        socket = serverSocket.accept();
+        Socket socket = serverSocket.accept();
         in = new DataInputStream(socket.getInputStream());
         out = new DataOutputStream(socket.getOutputStream());
-        bytes = new byte[1024];
+
+        isAlive = true;
     }
 
     public boolean isConnected() {
-        return socket != null && socket.isConnected();
+        return isAlive;
     }
 
-    private byte[] readBytes() {
-        if (socket != null && socket.isConnected()) {
-            try {
-                int len = in.readByte();
-                in.read(bytes, 0, len);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return bytes;
-    }
+    public ByteBuffer readBytes() {
 
-    public String readBytesAsStringUTF8() {
-        byte[] bytes = readBytes();
+        ByteBuffer buf = null;
 
-        String s = new String(bytes, StandardCharsets.UTF_8);
-
-        return s;
-    }
-
-    public void sendBytes(byte[] bytes) {
         if (isConnected()) {
             try {
-                int len = bytes.length;
-                out.writeByte(len);
-                out.write(bytes, 0, len);
+                int len = in.readByte();
+
+                buf = ByteBuffer.allocate(len);
+
+                byte[] bytes = new byte[len];
+                int read = in.read(bytes);
+
+                buf.put(bytes);
+                buf.rewind();
+            } catch (EOFException e2) {
+                isAlive = false;
+                return null;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        return buf;
     }
 
-    public void sendStringUTF8asBytes(String message) {
-        sendBytes(message.getBytes());
+    public void sendBytes(ByteBuffer buf) {
+        if (isConnected()) {
+            try {
+
+                out.writeByte(buf.array().length);
+                out.write(buf.array());
+            } catch (EOFException e2) {
+                isAlive = false;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

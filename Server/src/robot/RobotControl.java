@@ -3,7 +3,7 @@ package robot;
 import network.TcpServerAdapter;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.nio.ByteBuffer;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -11,25 +11,24 @@ import java.util.concurrent.TimeUnit;
 public class RobotControl {
     private TcpServerAdapter adapter;
 
-    private BlockingQueue<String> in;
-    private BlockingQueue<String> out;
+    private BlockingQueue<RobotMessage> in;
+    private BlockingQueue<RobotMessage> out;
 
     private boolean isAlive;
 
     public RobotControl() {
         in = new ArrayBlockingQueue<>(100);
         out = new ArrayBlockingQueue<>(100);
-
-        adapter = new TcpServerAdapter();
     }
 
     public void initialize(int port) {
         try {
-            adapter.initialize(port);
-            isAlive = true;
+            adapter = new TcpServerAdapter(port);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        start();
     }
 
     private void waitForConnection() {
@@ -42,25 +41,41 @@ public class RobotControl {
         }
     }
 
-    public Thread start() {
+    public void stop() {
+        isAlive = false;
+    }
+
+    private Thread start() {
+        isAlive = true;
+
         Thread thread = new Thread(() -> {
+            waitForConnection();
+
             while (isAlive) {
                 if (adapter.isConnected()) {
-                    String send;
+                    RobotMessage send;
                     try {
                         send = out.poll(500, TimeUnit.MILLISECONDS);
                         if (send != null) {
                             System.out.println("[RobotControl] Sending data to Robot: " + send);
-                            adapter.sendStringUTF8asBytes(send);
+                            adapter.sendBytes(RobotMessage.encodeMessage(send));
                         }
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException | RobotMessageException e) {
                         e.printStackTrace();
                     }
-                    String receive = adapter.readBytesAsStringUTF8();
-                    System.out.println("[RobotControl] Receiving data from Robot: " + receive);
-                    in.offer(receive);
-                } else {
-                    waitForConnection();
+                    ByteBuffer receive = adapter.readBytes();
+                    if (receive != null) {
+                        try {
+                            System.out.println("[RobotControl] Receiving data from Robot: " + RobotMessage.decodeMessage(receive));
+                        } catch (RobotMessageException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            in.offer(RobotMessage.decodeMessage(receive));
+                        } catch (RobotMessageException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         });
@@ -70,11 +85,11 @@ public class RobotControl {
         return thread;
     }
 
-    public String pollString() {
+    public RobotMessage pollMessage() {
         return in.poll();
     }
 
-    public boolean offerString(String string) {
-        return out.offer(string);
+    public boolean offerMessage(RobotMessage message) {
+        return out.offer(message);
     }
 }

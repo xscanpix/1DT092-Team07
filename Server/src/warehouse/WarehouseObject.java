@@ -1,6 +1,6 @@
 package warehouse;
 
-public class WarehouseObject {
+public abstract class WarehouseObject {
 
     private int x, y;
 
@@ -17,7 +17,5 @@ public class WarehouseObject {
         return y;
     }
 
-    public String toString() {
-        return "-";
-    }
+    public abstract char toChar();
 }
