@@ -1,7 +1,7 @@
 package robot;
 
 public class RobotMessageException extends Exception {
-    public RobotMessageException(String message) {
+    RobotMessageException(String message) {
         super("[RobotMessageException] " + message);
     }
 }

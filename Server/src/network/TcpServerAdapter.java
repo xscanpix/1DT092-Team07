@@ -61,9 +61,8 @@ public class TcpServerAdapter {
     public void sendBytes(ByteBuffer buf) {
         if (isConnected()) {
             try {
-                int len = buf.remaining();
 
-                out.writeByte(len);
+                out.writeByte(buf.array().length);
                 out.write(buf.array());
             } catch (EOFException e2) {
                 isAlive = false;

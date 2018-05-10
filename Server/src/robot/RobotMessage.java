@@ -1,15 +1,11 @@
 package robot;
 
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 public class RobotMessage {
 
     private static final int OPCODE_BYTES = 4;
 
-    // OP   |DATA
-    // INT|STRING
     public enum OPS {
         NOT_USED, TEST, OP_2
     }
@@ -17,16 +13,16 @@ public class RobotMessage {
     private int op;
     private String data;
 
-    public RobotMessage(int op, String data) {
+    RobotMessage(int op, String data) {
         this.op = op;
         this.data = data;
     }
 
-    public int getOp() {
+    private int getOp() {
         return op;
     }
 
-    public String getData() {
+    private String getData() {
         return data;
     }
 
@@ -40,7 +36,7 @@ public class RobotMessage {
         return false;
     }
 
-    public static ByteBuffer encodeMessage(RobotMessage msg) throws RobotMessageException {
+    static ByteBuffer encodeMessage(RobotMessage msg) throws RobotMessageException {
         if (opIsNotValid(msg.getOp())) {
             throw new RobotMessageException("Operation is not valid");
         }
@@ -59,7 +55,7 @@ public class RobotMessage {
         return buf;
     }
 
-    public static RobotMessage decodeMessage(ByteBuffer message) throws RobotMessageException {
+    static RobotMessage decodeMessage(ByteBuffer message) throws RobotMessageException {
 
         message.rewind();
 
@@ -69,11 +65,11 @@ public class RobotMessage {
         try {
             op = message.getInt();
         } catch (ClassCastException e) {
-            throw new RobotMessageException("First byte is not an integer");
+            throw new RobotMessageException("[DecodeMessage] First byte is not an integer");
         }
 
         if (opIsNotValid(op)) {
-            throw new RobotMessageException("Operation is not valid");
+            throw new RobotMessageException("[DecodeMessage] Operation is not valid: " + op);
         }
 
         byte[] remaining = new byte[message.remaining()];
@@ -85,6 +81,6 @@ public class RobotMessage {
     }
 
     public String toString() {
-        return "Op: " + op + " Data: " + data;
+        return "[RobotMessage] Op: " + op + " Data: " + data;
     }
 }
