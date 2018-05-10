@@ -2,33 +2,35 @@ package robot;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 public class RobotMessage {
 
-    private static int OPCODE_BYTES = 2;
+    private static final int OPCODE_BYTES = 4;
 
-    // OP|DATA
-    private enum OPS {
-        OP_1, OP_2
+    // OP   |DATA
+    // INT|STRING
+    public enum OPS {
+        NOT_USED, TEST, OP_2
     }
 
-    private short op;
+    private int op;
     private String data;
 
-    private RobotMessage(short op, String data) {
+    public RobotMessage(int op, String data) {
         this.op = op;
         this.data = data;
     }
 
-    private short getOp() {
+    public int getOp() {
         return op;
     }
 
-    private String getData() {
+    public String getData() {
         return data;
     }
 
-    private static boolean opIsNotValid(short op) {
+    private static boolean opIsNotValid(int op) {
         try {
             OPS res = OPS.values()[op];
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -38,56 +40,51 @@ public class RobotMessage {
         return false;
     }
 
-    public static byte[] encodeMessage(short op, String data) throws RobotMessageException {
-        if(opIsNotValid(op)) {
+    public static ByteBuffer encodeMessage(RobotMessage msg) throws RobotMessageException {
+        if (opIsNotValid(msg.getOp())) {
             throw new RobotMessageException("Operation is not valid");
-        }
-
-        if(data == null) {
-            data = "";
         }
 
         int len = 0;
 
-        int opLen = OPCODE_BYTES;
-        int dataLen = data.getBytes().length;
+        int dataLen = msg.getData().getBytes().length;
 
-        len += (opLen + dataLen);
+        len += (OPCODE_BYTES + dataLen);
 
         ByteBuffer buf = ByteBuffer.allocate(len);
 
-        buf.putShort(op);
-        buf.put(data.getBytes());
+        buf.putInt(msg.getOp());
+        buf.put(msg.getData().getBytes());
 
-        return buf.array();
+        return buf;
     }
 
-    public static RobotMessage decodeMessage(byte[] message) throws RobotMessageException {
+    public static RobotMessage decodeMessage(ByteBuffer message) throws RobotMessageException {
 
-        ByteBuffer buf = ByteBuffer.wrap(message);
+        message.rewind();
 
-        short op;
+        int op;
         String data;
 
         try {
-            op = buf.getShort();
+            op = message.getInt();
         } catch (ClassCastException e) {
             throw new RobotMessageException("First byte is not an integer");
         }
 
-        if(opIsNotValid(op)) {
+        if (opIsNotValid(op)) {
             throw new RobotMessageException("Operation is not valid");
         }
 
-        byte[] remaining = new byte[buf.remaining()];
-        buf.get(remaining);
+        byte[] remaining = new byte[message.remaining()];
+        message.get(remaining);
 
-        data = new String(remaining, StandardCharsets.UTF_8);
+        data = new String(remaining);
 
         return new RobotMessage(op, data);
     }
 
     public String toString() {
-        return op + data;
+        return "Op: " + op + " Data: " + data;
     }
 }

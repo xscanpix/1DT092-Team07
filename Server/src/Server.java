@@ -9,7 +9,9 @@ import warehouse.WarehouseRobot;
 import java.awt.*;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -39,16 +41,14 @@ public class Server {
 
     public static void main(String[] args) {
 
-        byte[] m = new byte[1024];
-        m[0] = 3;
-
         try {
-            RobotMessage msg = new RobotMessage(m).parseMessage();
+            RobotMessage msg = RobotMessage.decodeMessage(RobotMessage.encodeMessage(new RobotMessage(1, "Test")));
+            System.out.println("Op: " + msg.getOp() + " Data: " + msg.getData());
         } catch (RobotMessageException e) {
             System.err.println(e.getMessage());
         }
 
-        if (false) {
+        if (true) {
 
             server = new Server();
             serverThread = server.start();
@@ -87,9 +87,9 @@ public class Server {
         Thread thread = new Thread(() -> {
             while (isAlive) {
                 try {
-                    String s = robotControl.pollString();
-                    if (s != null) {
-                        System.out.println("[Server] Data from RobotControl: " + s);
+                    RobotMessage msg = robotControl.pollMessage();
+                    if (msg != null) {
+                        System.out.println("[Server] Data from RobotControl: " + msg);
                     }
                     Thread.sleep(500);
                 } catch (InterruptedException e) {

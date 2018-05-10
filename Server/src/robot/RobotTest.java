@@ -2,7 +2,10 @@ package robot;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.nio.charset.CharsetEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 public class RobotTest {
 
@@ -52,7 +55,11 @@ public class RobotTest {
 
             for (int i = 1; i <= 5; i++) {
                 System.out.println("[Robot " + myId + "] Sending data to RobotControl: Message " + i);
-                send("Message " + i);
+                try {
+                    send(RobotMessage.encodeMessage(new RobotMessage(RobotMessage.OPS.TEST.ordinal(), "Message " + i)));
+                } catch (RobotMessageException e) {
+                    e.printStackTrace();
+                }
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
@@ -68,11 +75,11 @@ public class RobotTest {
         return thread;
     }
 
-    private void send(String message) {
+    private void send(ByteBuffer message) {
         if (socket != null && socket.isConnected()) {
             try {
-                out.writeByte(message.getBytes().length);
-                out.writeBytes(message);
+                out.writeByte(message.array().length);
+                out.write(message.array());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -85,7 +92,7 @@ public class RobotTest {
             try {
                 int len = in.readByte();
                 byte[] bytes = new byte[1024];
-                in.read(bytes, 0, len);
+                int read = in.read(bytes, 0, len);
                 res = new String(bytes, StandardCharsets.UTF_8);
             } catch (IOException e) {
                 e.printStackTrace();
