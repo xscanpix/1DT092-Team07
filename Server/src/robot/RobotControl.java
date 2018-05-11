@@ -4,6 +4,7 @@ import network.TcpServerAdapter;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 import java.nio.ByteBuffer;
@@ -99,8 +100,19 @@ public class RobotControl {
                             }
                         } catch (InterruptedException | RobotMessageException e) {
                             e.printStackTrace();
+                        } catch (EOFException e2) {
+                            continue;
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                        ByteBuffer receive = adapter.readBytes(robot.in);
+                        ByteBuffer receive = null;
+                        try {
+                            receive = adapter.readBytes(robot.in);
+                        } catch (EOFException e2) {
+                            continue;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         if (receive != null) {
                             try {
                                 System.out.println("[RobotControl] Receiving data from Robot: " + RobotMessage.decodeMessage(receive));

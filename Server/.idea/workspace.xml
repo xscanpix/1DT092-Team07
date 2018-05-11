@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6d2bca23-e2ec-4dba-9cb5-6c487c9d4ceb" name="Default" comment="Worked on sensor messaging">
-      <change afterPath="$PROJECT_DIR$/src/ServerControl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sensor/SensorMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sensor/SensorMessageException.java" afterDir="false" />
+    <list default="true" id="6d2bca23-e2ec-4dba-9cb5-6c487c9d4ceb" name="Default" comment="Added some comments">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/Server.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerControl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/network/TcpServerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/network/TcpServerAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/robot/RobotControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/robot/RobotControl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/robot/RobotMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/robot/RobotMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensor/Sensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensor/Sensor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sensor/SensorControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sensor/SensorControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/robot/RobotTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/robot/RobotTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,37 +24,20 @@
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+            <state relative-caret-position="156">
+              <caret line="39" column="43" selection-start-line="39" selection-start-column="43" selection-end-line="39" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1960#1961#0" expanded="true" />
-                <element signature="e#1991#1992#0" expanded="true" />
-                <element signature="e#1731#1732#0" expanded="true" />
-                <element signature="e#1759#1760#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SensorMessageException.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sensor/SensorMessageException.java">
+      <file leaf-file-name="RobotMessage.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/robot/RobotMessage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ServerControl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ServerControl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
-              <folding>
-                <element signature="e#125#126#0" expanded="true" />
-                <element signature="e#161#162#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="139">
+              <caret line="56" column="38" selection-start-line="56" selection-start-column="38" selection-end-line="56" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -65,95 +45,24 @@
       <file leaf-file-name="RobotTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/robot/RobotTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="514">
-              <caret line="72" selection-start-line="72" selection-end-line="72" />
+            <state relative-caret-position="51">
+              <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#423#424#0" expanded="true" />
+                <element signature="e#450#451#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RobotMessage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/robot/RobotMessage.java">
+      <file leaf-file-name="TcpServerAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/network/TcpServerAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="71" column="45" selection-start-line="71" selection-start-column="45" selection-end-line="71" selection-end-column="45" />
-              <folding>
-                <element signature="e#345#346#0" expanded="true" />
-                <element signature="e#370#371#0" expanded="true" />
-                <element signature="e#510#511#0" expanded="true" />
-                <element signature="e#537#538#0" expanded="true" />
-                <element signature="e#1833#1834#0" expanded="true" />
-                <element signature="e#1901#1902#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sensor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sensor/Sensor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-143">
-              <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-              <folding>
-                <element signature="e#266#267#0" expanded="true" />
-                <element signature="e#290#291#0" expanded="true" />
-                <element signature="e#315#316#0" expanded="true" />
-                <element signature="e#339#340#0" expanded="true" />
-                <element signature="e#372#373#0" expanded="true" />
-                <element signature="e#401#402#0" expanded="true" />
-                <element signature="e#451#452#0" expanded="true" />
-                <element signature="e#487#488#0" expanded="true" />
-                <element signature="e#132#133#0" expanded="true" />
-                <element signature="e#156#157#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SensorMessage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sensor/SensorMessage.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-748">
-              <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SensorControl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sensor/SensorControl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="35" column="20" lean-forward="true" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
+            <state relative-caret-position="163">
+              <caret line="66" column="28" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#263#264#0" expanded="true" />
-                <element signature="e#295#296#0" expanded="true" />
-                <element signature="e#562#563#0" expanded="true" />
-                <element signature="e#593#594#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RobotControl.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/robot/RobotControl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="118" column="41" selection-start-line="118" selection-start-column="41" selection-end-line="118" selection-end-column="41" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1123#1124#0" expanded="true" />
-                <element signature="e#1174#1175#0" expanded="true" />
-                <element signature="e#1216#1217#0" expanded="true" />
-                <element signature="e#1249#1250#0" expanded="true" />
-                <element signature="e#1299#1300#0" expanded="true" />
-                <element signature="e#1332#1333#0" expanded="true" />
-                <element signature="e#4089#4090#0" expanded="true" />
-                <element signature="e#4126#4127#0" expanded="true" />
-                <element signature="e#4183#4184#0" expanded="true" />
-                <element signature="e#4229#4230#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -198,18 +107,18 @@
         <option value="$PROJECT_DIR$/src/warehouse/WarehouseSensor.java" />
         <option value="$PROJECT_DIR$/src/warehouse/WarehouseRobot.java" />
         <option value="$PROJECT_DIR$/src/warehouse/Warehouse.java" />
-        <option value="$PROJECT_DIR$/src/robot/RobotTest.java" />
         <option value="$PROJECT_DIR$/src/robot/RobotMessageException.java" />
         <option value="$PROJECT_DIR$/src/warehouse/ServerControl.java" />
-        <option value="$PROJECT_DIR$/src/robot/RobotMessage.java" />
         <option value="$PROJECT_DIR$/src/sensor/SensorControl.java" />
-        <option value="$PROJECT_DIR$/src/network/TcpServerAdapter.java" />
-        <option value="$PROJECT_DIR$/src/Server.java" />
         <option value="$PROJECT_DIR$/src/sensor/SensorMessageException.java" />
-        <option value="$PROJECT_DIR$/src/ServerControl.java" />
         <option value="$PROJECT_DIR$/src/sensor/Sensor.java" />
         <option value="$PROJECT_DIR$/src/sensor/SensorMessage.java" />
+        <option value="$PROJECT_DIR$/src/ServerControl.java" />
         <option value="$PROJECT_DIR$/src/robot/RobotControl.java" />
+        <option value="$PROJECT_DIR$/src/robot/RobotTest.java" />
+        <option value="$PROJECT_DIR$/src/Server.java" />
+        <option value="$PROJECT_DIR$/src/network/TcpServerAdapter.java" />
+        <option value="$PROJECT_DIR$/src/robot/RobotMessage.java" />
       </list>
     </option>
   </component>
@@ -273,12 +182,6 @@
               <item name="Server" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="sensor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="warehouse" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -387,7 +290,7 @@
       <workItem from="1525694902317" duration="6410000" />
       <workItem from="1525702609096" duration="28051000" />
       <workItem from="1525951310505" duration="6000" />
-      <workItem from="1525951720834" duration="19723000" />
+      <workItem from="1525951720834" duration="21345000" />
     </task>
     <task id="LOCAL-00001" summary="Implementing networking">
       <created>1525702742773</created>
@@ -466,11 +369,18 @@
       <option name="project" value="LOCAL" />
       <updated>1525984415198</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Worked on sensor messaging">
+      <created>1526049257481</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1526049257483</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63050000" />
+    <option name="totallyTimeSpent" value="64672000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -525,7 +435,8 @@
     <MESSAGE value="Refactored and changed some data types" />
     <MESSAGE value="Some cleanup" />
     <MESSAGE value="Worked on sensor messaging" />
-    <option name="LAST_COMMIT_MESSAGE" value="Worked on sensor messaging" />
+    <MESSAGE value="Added some comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added some comments" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -539,10 +450,6 @@
           <caret line="31" selection-start-line="31" selection-end-line="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1960#1961#0" expanded="true" />
-            <element signature="e#1991#1992#0" expanded="true" />
-            <element signature="e#1731#1732#0" expanded="true" />
-            <element signature="e#1759#1760#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -844,16 +751,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/network/TcpServerAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="47" column="54" selection-start-line="47" selection-start-column="54" selection-end-line="47" selection-end-column="54" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sensor/SensorControl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -868,21 +765,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/robot/RobotMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="71" column="45" selection-start-line="71" selection-start-column="45" selection-end-line="71" selection-end-column="45" />
-          <folding>
-            <element signature="e#345#346#0" expanded="true" />
-            <element signature="e#370#371#0" expanded="true" />
-            <element signature="e#510#511#0" expanded="true" />
-            <element signature="e#537#538#0" expanded="true" />
-            <element signature="e#1833#1834#0" expanded="true" />
-            <element signature="e#1901#1902#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-9/lib/src.zip!/java.base/jdk/internal/loader/BuiltinClassLoader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
@@ -890,45 +772,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/robot/RobotTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="72" selection-start-line="72" selection-end-line="72" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1960#1961#0" expanded="true" />
-            <element signature="e#1991#1992#0" expanded="true" />
-            <element signature="e#1731#1732#0" expanded="true" />
-            <element signature="e#1759#1760#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sensor/SensorMessageException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ServerControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
-          <folding>
-            <element signature="e#125#126#0" expanded="true" />
-            <element signature="e#161#162#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -960,21 +807,65 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/robot/RobotControl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="118" column="41" selection-start-line="118" selection-start-column="41" selection-end-line="118" selection-end-column="41" />
+        <state relative-caret-position="1516">
+          <caret line="111" column="37" selection-start-line="111" selection-start-column="37" selection-end-line="111" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1123#1124#0" expanded="true" />
-            <element signature="e#1174#1175#0" expanded="true" />
-            <element signature="e#1216#1217#0" expanded="true" />
-            <element signature="e#1249#1250#0" expanded="true" />
-            <element signature="e#1299#1300#0" expanded="true" />
-            <element signature="e#1332#1333#0" expanded="true" />
-            <element signature="e#4089#4090#0" expanded="true" />
-            <element signature="e#4126#4127#0" expanded="true" />
-            <element signature="e#4183#4184#0" expanded="true" />
-            <element signature="e#4229#4230#0" expanded="true" />
+            <element signature="e#4120#4121#0" expanded="true" />
+            <element signature="e#4157#4158#0" expanded="true" />
+            <element signature="e#4214#4215#0" expanded="true" />
+            <element signature="e#4260#4261#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ServerControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="86" selection-start-line="3" selection-start-column="86" selection-end-line="3" selection-end-column="86" />
+          <folding>
+            <element signature="e#123#124#0" expanded="true" />
+            <element signature="e#159#160#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="39" column="43" selection-start-line="39" selection-start-column="43" selection-end-line="39" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/robot/RobotTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#423#424#0" expanded="true" />
+            <element signature="e#450#451#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/network/TcpServerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="66" column="28" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/robot/RobotMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="56" column="38" selection-start-line="56" selection-start-column="38" selection-end-line="56" selection-end-column="38" />
         </state>
       </provider>
     </entry>

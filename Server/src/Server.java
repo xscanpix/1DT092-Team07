@@ -3,8 +3,6 @@ import robot.RobotMessage;
 import robot.RobotTest;
 import sensor.SensorControl;
 
-import java.util.Scanner;
-
 /*
  * Main entry point for the server.
  **/
@@ -38,8 +36,8 @@ public class Server {
         /*
          * Test robot
          */
-        RobotTest robotTest = new RobotTest("127.0.0.1", 5555);
-        robotTest.connect();
+        RobotTest robotTest = new RobotTest();
+        robotTest.connect("127.0.0.1", 5555);
 
         try {
             serverThread.join();
@@ -54,6 +52,9 @@ public class Server {
 
         serverControl.start();
 
+        /*
+         * Test thread that polls the queue in robot control for messages from robots.
+         * */
         Thread thread = new Thread(() -> {
             while (alive) {
                 try {
