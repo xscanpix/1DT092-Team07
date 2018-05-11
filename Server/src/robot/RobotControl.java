@@ -2,26 +2,66 @@ package robot;
 
 import network.TcpServerAdapter;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.*;
 
 public class RobotControl {
     private TcpServerAdapter adapter;
 
-    private BlockingQueue<RobotMessage> in;
-    private BlockingQueue<RobotMessage> out;
+    private List<Robot> robots;
+    private BlockingQueue<Robot> newRobots;
+    private int numRobots = 0;
 
-    private boolean isAlive;
+    private BlockingQueue<RobotMessage> queueIn;
+    private BlockingQueue<RobotMessage> queueOut;
 
-    public RobotControl() {
-        in = new ArrayBlockingQueue<>(100);
-        out = new ArrayBlockingQueue<>(100);
+    private int port;
+    private boolean alive;
+
+    private class Robot {
+        private Socket socket;
+        private DataInputStream in;
+        private DataOutputStream out;
+
+        Robot(Socket socket) {
+            this.socket = socket;
+            try {
+                in = new DataInputStream(socket.getInputStream());
+                out = new DataOutputStream(socket.getOutputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        boolean isConnected() {
+            return socket.isConnected();
+        }
+
+        public DataInputStream getIn() {
+            return in;
+        }
+
+        public DataOutputStream getOut() {
+            return out;
+        }
     }
 
-    public void initialize(int port) {
+    public RobotControl(int port) {
+        this.port = port;
+        queueIn = new ArrayBlockingQueue<>(100);
+        queueOut = new ArrayBlockingQueue<>(100);
+
+        robots = new ArrayList<>();
+        newRobots = new ArrayBlockingQueue<>(100);
+    }
+
+    public void initialize() {
         try {
             adapter = new TcpServerAdapter(port);
         } catch (IOException e) {
@@ -33,63 +73,62 @@ public class RobotControl {
 
     private void waitForConnection() {
         try {
-            System.out.println("[RobotControl] Waiting for connection...");
-            adapter.accept();
-            System.out.println("[RobotControl] Connection accepted.");
+            Socket socket = adapter.accept();
+            numRobots++;
+            newRobots.offer(new Robot(socket));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void stop() {
-        isAlive = false;
-    }
+    private void start() {
+        alive = true;
 
-    private Thread start() {
-        isAlive = true;
+        new Thread(this::waitForConnection).start();
 
         Thread thread = new Thread(() -> {
-            waitForConnection();
-
-            while (isAlive) {
-                if (adapter.isConnected()) {
-                    RobotMessage send;
-                    try {
-                        send = out.poll(500, TimeUnit.MILLISECONDS);
-                        if (send != null) {
-                            System.out.println("[RobotControl] Sending data to Robot: " + send);
-                            adapter.sendBytes(RobotMessage.encodeMessage(send));
-                        }
-                    } catch (InterruptedException | RobotMessageException e) {
-                        e.printStackTrace();
-                    }
-                    ByteBuffer receive = adapter.readBytes();
-                    if (receive != null) {
+            while (alive) {
+                for (Robot robot : robots) {
+                    if (robot.isConnected()) {
+                        RobotMessage send;
                         try {
-                            System.out.println("[RobotControl] Receiving data from Robot: " + RobotMessage.decodeMessage(receive));
-                        } catch (RobotMessageException e) {
+                            send = queueOut.poll(500, TimeUnit.MILLISECONDS);
+                            if (send != null) {
+                                System.out.println("[RobotControl] Sending data to Robot: " + send);
+                                adapter.sendBytes(RobotMessage.encodeMessage(send), robot.out);
+                            }
+                        } catch (InterruptedException | RobotMessageException e) {
                             e.printStackTrace();
                         }
-                        try {
-                            in.offer(RobotMessage.decodeMessage(receive));
-                        } catch (RobotMessageException e) {
-                            e.printStackTrace();
+                        ByteBuffer receive = adapter.readBytes(robot.in);
+                        if (receive != null) {
+                            try {
+                                System.out.println("[RobotControl] Receiving data from Robot: " + RobotMessage.decodeMessage(receive));
+                            } catch (RobotMessageException e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                queueIn.offer(RobotMessage.decodeMessage(receive));
+                            } catch (RobotMessageException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }
+
+                robots.addAll(newRobots);
             }
         });
 
         thread.start();
 
-        return thread;
     }
 
     public RobotMessage pollMessage() {
-        return in.poll();
+        return queueIn.poll();
     }
 
     public boolean offerMessage(RobotMessage message) {
-        return out.offer(message);
+        return queueOut.offer(message);
     }
 }

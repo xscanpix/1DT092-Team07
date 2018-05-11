@@ -65,11 +65,11 @@ public class RobotMessage {
         try {
             op = message.getInt();
         } catch (ClassCastException e) {
-            throw new RobotMessageException("[DecodeMessage] First byte is not an integer");
+            throw new RobotMessageException("First byte is not an integer");
         }
 
         if (opIsNotValid(op)) {
-            throw new RobotMessageException("[DecodeMessage] Operation is not valid: " + op);
+            throw new RobotMessageException("Operation is not valid: " + op);
         }
 
         byte[] remaining = new byte[message.remaining()];
