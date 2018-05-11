@@ -1,4 +1,4 @@
-package sensor;
+package org.team7.server.sensor;
 
 import java.nio.ByteBuffer;
 

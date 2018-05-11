@@ -1,29 +1,25 @@
-import robot.RobotControl;
-import robot.RobotMessage;
-import robot.RobotTest;
-import sensor.SensorControl;
+package org.team7.server;
 
-import java.util.Scanner;
+import org.team7.server.robot.RobotControl;
+import org.team7.server.robot.RobotMessage;
+import org.team7.server.sensor.SensorControl;
 
 /*
  * Main entry point for the server.
  **/
 public class Server {
-
-    private static final Server instance = new Server();
-
     private static RobotControl robotControl;
     private static SensorControl sensorControl;
     private static ServerControl serverControl;
 
     private static boolean alive;
 
-    private Server() {
+    public Server() {
 
     }
 
-    private void initialize() {
-        serverControl = new ServerControl(instance);
+    public void initialize() {
+        serverControl = new ServerControl(this);
         robotControl = new RobotControl(5555);
         sensorControl = new SensorControl(5556);
 
@@ -31,29 +27,14 @@ public class Server {
         sensorControl.initialize();
     }
 
-    public static void main(String[] args) {
-        instance.initialize();
-        Thread serverThread = instance.start();
-
-        /*
-         * Test robot
-         */
-        RobotTest robotTest = new RobotTest("127.0.0.1", 5555);
-        robotTest.connect();
-
-        try {
-            serverThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.exit(0);
-    }
-
-    private Thread start() {
+    public Thread start() {
         alive = true;
 
         serverControl.start();
 
+        /*
+         * Test thread that polls the queue in org.team7.server.robot control for messages from robots.
+         * */
         Thread thread = new Thread(() -> {
             while (alive) {
                 try {

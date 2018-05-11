@@ -1,30 +1,29 @@
-package robot;
+package org.team7.server.robot;
 
 import java.io.*;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * A test class for simulating a org.team7.server.robot.
+ */
 public class RobotTest {
 
     private static int id = 1;
 
     private int myId;
 
-    private int port;
-    private String host;
     private Socket socket;
 
     private DataInputStream in;
     private DataOutputStream out;
 
-    public RobotTest(String host, int port) {
-        this.host = host;
-        this.port = port;
+    public RobotTest() {
         myId = id++;
     }
 
-    public void connect() {
+    public void connect(String host, int port) {
         try {
             socket = new Socket(host, port);
             System.out.println("[Robot " + myId + "] Connected to: " + socket.getLocalAddress() + " " + socket.getLocalPort());

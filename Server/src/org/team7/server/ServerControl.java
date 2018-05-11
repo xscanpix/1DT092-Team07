@@ -1,5 +1,10 @@
+package org.team7.server;
+
 import java.util.Scanner;
 
+/**
+ * Class for controlling the server. Define commands that can be input to the console.
+ */
 class ServerControl {
 
     private Server server;

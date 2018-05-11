@@ -1,4 +1,4 @@
-package warehouse;
+package org.team7.server.warehouse;
 
 public abstract class WarehouseObject {
 
