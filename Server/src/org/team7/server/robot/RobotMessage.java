@@ -1,4 +1,4 @@
-package robot;
+package org.team7.server.robot;
 
 import java.nio.ByteBuffer;
 

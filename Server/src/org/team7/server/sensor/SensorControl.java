@@ -1,6 +1,6 @@
-package sensor;
+package org.team7.server.sensor;
 
-import network.TcpServerAdapter;
+import org.team7.server.network.TcpServerAdapter;
 
 import java.io.IOException;
 import java.net.Socket;

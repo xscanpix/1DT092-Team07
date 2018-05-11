@@ -1,6 +1,6 @@
-package robot;
+package org.team7.server.robot;
 
-import network.TcpServerAdapter;
+import org.team7.server.network.TcpServerAdapter;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

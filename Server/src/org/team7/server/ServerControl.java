@@ -1,3 +1,5 @@
+package org.team7.server;
+
 import java.util.Scanner;
 
 /**

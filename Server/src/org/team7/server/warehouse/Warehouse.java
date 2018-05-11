@@ -1,11 +1,10 @@
-package warehouse;
+package org.team7.server.warehouse;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
- * Represents the warehouse and it's contents.
+ * Represents the org.team7.server.warehouse and it's contents.
  */
 public class Warehouse {
 

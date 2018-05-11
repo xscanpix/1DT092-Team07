@@ -1,6 +1,4 @@
-package network;
-
-import com.mashape.unirest.http.Unirest;
+package org.team7.server.network;
 
 import java.net.HttpURLConnection;
 import java.net.URL;

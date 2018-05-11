@@ -1,4 +1,4 @@
-package network;
+package org.team7.server.network;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

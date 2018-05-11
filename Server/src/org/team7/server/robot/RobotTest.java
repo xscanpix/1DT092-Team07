@@ -1,4 +1,4 @@
-package robot;
+package org.team7.server.robot;
 
 import java.io.*;
 import java.net.Socket;
@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
 /**
- * A test class for simulating a robot.
+ * A test class for simulating a org.team7.server.robot.
  */
 public class RobotTest {
 
