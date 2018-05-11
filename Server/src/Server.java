@@ -1,10 +1,7 @@
 import robot.RobotControl;
 import robot.RobotMessage;
-import robot.RobotMessageException;
 import robot.RobotTest;
-import warehouse.Warehouse;
-import warehouse.WarehousePackage;
-import warehouse.WarehouseRobot;
+import sensor.SensorControl;
 
 import java.util.Scanner;
 
@@ -13,39 +10,30 @@ import java.util.Scanner;
  **/
 public class Server {
 
-    private static RobotControl robotControl;
+    private static final Server instance = new Server();
 
-    private static boolean isAlive;
+    private static RobotControl robotControl;
+    private static SensorControl sensorControl;
+    private static ServerControl serverControl;
+
+    private static boolean alive;
 
     private Server() {
-        /*
-        Warehouse warehouse = new Warehouse(16, 16);
-        warehouse.addObject(new WarehousePackage(0, 0));
-        warehouse.addObject(new WarehouseRobot(1, 0));
-        warehouse.addPath(3, 3, 6, 3);
-        warehouse.addPath(6, 3, 6, 9);
-        */
 
-        robotControl = new RobotControl();
-        robotControl.initialize(5555);
+    }
+
+    private void initialize() {
+        serverControl = new ServerControl(instance);
+        robotControl = new RobotControl(5555);
+        sensorControl = new SensorControl(5556);
+
+        robotControl.initialize();
+        sensorControl.initialize();
     }
 
     public static void main(String[] args) {
-        Server server = new Server();
-        Thread serverThread = server.start();
-
-        Thread serverControlThread = new Thread(() -> {
-            Scanner sc = new Scanner(System.in);
-
-            while (isAlive) {
-                String cmd = sc.nextLine();
-
-                if (cmd.equals("quit")) {
-                    isAlive = false;
-                }
-            }
-        });
-        serverControlThread.start();
+        instance.initialize();
+        Thread serverThread = instance.start();
 
         /*
          * Test robot
@@ -62,10 +50,12 @@ public class Server {
     }
 
     private Thread start() {
-        isAlive = true;
+        alive = true;
+
+        serverControl.start();
 
         Thread thread = new Thread(() -> {
-            while (isAlive) {
+            while (alive) {
                 try {
                     RobotMessage msg = robotControl.pollMessage();
                     if (msg != null) {
@@ -81,5 +71,13 @@ public class Server {
         thread.start();
 
         return thread;
+    }
+
+    void stop() {
+        alive = false;
+    }
+
+    boolean isAlive() {
+        return alive;
     }
 }

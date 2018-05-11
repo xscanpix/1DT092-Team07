@@ -1,6 +1,9 @@
 package network;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.ByteBuffer;
@@ -12,63 +15,45 @@ public class TcpServerAdapter {
 
     private ServerSocket serverSocket;
 
-    private DataInputStream in;
-    private DataOutputStream out;
-
-    private boolean isAlive;
-
     public TcpServerAdapter(int port) throws IOException {
         serverSocket = new ServerSocket(port);
     }
 
-    public void accept() throws IOException {
-        Socket socket = serverSocket.accept();
-        in = new DataInputStream(socket.getInputStream());
-        out = new DataOutputStream(socket.getOutputStream());
-
-        isAlive = true;
+    public Socket accept() throws IOException {
+        return serverSocket.accept();
     }
 
-    public boolean isConnected() {
-        return isAlive;
-    }
-
-    public ByteBuffer readBytes() {
+    public ByteBuffer readBytes(DataInputStream in) {
 
         ByteBuffer buf = null;
 
-        if (isConnected()) {
-            try {
-                int len = in.readByte();
+        try {
+            int len = in.readByte();
 
-                buf = ByteBuffer.allocate(len);
+            buf = ByteBuffer.allocate(len);
 
-                byte[] bytes = new byte[len];
-                int read = in.read(bytes);
+            byte[] bytes = new byte[len];
+            int read = in.read(bytes);
 
-                buf.put(bytes);
-                buf.rewind();
-            } catch (EOFException e2) {
-                isAlive = false;
-                return null;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            buf.put(bytes);
+            buf.rewind();
+        } catch (EOFException e2) {
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return buf;
     }
 
-    public void sendBytes(ByteBuffer buf) {
-        if (isConnected()) {
-            try {
-
-                out.writeByte(buf.array().length);
-                out.write(buf.array());
-            } catch (EOFException e2) {
-                isAlive = false;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public boolean sendBytes(ByteBuffer buf, DataOutputStream out) {
+        try {
+            out.writeByte(buf.array().length);
+            out.write(buf.array());
+        } catch (EOFException e2) {
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return true;
     }
 }
