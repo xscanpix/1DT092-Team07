@@ -1,8 +1,9 @@
-package org.team7.server;
+package org.team7.server.server;
 
 import org.team7.server.robot.RobotControl;
 import org.team7.server.robot.RobotMessage;
 import org.team7.server.sensor.SensorControl;
+import org.team7.server.sensor.SensorMessage;
 
 /*
  * Main entry point for the server.
@@ -18,6 +19,9 @@ public class Server {
 
     }
 
+    /**
+     * Initializes and starts the controls.
+     */
     public void initialize() {
         serverControl = new ServerControl(this);
         robotControl = new RobotControl(5555);
@@ -25,12 +29,14 @@ public class Server {
 
         robotControl.initialize();
         sensorControl.initialize();
+
+        serverControl.start();
+        robotControl.start(100);
+        sensorControl.start(100);
     }
 
     public Thread start() {
         alive = true;
-
-        serverControl.start();
 
         /*
          * Test thread that polls the queue in org.team7.server.robot control for messages from robots.
@@ -39,9 +45,13 @@ public class Server {
             while (alive) {
                 try {
                     RobotMessage msg = robotControl.pollMessage();
-                    if (msg != null) {
+                    SensorMessage msg2 = sensorControl.pollMessage();
+                    /*if (msg != null) {
                         System.out.println("[Server] Data from RobotControl: " + msg);
                     }
+                    if (msg2 != null) {
+                        System.out.println("[Server] Data from SensorControl: " + msg2);
+                    }*/
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();

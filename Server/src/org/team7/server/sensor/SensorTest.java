@@ -1,13 +1,13 @@
-package org.team7.server.robot;
+package org.team7.server.sensor;
 
 import java.io.*;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
 /**
- * A test class for simulating a org.team7.server.robot.
+ * A test class for simulating a sensor.
  */
-public class RobotTest {
+public class SensorTest {
 
     private static int id = 1;
 
@@ -18,14 +18,14 @@ public class RobotTest {
     private DataInputStream in;
     private DataOutputStream out;
 
-    public RobotTest() {
+    public SensorTest() {
         myId = id++;
     }
 
     public void connect(String host, int port) {
         try {
             socket = new Socket(host, port);
-            System.out.println("[Robot " + myId + "] Connected to: " + socket.getLocalAddress() + " " + socket.getLocalPort());
+            System.out.println("[Sensor " + myId + "] Connected to: " + socket.getLocalAddress() + " " + socket.getLocalPort());
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {
@@ -38,7 +38,7 @@ public class RobotTest {
             in.close();
             out.close();
             socket.close();
-            System.out.println("[Robot " + myId + "] Disconnected.");
+            System.out.println("[Sensor " + myId + "] Disconnected.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,11 +47,12 @@ public class RobotTest {
     public Thread start(int msBetweenSend) {
         Thread thread = new Thread(() -> {
 
-            for (int i = 1; i <= 5; i++) {
-                System.out.println("[Robot " + myId + "] Sending data to RobotControl: Message " + i);
+            while (socket.isConnected()) {
+                SensorMessage msg = new SensorMessage(SensorMessage.OPS.READINGS.ordinal(), 100, 100);
+                System.out.println("[Sensor " + myId + "] Sending data to SensorControl: " + msg);
                 try {
-                    send(RobotMessage.encodeMessage(new RobotMessage(RobotMessage.OPS.TEST.ordinal(), "Message " + i)));
-                } catch (RobotMessageException e) {
+                    send(SensorMessage.encodeMessage(msg));
+                } catch (SensorMessageException e) {
                     e.printStackTrace();
                 }
                 try {

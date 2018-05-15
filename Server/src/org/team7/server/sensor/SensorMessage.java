@@ -16,7 +16,7 @@ public class SensorMessage {
     private int reading1;
     private int reading2;
 
-    private SensorMessage(int op, int reading1, int reading2) {
+    public SensorMessage(int op, int reading1, int reading2) {
         this.op = op;
         this.reading1 = reading1;
         this.reading2 = reading2;
