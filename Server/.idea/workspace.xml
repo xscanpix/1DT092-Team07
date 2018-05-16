@@ -2,21 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d2bca23-e2ec-4dba-9cb5-6c487c9d4ceb" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessageMoveTo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessageMove.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/team7/server/Runner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/team7/server/Runner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/team7/server/robot/Robot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/team7/server/robot/Robot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/team7/server/sensor/OfflineSensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/team7/server/sensor/OfflineSensor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/team7/server/sensor/OnlineSensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/team7/server/sensor/OnlineSensor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/team7/server/sensor/Sensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/team7/server/sensor/Sensor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/team7/server/sensor/SensorControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/team7/server/sensor/SensorControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageReadings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageReadings.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageSetup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/team7/server/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/team7/server/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/team7/server/server/ServerControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/team7/server/server/ServerControl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/org/team7/server/testclasses/RobotTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/team7/server/testclasses/RobotTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/team7/server/testclasses/SensorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/team7/server/testclasses/SensorTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,91 +20,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/team7/server/server/Server.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="41" column="45" selection-start-line="41" selection-start-column="45" selection-end-line="41" selection-end-column="45" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1074#1075#0" expanded="true" />
-                <element signature="e#1122#1123#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Runner.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/team7/server/Runner.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="29" column="32" lean-forward="true" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="RobotMessage.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="21" column="12" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+            <state relative-caret-position="-68">
+              <caret line="50" column="40" selection-start-line="50" selection-start-column="40" selection-end-line="50" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#762#763#0" expanded="true" />
+                <element signature="e#807#808#0" expanded="true" />
+                <element signature="e#892#893#0" expanded="true" />
+                <element signature="e#937#938#0" expanded="true" />
+                <element signature="e#1612#1613#0" expanded="true" />
+                <element signature="e#1698#1699#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SensorControl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/SensorControl.java">
+      <file leaf-file-name="RobotMessageMove.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessageMove.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="48" column="28" selection-start-line="48" selection-start-column="28" selection-end-line="48" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1187#1188#0" expanded="true" />
-                <element signature="e#1222#1223#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OnlineSensor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/OnlineSensor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11">
-              <caret line="31" column="39" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
+            <state>
+              <caret line="6" column="52" selection-start-line="6" selection-start-column="52" selection-end-line="6" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SensorMessage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessage.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-101">
-              <caret line="24" column="32" lean-forward="true" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#450#451#0" expanded="true" />
-                <element signature="e#495#496#0" expanded="true" />
-                <element signature="e#1334#1335#0" expanded="true" />
-                <element signature="e#1421#1422#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SensorMessageReadings.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageReadings.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="39" column="35" selection-start-line="39" selection-start-column="35" selection-end-line="39" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -120,8 +53,8 @@
       <file leaf-file-name="SensorMessageSetup.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageSetup.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="39" column="32" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
+            <state relative-caret-position="102">
+              <caret line="6" column="39" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
               <folding>
                 <element signature="e#883#884#0" expanded="true" />
                 <element signature="e#976#977#0" expanded="true" />
@@ -130,25 +63,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Sensor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/Sensor.java">
+      <file leaf-file-name="SensorMessageReadings.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageReadings.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-16">
-              <caret line="6" column="37" lean-forward="true" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
+            <state relative-caret-position="102">
+              <caret line="6" column="39" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Robot.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/team7/server/robot/Robot.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="623">
+              <caret line="72" column="26" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#957#958#0" expanded="true" />
-                <element signature="e#989#990#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OfflineSensor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/OfflineSensor.java">
+      <file leaf-file-name="RobotTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/team7/server/testclasses/RobotTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
+            <state relative-caret-position="249">
+              <caret line="69" column="18" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -176,7 +116,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/client/ClientControl.java" />
         <option value="$PROJECT_DIR$/src/robot/RobotNetworkAdapter.java" />
         <option value="$PROJECT_DIR$/src/network/TcpNetworkAdapter.java" />
         <option value="$PROJECT_DIR$/src/network/HttpNetworkAdapter.java" />
@@ -212,20 +151,21 @@
         <option value="$PROJECT_DIR$/src/org/team7/server/sensor/SensorMessageSetup.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/sensor/SensorMessage.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/robot/RobotMessage.java" />
-        <option value="$PROJECT_DIR$/src/org/team7/server/robot/Robot.java" />
-        <option value="$PROJECT_DIR$/src/org/team7/server/testclasses/RobotTest.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessageMoveTo.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/server/ServerControl.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/testclasses/SensorTest.java" />
-        <option value="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageReadings.java" />
-        <option value="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageSetup.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessage.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/sensor/OnlineSensor.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/sensor/OfflineSensor.java" />
-        <option value="$PROJECT_DIR$/src/org/team7/server/server/Server.java" />
-        <option value="$PROJECT_DIR$/src/org/team7/server/Runner.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/sensor/SensorControl.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/sensor/Sensor.java" />
+        <option value="$PROJECT_DIR$/src/org/team7/server/server/Server.java" />
+        <option value="$PROJECT_DIR$/src/org/team7/server/Runner.java" />
+        <option value="$PROJECT_DIR$/src/org/team7/server/testclasses/RobotTest.java" />
+        <option value="$PROJECT_DIR$/src/org/team7/server/robot/Robot.java" />
+        <option value="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageSetup.java" />
+        <option value="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageReadings.java" />
+        <option value="$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessageMove.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessage.java" />
       </list>
     </option>
@@ -448,7 +388,7 @@
       <workItem from="1525702609096" duration="28051000" />
       <workItem from="1525951310505" duration="6000" />
       <workItem from="1525951720834" duration="24768000" />
-      <workItem from="1526206824904" duration="23052000" />
+      <workItem from="1526206824904" duration="29106000" />
     </task>
     <task id="LOCAL-00001" summary="Implementing networking">
       <created>1525702742773</created>
@@ -576,11 +516,18 @@
       <option name="project" value="LOCAL" />
       <updated>1526477174708</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Can add offline sensors.">
+      <created>1526481759892</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1526481759892</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91147000" />
+    <option name="totallyTimeSpent" value="97201000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -596,13 +543,13 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32904148" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.37429377" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.37429377" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18590604" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18590604" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.32768363" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32768363" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
@@ -673,21 +620,15 @@
     <MESSAGE value="Lots of improvements to the message code." />
     <MESSAGE value="Refactoring robot message" />
     <MESSAGE value="Refactoring." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring." />
+    <MESSAGE value="Can add offline sensors." />
+    <option name="LAST_COMMIT_MESSAGE" value="Can add offline sensors." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="16" />
+      <option name="time" value="22" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/team7/server/server/Server.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -951,16 +892,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/team7/server/testclasses/RobotTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="62" column="71" selection-start-line="62" selection-start-column="71" selection-end-line="62" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessageMoveTo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -968,26 +899,6 @@
           <folding>
             <element signature="e#169#170#0" expanded="true" />
             <element signature="e#193#194#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/team7/server/robot/RobotControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="49" column="24" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/team7/server/robot/Robot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="878">
-          <caret line="60" column="26" lean-forward="true" selection-start-line="60" selection-start-column="26" selection-end-line="60" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1016,30 +927,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageReadings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="39" column="35" selection-start-line="39" selection-start-column="35" selection-end-line="39" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-101">
-          <caret line="24" column="32" lean-forward="true" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#450#451#0" expanded="true" />
-            <element signature="e#495#496#0" expanded="true" />
-            <element signature="e#1334#1335#0" expanded="true" />
-            <element signature="e#1421#1422#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/OnlineSensor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11">
+        <state relative-caret-position="164">
           <caret line="31" column="39" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1047,21 +937,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/team7/server/server/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="41" column="45" selection-start-line="41" selection-start-column="45" selection-end-line="41" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1074#1075#0" expanded="true" />
-            <element signature="e#1122#1123#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/OfflineSensor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
+        <state relative-caret-position="323">
           <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1093,10 +971,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/team7/server/server/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="65" column="21" lean-forward="true" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/team7/server/Runner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="38" lean-forward="true" selection-start-line="8" selection-start-column="38" selection-end-line="9" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#450#451#0" expanded="true" />
+            <element signature="e#495#496#0" expanded="true" />
+            <element signature="e#1334#1335#0" expanded="true" />
+            <element signature="e#1421#1422#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/team7/server/robot/RobotControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="49" column="24" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/team7/server/testclasses/RobotTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="69" column="18" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/team7/server/robot/Robot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="72" column="26" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageSetup.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="39" column="32" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
+        <state relative-caret-position="102">
+          <caret line="6" column="39" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
           <folding>
             <element signature="e#883#884#0" expanded="true" />
             <element signature="e#976#977#0" expanded="true" />
@@ -1104,10 +1046,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/team7/server/Runner.java">
+    <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageReadings.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="29" column="32" lean-forward="true" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
+        <state relative-caret-position="102">
+          <caret line="6" column="39" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessageMove.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="6" column="52" selection-start-line="6" selection-start-column="52" selection-end-line="6" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1116,10 +1065,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="21" column="12" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+        <state relative-caret-position="-68">
+          <caret line="50" column="40" selection-start-line="50" selection-start-column="40" selection-end-line="50" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#762#763#0" expanded="true" />
+            <element signature="e#807#808#0" expanded="true" />
+            <element signature="e#892#893#0" expanded="true" />
+            <element signature="e#937#938#0" expanded="true" />
+            <element signature="e#1612#1613#0" expanded="true" />
+            <element signature="e#1698#1699#0" expanded="true" />
           </folding>
         </state>
       </provider>

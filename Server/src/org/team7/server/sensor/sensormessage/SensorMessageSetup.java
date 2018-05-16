@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 
 public class SensorMessageSetup extends SensorMessage {
 
-    private static final int OPCODE = 1;
+    private static final int OPCODE = 0;
 
     private static final int X_BYTES = 4;
     private static final int Y_BYTES = 4;

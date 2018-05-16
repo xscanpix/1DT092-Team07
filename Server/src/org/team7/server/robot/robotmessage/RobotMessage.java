@@ -10,16 +10,27 @@ import java.util.Map;
 public abstract class RobotMessage {
 
     /**
-     * THe number of bytes of the opcode.
+     * Variables defining how many bytes the variable should be sent as.
      */
-    private static final int OPCODE_BYTES = 4;
-    private static final int SENSOR_ID_BYTES = 4;
+    protected static final int OPCODE_BYTES = 4;
+    protected static final int ROBOT_ID_BYTES = 4;
 
-    private Map<String, Object> values;
+    /**
+     * Map for putting the variables in.
+     */
+    protected Map<String, Object> values;
 
+    /**
+     * Static map for which operations exist.
+     */
     public static Map<String, Integer> ops = new HashMap<>();
 
+    /**
+     * Add the operations here.
+     */
     static {
+        ops.put("SETUP", 0);
+        ops.put("MOVE", 1);
     }
 
     public RobotMessage() {
@@ -32,8 +43,15 @@ public abstract class RobotMessage {
         return !ops.containsValue(op);
     }
 
-    public abstract ByteBuffer encodeMessage(RobotMessage message) throws RobotMessageException;
+    public abstract ByteBuffer encodeMessage();
 
+    /**
+     * Decodes the buffer of bytes and creates the correct RobotMessage object.
+     *
+     * @param buffer the buffer of bytes
+     * @return the robot message
+     * @throws RobotMessageException .
+     */
     public static RobotMessage decodeMessage(ByteBuffer buffer) throws RobotMessageException {
         buffer.rewind();
 
@@ -45,7 +63,14 @@ public abstract class RobotMessage {
             throw new RobotMessageException("Operation is not valid: " + op);
         }
 
+        if (op == RobotMessage.ops.get("MOVE")) {
+            msg = new RobotMessageMove(buffer.getInt(), buffer.getInt());
+        }
 
         return msg;
+    }
+
+    public String toString() {
+        return "[Robot " + values.get("ID") + " message] Op: " + getOp() + " ";
     }
 }

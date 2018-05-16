@@ -2,6 +2,7 @@ package org.team7.server.robot;
 
 import org.team7.server.robot.robotmessage.RobotMessage;
 import org.team7.server.robot.robotmessage.RobotMessageException;
+import org.team7.server.robot.robotmessage.RobotMessageMove;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -23,6 +24,7 @@ public class Robot {
     private int id;
 
     Robot(Socket socket) {
+        id = 1;
         this.messages = new ArrayBlockingQueue<>(100);
         this.socket = socket;
         try {
@@ -41,11 +43,11 @@ public class Robot {
         return out;
     }
 
-    public Thread start() {
-        Thread thread = new Thread(() -> {
+    public void start() {
+        new Thread(() -> {
             while (true) {
                 try {
-                    int len = in.readByte();
+                    /*int len = in.readByte();
 
                     byte[] bytes = new byte[len];
                     {
@@ -56,18 +58,23 @@ public class Robot {
 
                     RobotMessage msg = RobotMessage.decodeMessage(buf);
 
-                    messages.offer(msg);
-                } catch (EOFException e) {
-                    break;
+                    messages.offer(msg, 100, TimeUnit.MILLISECONDS);
+                    */
+                    RobotMessage msg = new RobotMessageMove(id, RobotMessageMove.FORWARD);
+
+                    ByteBuffer buf = msg.encodeMessage();
+
+                    int len = buf.remaining();
+                    byte[] bytes = buf.array();
+
+                    out.writeByte(len);
+                    out.write(bytes);
+
                 } catch (RobotMessageException | IOException e) {
-                    e.printStackTrace();
+                    break;
                 }
             }
-        });
-
-        thread.start();
-
-        return thread;
+        }).start();
     }
 
     public RobotMessage getMessage() {

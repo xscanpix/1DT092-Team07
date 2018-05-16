@@ -46,27 +46,32 @@ public class RobotTest {
         }
     }
 
-    public Thread start(int msBetweenSend) {
-        Thread thread = new Thread(() -> {
+    public void start(int msBetweenSend) {
+        new Thread(() -> {
 
-            while (true) {
-                try {
-                    int len = in.readByte();
+            //while (true) {
+            try {
+                int len = in.readByte();
 
-                    byte[] bytes = new byte[len];
-                    {
-                        int read = in.read(bytes);
-                    }
-                    ByteBuffer buf = ByteBuffer.allocate(len);
-                    buf.put(bytes);
-
-                    System.out.println(RobotMessage.decodeMessage(buf));
-                } catch (IOException e) {
-                    break;
-                } catch (RobotMessageException e) {
-                    e.printStackTrace();
+                byte[] bytes = new byte[len];
+                {
+                    int read = in.read(bytes);
                 }
+                ByteBuffer buf = ByteBuffer.allocate(len);
+                buf.put(bytes);
+
+                RobotMessage msg = RobotMessage.decodeMessage(buf);
+
+                if (msg != null) {
+                    System.out.println(msg);
+                }
+
+            } catch (IOException e) {
+                //break;
+            } catch (RobotMessageException e) {
+                e.printStackTrace();
             }
+            //}
             /*
             for (int i = 1; i <= 5; i++) {
                 try {
@@ -83,11 +88,7 @@ public class RobotTest {
             */
 
             disconnect();
-        });
-
-        thread.start();
-
-        return thread;
+        }).start();
     }
 
     private void send(ByteBuffer message) {
