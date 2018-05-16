@@ -4,6 +4,9 @@ import org.team7.server.robot.RobotControl;
 import org.team7.server.robot.RobotMessage;
 import org.team7.server.sensor.SensorControl;
 import org.team7.server.sensor.SensorMessage;
+import org.team7.server.sensor.SensorMessageReadings;
+
+import java.util.List;
 
 /*
  * Main entry point for the server.
@@ -32,7 +35,7 @@ public class Server {
 
         serverControl.start();
         robotControl.start(100);
-        sensorControl.start(100);
+        sensorControl.start();
     }
 
     public Thread start() {
@@ -44,14 +47,21 @@ public class Server {
         Thread thread = new Thread(() -> {
             while (alive) {
                 try {
-                    RobotMessage msg = robotControl.pollMessage();
-                    SensorMessage msg2 = sensorControl.pollMessage();
-                    /*if (msg != null) {
-                        System.out.println("[Server] Data from RobotControl: " + msg);
+                    List<RobotMessage> rmessages = robotControl.pollMessages();
+                    List<SensorMessage> smessages = sensorControl.pollMessages();
+
+                    for (RobotMessage rmessage : rmessages) {
+                        if (rmessage != null) {
+                            System.out.println("[RobotControl] Message from Robot: " + rmessage);
+                        }
                     }
-                    if (msg2 != null) {
-                        System.out.println("[Server] Data from SensorControl: " + msg2);
-                    }*/
+
+                    for (SensorMessage smessage : smessages) {
+                        if (smessage != null) {
+                            System.out.println("[SensorControl] Message from Sensor: " + smessage);
+                        }
+                    }
+
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();

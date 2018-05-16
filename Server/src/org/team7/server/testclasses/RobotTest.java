@@ -28,7 +28,6 @@ public class RobotTest {
     public void connect(String host, int port) {
         try {
             socket = new Socket(host, port);
-            System.out.println("[Robot " + myId + "] Connected to: " + socket.getLocalAddress() + " " + socket.getLocalPort());
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {
@@ -41,7 +40,6 @@ public class RobotTest {
             in.close();
             out.close();
             socket.close();
-            System.out.println("[Robot " + myId + "] Disconnected.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,7 +49,6 @@ public class RobotTest {
         Thread thread = new Thread(() -> {
 
             for (int i = 1; i <= 5; i++) {
-                System.out.println("[Robot " + myId + "] Sending data to RobotControl: Message " + i);
                 try {
                     send(RobotMessage.encodeMessage(new RobotMessage(RobotMessage.OPS.TEST.ordinal(), "Message " + i)));
                 } catch (RobotMessageException e) {

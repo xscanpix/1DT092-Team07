@@ -1,8 +1,8 @@
 package org.team7.server.testclasses;
 
 import org.team7.server.sensor.SensorMessage;
-import org.team7.server.sensor.SensorMessageException;
 import org.team7.server.sensor.SensorMessageReadings;
+import org.team7.server.sensor.SensorMessageSetup;
 
 import java.io.*;
 import java.net.Socket;
@@ -29,7 +29,6 @@ public class SensorTest {
     public void connect(String host, int port) {
         try {
             socket = new Socket(host, port);
-            System.out.println("[Sensor " + myId + "] Connected to: " + socket.getLocalAddress() + " " + socket.getLocalPort());
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {
@@ -42,7 +41,6 @@ public class SensorTest {
             in.close();
             out.close();
             socket.close();
-            System.out.println("[Sensor " + myId + "] Disconnected.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,9 +49,10 @@ public class SensorTest {
     public Thread start(int msBetweenSend) {
         Thread thread = new Thread(() -> {
 
+            send(new SensorMessageSetup(1, 1, 1).encodeMessage());
+
             while (socket.isConnected()) {
-                SensorMessage msg = new SensorMessageReadings(100, 100);
-                System.out.println("[Sensor " + myId + "] Sending data to SensorControl: " + msg);
+                SensorMessage msg = new SensorMessageReadings(1, 100, 100);
 
                 send(msg.encodeMessage());
 

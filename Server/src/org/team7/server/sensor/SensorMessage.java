@@ -1,5 +1,7 @@
 package org.team7.server.sensor;
 
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,6 +9,7 @@ import java.util.Map;
 public abstract class SensorMessage {
 
     protected static final int OPCODE_BYTES = 4;
+    protected static final int SENSOR_ID_BYTES = 4;
 
     public enum OPS {
         NOT_USED, SETUP, READINGS
@@ -19,36 +22,28 @@ public abstract class SensorMessage {
         ops.put("READINGS", 2);
     }
 
-    private Integer reading1;
-    private Integer reading2;
-    private String data;
+    private int sensorID;
+    private int val1;
+    private int val2;
 
-    public SensorMessage() {
-
+    public SensorMessage(int sensorID, int val1, int val2) {
+        this.sensorID = sensorID;
+        this.val1 = val1;
+        this.val2 = val2;
     }
 
-    public SensorMessage(int reading1, int reading2) {
-        this.reading1 = reading1;
-        this.reading2 = reading2;
-        this.data = null;
+    public abstract int getOp();
+
+    protected int getSensorID() {
+        return sensorID;
     }
 
-    public SensorMessage(String data) {
-        this.data = data;
-        this.reading1 = null;
-        this.reading2 = null;
+    protected int getVal1() {
+        return val1;
     }
 
-    protected int getReading1() {
-        return reading1;
-    }
-
-    protected int getReading2() {
-        return reading2;
-    }
-
-    protected String getData() {
-        return data;
+    protected int getVal2() {
+        return val2;
     }
 
     protected static boolean opIsNotValid(int op) {
@@ -62,22 +57,16 @@ public abstract class SensorMessage {
 
         SensorMessage msg = null;
 
-        int op;
-        try {
-            op = buffer.getInt();
-        } catch (ClassCastException e) {
-            throw new SensorMessageException("First byte is not an integer");
-        }
+        int op = buffer.getInt();
 
         if (opIsNotValid(op)) {
             throw new SensorMessageException("Operation is not valid: " + op);
         }
 
         if (op == ops.get("SETUP")) {
-            byte[] bytes = new byte[buffer.remaining()];
-            msg = new SensorMessageSetup(buffer.get(bytes).toString());
+            msg = new SensorMessageSetup(buffer.getInt(), buffer.getInt(), buffer.getInt());
         } else if (op == ops.get("READINGS")) {
-            msg = new SensorMessageReadings(buffer.getInt(), buffer.getInt());
+            msg = new SensorMessageReadings(buffer.getInt(), buffer.getInt(), buffer.getInt());
         }
 
         return msg;

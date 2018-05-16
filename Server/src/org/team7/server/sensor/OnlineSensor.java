@@ -1,8 +1,7 @@
-package org.team7.server.robot;
+package org.team7.server.sensor;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 import java.nio.ByteBuffer;
@@ -10,17 +9,15 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-public class Robot {
-    private BlockingQueue<RobotMessage> messages;
+public class OnlineSensor extends Sensor {
+    private BlockingQueue<SensorMessageReadings> readings;
 
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
 
-    private int id;
-
-    Robot(Socket socket) {
-        this.messages = new ArrayBlockingQueue<>(100);
+    OnlineSensor(Socket socket) {
+        super();
         this.socket = socket;
         try {
             in = new DataInputStream(socket.getInputStream());
@@ -28,16 +25,29 @@ public class Robot {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.readings = new ArrayBlockingQueue<>(100);
     }
 
-    public DataInputStream getIn() {
-        return in;
+    @Override
+    public boolean isConnected() {
+        return socket.isConnected();
     }
 
-    public DataOutputStream getOut() {
-        return out;
+    @Override
+    public SensorMessageReadings getReadings() {
+
+        SensorMessageReadings msg = null;
+
+        try {
+            msg = readings.poll(100, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return msg;
     }
 
+    @Override
     public Thread start() {
         Thread thread = new Thread(() -> {
             while (true) {
@@ -50,12 +60,12 @@ public class Robot {
                     ByteBuffer buf = ByteBuffer.allocate(len);
                     buf.put(bytes);
 
-                    RobotMessage msg = RobotMessage.decodeMessage(buf);
+                    SensorMessage msg = SensorMessage.decodeMessage(buf);
 
-                    messages.offer(msg);
-                } catch (EOFException e) {
-                    break;
-                } catch (RobotMessageException | IOException e) {
+                    if (msg.getOp() == SensorMessage.ops.get("READINGS")) {
+                        readings.offer((SensorMessageReadings) msg);
+                    }
+                } catch (SensorMessageException | IOException e) {
                     e.printStackTrace();
                 }
             }
@@ -64,17 +74,5 @@ public class Robot {
         thread.start();
 
         return thread;
-    }
-
-    public RobotMessage getMessage() {
-        RobotMessage msg = null;
-
-        try {
-            msg = messages.poll(100, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return msg;
     }
 }

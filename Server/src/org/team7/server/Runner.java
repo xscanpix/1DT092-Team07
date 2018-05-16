@@ -19,6 +19,10 @@ public class Runner {
         sensorTest.connect("localhost", 5556);
         sensorTest.start(2000);
 
+        SensorTest sensorTest2 = new SensorTest();
+        sensorTest2.connect("localhost", 5556);
+        sensorTest2.start(2000);
+
         try {
             thread.join();
         } catch (InterruptedException e) {
