@@ -2,6 +2,7 @@ package org.team7.server.server;
 
 import org.team7.server.robot.RobotControl;
 import org.team7.server.robot.robotmessage.RobotMessage;
+import org.team7.server.sensor.Sensor;
 import org.team7.server.sensor.SensorControl;
 import org.team7.server.sensor.sensormessage.SensorMessage;
 
@@ -32,9 +33,12 @@ public class Server {
         robotControl.initialize();
         sensorControl.initialize();
 
-        serverControl.start();
         robotControl.start(100);
         sensorControl.start();
+    }
+
+    public void addOfflineSensor(Sensor sensor) {
+        sensorControl.addOfflineSensor(sensor);
     }
 
     public Thread start() {
@@ -51,13 +55,13 @@ public class Server {
 
                     for (RobotMessage rmessage : rmessages) {
                         if (rmessage != null) {
-                            System.out.println("[RobotControl] Message from Robot: " + rmessage);
+                            serverControl.setText("[RobotControl] Message from Robot: " + rmessage);
                         }
                     }
 
                     for (SensorMessage smessage : smessages) {
                         if (smessage != null) {
-                            System.out.println("[SensorControl] Message from Sensor: " + smessage);
+                            serverControl.setText("[SensorControl] Message from " + smessage);
                         }
                     }
 

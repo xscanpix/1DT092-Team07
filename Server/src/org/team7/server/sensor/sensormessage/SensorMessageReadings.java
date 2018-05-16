@@ -16,7 +16,6 @@ public class SensorMessageReadings extends SensorMessage {
         values.put("R2", reading2);
     }
 
-    @Override
     public int getOp() {
         return OPCODE;
     }
@@ -38,6 +37,6 @@ public class SensorMessageReadings extends SensorMessage {
     }
 
     public String toString() {
-        return "[SensorMessage] Op: " + OPCODE + " ID: " + values.get("ID") + " Reading1: " + values.get("R1") + " Reading2: " + values.get("R2");
+        return super.toString() + "Op: " + OPCODE + " Reading1: " + values.get("R1") + " Reading2: " + values.get("R2");
     }
 }

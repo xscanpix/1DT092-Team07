@@ -1,5 +1,8 @@
 package org.team7.server.testclasses;
 
+import org.team7.server.robot.robotmessage.RobotMessage;
+import org.team7.server.robot.robotmessage.RobotMessageException;
+
 import java.io.*;
 import java.net.Socket;
 import java.nio.ByteBuffer;
@@ -57,9 +60,11 @@ public class RobotTest {
                     ByteBuffer buf = ByteBuffer.allocate(len);
                     buf.put(bytes);
 
-                    System.out.println(Arrays.toString(buf.array()));
+                    System.out.println(RobotMessage.decodeMessage(buf));
                 } catch (IOException e) {
                     break;
+                } catch (RobotMessageException e) {
+                    e.printStackTrace();
                 }
             }
             /*

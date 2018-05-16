@@ -17,7 +17,7 @@ public abstract class RobotMessage {
 
     private Map<String, Object> values;
 
-    private static Map<String, Integer> ops = new HashMap<>();
+    public static Map<String, Integer> ops = new HashMap<>();
 
     static {
     }
@@ -25,6 +25,8 @@ public abstract class RobotMessage {
     public RobotMessage() {
         this.values = new HashMap<>();
     }
+
+    public abstract int getOp();
 
     private static boolean opIsNotValid(int op) {
         return !ops.containsValue(op);

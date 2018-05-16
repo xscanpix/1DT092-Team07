@@ -29,38 +29,43 @@ public class SensorControl {
         }
     }
 
+    public void createOfflineSensor(int id, int x, int y) {
+        Sensor sensor = new OfflineSensor(id, x, y);
+        sensors.add(sensor);
+    }
+
     private void waitForConnection() {
         try {
             Socket socket = adapter.accept();
             Sensor sensor = new OnlineSensor(socket);
             sensors.add(sensor);
-            sensor.start();
+            sensor.start(2000);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void addOfflineSensor(Sensor sensor) {
+        sensors.add(sensor);
     }
 
     public List<SensorMessage> pollMessages() {
         List<SensorMessage> messages = new ArrayList<>();
 
         for (Sensor sensor : sensors) {
-            messages.add(sensor.getReadings());
+            messages.add(sensor.getMessage());
         }
 
         return messages;
     }
 
-    public Thread start() {
+    public void start() {
         alive = true;
 
-        Thread thread = new Thread(() -> {
+        new Thread(() -> {
             while (alive) {
                 waitForConnection();
             }
-        });
-
-        thread.start();
-
-        return thread;
+        }).start();
     }
 }

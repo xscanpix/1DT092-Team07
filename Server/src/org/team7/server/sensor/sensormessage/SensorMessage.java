@@ -49,4 +49,8 @@ public abstract class SensorMessage {
 
         return msg;
     }
+
+    public String toString() {
+        return "[Sensor " + values.get("ID") + " message] Op: " + getOp() + " ";
+    }
 }

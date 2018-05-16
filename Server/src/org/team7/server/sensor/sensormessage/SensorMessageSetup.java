@@ -37,6 +37,6 @@ public class SensorMessageSetup extends SensorMessage {
     }
 
     public String toString() {
-        return "[SensorMessage] Op: " + OPCODE + " ID: " + values.get("ID") + " X: " + values.get("X") + " Y: " + values.get("Y");
+        return super.toString() + " X: " + values.get("X") + " Y: " + values.get("Y");
     }
 }

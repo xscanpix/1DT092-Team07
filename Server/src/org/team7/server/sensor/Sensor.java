@@ -1,14 +1,21 @@
 package org.team7.server.sensor;
 
-import org.team7.server.sensor.sensormessage.SensorMessageReadings;
+import org.team7.server.sensor.sensormessage.SensorMessage;
+
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public abstract class Sensor {
+
+    protected BlockingQueue<SensorMessage> messages;
 
     protected int id;
     protected int x;
     protected int y;
 
     Sensor() {
+        this.messages = new ArrayBlockingQueue<>(100);
     }
 
     public int getId() {
@@ -23,17 +30,21 @@ public abstract class Sensor {
         return y;
     }
 
-    public abstract boolean isConnected();
+    public SensorMessage getMessage() {
+        SensorMessage msg = null;
 
-    public abstract SensorMessageReadings getReadings();
+        try {
+            msg = messages.poll(100, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-    public abstract Thread start();
-
-    public boolean equals(Sensor obj) {
-        return this.id == obj.id;
+        return msg;
     }
 
-    public int hashCode() {
-        return Integer.valueOf(this.id).hashCode();
+    public abstract void start(int msBetweenSend);
+
+    public String toString() {
+        return "[Sensor " + id + " { " + x + ", " + "y}] ";
     }
 }
