@@ -1,23 +1,33 @@
 package org.team7.server.robot;
 
 import org.team7.server.network.TcpServerAdapter;
+import org.team7.server.robot.robotmessage.RobotMessage;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 public class RobotControl {
     private TcpServerAdapter adapter;
 
-    private List<Robot> robots;
+    private Map<Integer, Robot> robots;
+
+    private BlockingQueue<RobotMessage> queueOut;
 
     private int port;
     private boolean alive;
 
     public RobotControl(int port) {
         this.port = port;
-        robots = new ArrayList<>();
+        queueOut = new ArrayBlockingQueue<>(100);
+        robots = new ConcurrentHashMap<>();
     }
 
     public void initialize() {
@@ -32,7 +42,7 @@ public class RobotControl {
         try {
             Socket socket = adapter.accept();
             Robot robot = new Robot(socket);
-            robots.add(robot);
+            robots.put(robot.id, robot);
             robot.start();
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,22 +52,41 @@ public class RobotControl {
     public List<RobotMessage> pollMessages() {
         List<RobotMessage> messages = new ArrayList<>();
 
-        for (Robot robot : robots) {
-            messages.add(robot.getMessage());
+        for (Map.Entry<Integer, Robot> entry : robots.entrySet()) {
+            messages.add(entry.getValue().getMessage());
         }
 
         return messages;
     }
 
-    public void start(int msSleepTime) {
+    public Robot getRobot(int ID) {
+        return robots.get(ID);
+    }
+
+    public void start() {
         alive = true;
 
-        Thread thread = new Thread(() -> {
+        new Thread(() -> {
             while (alive) {
                 waitForConnection();
             }
-        });
+        }).start();
 
-        thread.start();
+        new Thread(() -> {
+            while (true) {
+                try {
+                    RobotMessage msg = queueOut.poll(100, TimeUnit.MILLISECONDS);
+
+                    if (msg != null) {
+                        int id = (int) msg.values.get("ID");
+
+                        Robot robot = robots.get(id);
+                        robot.sendMessage(msg.encodeMessage());
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }

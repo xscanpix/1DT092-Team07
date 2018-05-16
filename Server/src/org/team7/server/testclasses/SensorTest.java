@@ -1,29 +1,31 @@
 package org.team7.server.testclasses;
 
-import org.team7.server.sensor.SensorMessage;
-import org.team7.server.sensor.SensorMessageReadings;
-import org.team7.server.sensor.SensorMessageSetup;
+import org.team7.server.sensor.sensormessage.SensorMessage;
+import org.team7.server.sensor.sensormessage.SensorMessageReadings;
+import org.team7.server.sensor.sensormessage.SensorMessageSetup;
 
 import java.io.*;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.util.Random;
 
 /**
  * A test class for simulating a sensor.
  */
 public class SensorTest {
-
-    private static int id = 1;
-
-    private int myId;
-
     private Socket socket;
 
     private DataInputStream in;
     private DataOutputStream out;
 
-    public SensorTest() {
-        myId = id++;
+    private int id;
+    private int x;
+    private int y;
+
+    public SensorTest(int id, int x, int y) {
+        this.id = id;
+        this.x = x;
+        this.y = y;
     }
 
     public void connect(String host, int port) {
@@ -49,10 +51,10 @@ public class SensorTest {
     public Thread start(int msBetweenSend) {
         Thread thread = new Thread(() -> {
 
-            send(new SensorMessageSetup(1, 1, 1).encodeMessage());
+            send(new SensorMessageSetup(id, x, y).encodeMessage());
 
             while (socket.isConnected()) {
-                SensorMessage msg = new SensorMessageReadings(1, 100, 100);
+                SensorMessage msg = new SensorMessageReadings(id, new Random().nextInt(), new Random().nextInt());
 
                 send(msg.encodeMessage());
 
@@ -89,7 +91,9 @@ public class SensorTest {
                 int len = in.readByte();
                 buf = ByteBuffer.allocate(len);
                 byte[] bytes = new byte[len];
-                in.read(bytes);
+                {
+                    int read = in.read(bytes);
+                }
                 buf.put(bytes);
             } catch (IOException e) {
                 e.printStackTrace();
