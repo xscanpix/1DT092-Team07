@@ -18,7 +18,7 @@ public abstract class RobotMessage {
     /**
      * Map for putting the variables in.
      */
-    protected Map<String, Object> values;
+    public Map<String, Object> values;
 
     /**
      * Static map for which operations exist.
@@ -30,7 +30,9 @@ public abstract class RobotMessage {
      */
     static {
         ops.put("SETUP", 0);
-        ops.put("MOVE", 1);
+        ops.put("SETUPREPLY", 1);
+        ops.put("MOVE", 2);
+        ops.put("MOVEREPLY", 3);
     }
 
     public RobotMessage() {
@@ -63,7 +65,11 @@ public abstract class RobotMessage {
             throw new RobotMessageException("Operation is not valid: " + op);
         }
 
-        if (op == RobotMessage.ops.get("MOVE")) {
+        if (op == RobotMessage.ops.get("SETUP")) {
+            msg = new RobotMessageSetup(buffer.getInt());
+        } else if (op == RobotMessage.ops.get("SETUPREPLY")) {
+            msg = new RobotMessageSetupReply(buffer.getInt(), buffer.getInt(), buffer.getInt());
+        } else if (op == RobotMessage.ops.get("MOVE")) {
             msg = new RobotMessageMove(buffer.getInt(), buffer.getInt());
         }
 

@@ -2,21 +2,21 @@ package org.team7.server.robot.robotmessage;
 
 import java.nio.ByteBuffer;
 
-public class RobotMessageMove extends RobotMessage {
+public class RobotMessageMoveReply extends RobotMessage {
+
     private static final int VALUE_BYTES = 4;
 
-    public static final int FORWARD = 1;
-    public static final int BACKWARD = 2;
-    public static final int RIGHT = 3;
-    public static final int LEFT = 4;
+    public static final int OKAY = 0;
+    public static final int NOT_OKAY = 1;
 
-    public RobotMessageMove(int robotID, int direction) throws RobotMessageException {
-        values.put("DIR", direction);
-        values.put("ID", robotID);
+    public RobotMessageMoveReply(int robotId, int reply) {
+        values.put("ID", robotId);
+        values.put("REPLY", reply);
     }
 
+    @Override
     public int getOp() {
-        return RobotMessage.ops.get("MOVE");
+        return RobotMessage.ops.get("MOVEREPLY");
     }
 
     @Override
@@ -28,7 +28,7 @@ public class RobotMessageMove extends RobotMessage {
         ByteBuffer buf = ByteBuffer.allocate(len);
         buf.putInt(getOp());
         buf.putInt((Integer) values.get("ID"));
-        buf.putInt((Integer) values.get("DIR"));
+        buf.putInt((Integer) values.get("REPLY"));
 
         buf.rewind();
 
@@ -36,6 +36,6 @@ public class RobotMessageMove extends RobotMessage {
     }
 
     public String toString() {
-        return super.toString() + " Dir: " + values.get("DIR");
+        return super.toString() + " Reply: " + values.get("REPLY");
     }
 }

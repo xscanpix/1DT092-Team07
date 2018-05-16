@@ -2,28 +2,28 @@ package org.team7.server.testclasses;
 
 import org.team7.server.robot.robotmessage.RobotMessage;
 import org.team7.server.robot.robotmessage.RobotMessageException;
+import org.team7.server.robot.robotmessage.RobotMessageSetupReply;
 
 import java.io.*;
 import java.net.Socket;
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 
 /**
  * A test class for simulating a org.team7.server.robot.
  */
 public class RobotTest {
-
-    private static int id = 1;
-
-    private int myId;
-
     private Socket socket;
 
     private DataInputStream in;
     private DataOutputStream out;
 
-    public RobotTest() {
-        myId = id++;
+    private int myId;
+    private int x;
+    private int y;
+
+    public RobotTest(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public void connect(String host, int port) {
@@ -49,73 +49,44 @@ public class RobotTest {
     public void start(int msBetweenSend) {
         new Thread(() -> {
 
-            //while (true) {
-            try {
-                int len = in.readByte();
-
-                byte[] bytes = new byte[len];
-                {
-                    int read = in.read(bytes);
-                }
-                ByteBuffer buf = ByteBuffer.allocate(len);
-                buf.put(bytes);
-
-                RobotMessage msg = RobotMessage.decodeMessage(buf);
-
-                if (msg != null) {
-                    System.out.println(msg);
-                }
-
-            } catch (IOException e) {
-                //break;
-            } catch (RobotMessageException e) {
-                e.printStackTrace();
-            }
-            //}
-            /*
-            for (int i = 1; i <= 5; i++) {
+            while (true) {
                 try {
-                    send(RobotMessage.encodeMessage(new RobotMessage(RobotMessage.OPS.TEST.ordinal(), "Message " + i)));
+                    ByteBuffer buf = receive();
+
+                    RobotMessage msg = RobotMessage.decodeMessage(buf);
+
+                    if (msg.getOp() == RobotMessage.ops.get("SETUP")) {
+                        send(new RobotMessageSetupReply((Integer) msg.values.get("ID"), x, y).encodeMessage());
+                    }
+
                 } catch (RobotMessageException e) {
                     e.printStackTrace();
                 }
-                try {
-                    Thread.sleep(msBetweenSend);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
-            */
-
-            disconnect();
         }).start();
     }
 
     private void send(ByteBuffer message) {
-        if (socket != null && socket.isConnected()) {
-            try {
-                out.writeByte(message.array().length);
-                out.write(message.array());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            out.writeByte(message.array().length);
+            out.write(message.array());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public ByteBuffer receive() {
+    private ByteBuffer receive() {
         ByteBuffer buf = null;
-        if (socket != null && socket.isConnected()) {
-            try {
-                int len = in.readByte();
-                buf = ByteBuffer.allocate(len);
-                byte[] bytes = new byte[len];
-                {
-                    int read = in.read(bytes);
-                }
-                buf.put(bytes);
-            } catch (IOException e) {
-                e.printStackTrace();
+        try {
+            int len = in.readByte();
+            buf = ByteBuffer.allocate(len);
+            byte[] bytes = new byte[len];
+            {
+                int read = in.read(bytes);
             }
+            buf.put(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return buf;
     }

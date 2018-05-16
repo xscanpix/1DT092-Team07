@@ -1,7 +1,9 @@
 package org.team7.server.server;
 
+import org.team7.server.robot.Robot;
 import org.team7.server.robot.RobotControl;
 import org.team7.server.robot.robotmessage.RobotMessage;
+import org.team7.server.robot.robotmessage.RobotMessageSetup;
 import org.team7.server.sensor.Sensor;
 import org.team7.server.sensor.SensorControl;
 import org.team7.server.sensor.sensormessage.SensorMessage;
@@ -33,12 +35,12 @@ public class Server {
         robotControl.initialize();
         sensorControl.initialize();
 
-        robotControl.start(100);
+        robotControl.start();
         sensorControl.start();
     }
 
-    public void addOfflineSensor(Sensor sensor) {
-        sensorControl.addOfflineSensor(sensor);
+    public Sensor createOfflineSensor(int x, int y) {
+        return sensorControl.createOfflineSensor(x, y);
     }
 
     public Thread start() {
@@ -56,12 +58,20 @@ public class Server {
                     for (RobotMessage rmessage : rmessages) {
                         if (rmessage != null) {
                             serverControl.setText("[RobotControl] Message from Robot: " + rmessage);
+                            if (rmessage.getOp() == RobotMessage.ops.get("SETUPREPLY")) {
+                                Robot robot = robotControl.getRobot((Integer) rmessage.values.get("ID"));
+                                robot.setPos((Integer) rmessage.values.get("X"), (Integer) rmessage.values.get("Y"));
+                            }
                         }
                     }
 
                     for (SensorMessage smessage : smessages) {
                         if (smessage != null) {
-                            serverControl.setText("[SensorControl] Message from " + smessage);
+                            serverControl.setText("[SensorControl] Message from Sensor" + smessage);
+                            if (smessage.getOp() == RobotMessage.ops.get("SETUPREPLY")) {
+                                Sensor sensor = sensorControl.getSensor((Integer) smessage.values.get("ID"));
+                                sensor.setPos((Integer) smessage.values.get("X"), (Integer) smessage.values.get("Y"));
+                            }
                         }
                     }
 

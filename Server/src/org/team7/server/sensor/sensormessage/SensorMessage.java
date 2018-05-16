@@ -9,12 +9,13 @@ public abstract class SensorMessage {
     static final int OPCODE_BYTES = 4;
     static final int SENSOR_ID_BYTES = 4;
 
-    Map<String, Object> values;
+    public Map<String, Object> values;
 
     public static Map<String, Integer> ops = new HashMap<>();
 
     static {
-        ops.put("SETUP", 1);
+        ops.put("SETUP", 0);
+        ops.put("SETUPREPLY", 1);
         ops.put("READINGS", 2);
     }
 
@@ -42,7 +43,9 @@ public abstract class SensorMessage {
         }
 
         if (op == ops.get("SETUP")) {
-            msg = new SensorMessageSetup(buffer.getInt(), buffer.getInt(), buffer.getInt());
+            msg = new SensorMessageSetup(buffer.getInt());
+        } else if (op == ops.get("SETUPREPLY")) {
+            msg = new SensorMessageSetupReply(buffer.getInt(), buffer.getInt(), buffer.getInt());
         } else if (op == ops.get("READINGS")) {
             msg = new SensorMessageReadings(buffer.getInt(), buffer.getInt(), buffer.getInt());
         }
