@@ -1,77 +1,70 @@
 package org.team7.server.sensor;
 
 import java.nio.ByteBuffer;
+import java.util.HashMap;
+import java.util.Map;
 
-public class SensorMessage {
+public abstract class SensorMessage {
 
-    private static final int OPCODE_BYTES = 4;
-    private static final int READING1_BYTES = 4;
-    private static final int READING2_BYTES = 4;
+    protected static final int OPCODE_BYTES = 4;
 
     public enum OPS {
-        NOT_USED, READINGS
+        NOT_USED, SETUP, READINGS
     }
 
-    private int op;
-    private int reading1;
-    private int reading2;
+    public static Map<String, Integer> ops = new HashMap<>();
 
-    public SensorMessage(int op, int reading1, int reading2) {
-        this.op = op;
+    static {
+        ops.put("SETUP", 1);
+        ops.put("READINGS", 2);
+    }
+
+    private Integer reading1;
+    private Integer reading2;
+    private String data;
+
+    public SensorMessage() {
+
+    }
+
+    public SensorMessage(int reading1, int reading2) {
         this.reading1 = reading1;
         this.reading2 = reading2;
+        this.data = null;
     }
 
-    private int getOp() {
-        return op;
+    public SensorMessage(String data) {
+        this.data = data;
+        this.reading1 = null;
+        this.reading2 = null;
     }
 
-    private int getReading1() {
+    protected int getReading1() {
         return reading1;
     }
 
-    private int getReading2() {
+    protected int getReading2() {
         return reading2;
     }
 
-    private static boolean opIsNotValid(int op) {
-        try {
-            OPS res = OPS.values()[op];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return true;
-        }
-
-        return false;
+    protected String getData() {
+        return data;
     }
 
-    static ByteBuffer encodeMessage(SensorMessage msg) throws SensorMessageException {
-        if (opIsNotValid(msg.getOp())) {
-            throw new SensorMessageException("Operation is not valid");
-        }
-
-        int len = 0;
-
-        len += (OPCODE_BYTES + READING1_BYTES + READING2_BYTES);
-
-        ByteBuffer buf = ByteBuffer.allocate(len);
-
-        buf.putInt(msg.getOp());
-        buf.putInt(msg.getReading1());
-        buf.putInt(msg.getReading2());
-
-        return buf;
+    protected static boolean opIsNotValid(int op) {
+        return !ops.containsValue(op);
     }
 
-    static SensorMessage decodeMessage(ByteBuffer message) throws SensorMessageException {
+    public abstract ByteBuffer encodeMessage();
 
-        message.rewind();
+    public static SensorMessage decodeMessage(ByteBuffer buffer) throws SensorMessageException {
+        buffer.rewind();
+
+        SensorMessage msg = null;
 
         int op;
-        int reading1;
-        int reading2;
-
         try {
-            op = message.getInt();
+            op = buffer.getInt();
         } catch (ClassCastException e) {
             throw new SensorMessageException("First byte is not an integer");
         }
@@ -80,13 +73,13 @@ public class SensorMessage {
             throw new SensorMessageException("Operation is not valid: " + op);
         }
 
-        reading1 = message.getInt();
-        reading2 = message.getInt();
+        if (op == ops.get("SETUP")) {
+            byte[] bytes = new byte[buffer.remaining()];
+            msg = new SensorMessageSetup(buffer.get(bytes).toString());
+        } else if (op == ops.get("READINGS")) {
+            msg = new SensorMessageReadings(buffer.getInt(), buffer.getInt());
+        }
 
-        return new SensorMessage(op, reading1, reading2);
-    }
-
-    public String toString() {
-        return "[SensorMessage] Op: " + op + " Reading1: " + getReading1() + " Reading2: " + getReading2();
+        return msg;
     }
 }

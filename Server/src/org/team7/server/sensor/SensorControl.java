@@ -83,7 +83,8 @@ public class SensorControl {
                         }
                         if (receive != null) {
                             try {
-                                System.out.println("[SensorControl] Receiving data from Sensor: " + SensorMessage.decodeMessage(receive));
+                                System.out.println("[SensorControl] Receiving data from Sensor: " + SensorMessage.decodeMessage(receive))
+                                ;
                             } catch (SensorMessageException e) {
                                 e.printStackTrace();
                             }

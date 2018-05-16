@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Random;
 
 public class Sensor {
 
@@ -62,7 +63,7 @@ public class Sensor {
     }
 
     public float getReadings() {
-        return 0;
+        return new Random().nextInt(400);
     }
 
     public DataInputStream getIn() {

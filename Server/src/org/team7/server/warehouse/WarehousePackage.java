@@ -1,13 +1,19 @@
 package org.team7.server.warehouse;
 
-public class WarehousePackage extends WarehouseObject {
+public class WarehousePackage {
+
+    private int x, y;
 
     public WarehousePackage(int x, int y) {
-        super(x, y);
+        this.x = x;
+        this.y = y;
     }
 
-    @Override
-    public char toChar() {
-        return Warehouse.PACKAGE;
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }
