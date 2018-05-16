@@ -1,5 +1,7 @@
 package org.team7.server.sensor;
 
+import org.team7.server.sensor.sensormessage.SensorMessageReadings;
+
 public abstract class Sensor {
 
     protected int id;
@@ -28,11 +30,7 @@ public abstract class Sensor {
     public abstract Thread start();
 
     public boolean equals(Sensor obj) {
-        if (this.id == obj.id) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.id == obj.id;
     }
 
     public int hashCode() {

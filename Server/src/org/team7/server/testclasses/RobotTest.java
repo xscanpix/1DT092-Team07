@@ -1,11 +1,9 @@
 package org.team7.server.testclasses;
 
-import org.team7.server.robot.RobotMessage;
-import org.team7.server.robot.RobotMessageException;
-
 import java.io.*;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 /**
  * A test class for simulating a org.team7.server.robot.
@@ -48,6 +46,23 @@ public class RobotTest {
     public Thread start(int msBetweenSend) {
         Thread thread = new Thread(() -> {
 
+            while (true) {
+                try {
+                    int len = in.readByte();
+
+                    byte[] bytes = new byte[len];
+                    {
+                        int read = in.read(bytes);
+                    }
+                    ByteBuffer buf = ByteBuffer.allocate(len);
+                    buf.put(bytes);
+
+                    System.out.println(Arrays.toString(buf.array()));
+                } catch (IOException e) {
+                    break;
+                }
+            }
+            /*
             for (int i = 1; i <= 5; i++) {
                 try {
                     send(RobotMessage.encodeMessage(new RobotMessage(RobotMessage.OPS.TEST.ordinal(), "Message " + i)));
@@ -60,6 +75,7 @@ public class RobotTest {
                     e.printStackTrace();
                 }
             }
+            */
 
             disconnect();
         });
@@ -87,7 +103,9 @@ public class RobotTest {
                 int len = in.readByte();
                 buf = ByteBuffer.allocate(len);
                 byte[] bytes = new byte[len];
-                in.read(bytes);
+                {
+                    int read = in.read(bytes);
+                }
                 buf.put(bytes);
             } catch (IOException e) {
                 e.printStackTrace();

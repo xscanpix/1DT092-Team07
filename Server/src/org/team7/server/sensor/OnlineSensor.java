@@ -1,5 +1,9 @@
 package org.team7.server.sensor;
 
+import org.team7.server.sensor.sensormessage.SensorMessage;
+import org.team7.server.sensor.sensormessage.SensorMessageException;
+import org.team7.server.sensor.sensormessage.SensorMessageReadings;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -55,8 +59,9 @@ public class OnlineSensor extends Sensor {
                     int len = in.readByte();
 
                     byte[] bytes = new byte[len];
-                    in.read(bytes);
-
+                    {
+                        int read = in.read(bytes);
+                    }
                     ByteBuffer buf = ByteBuffer.allocate(len);
                     buf.put(bytes);
 

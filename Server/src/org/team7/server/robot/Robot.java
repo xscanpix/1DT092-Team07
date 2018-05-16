@@ -1,5 +1,8 @@
 package org.team7.server.robot;
 
+import org.team7.server.robot.robotmessage.RobotMessage;
+import org.team7.server.robot.robotmessage.RobotMessageException;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -45,8 +48,9 @@ public class Robot {
                     int len = in.readByte();
 
                     byte[] bytes = new byte[len];
-                    in.read(bytes);
-
+                    {
+                        int read = in.read(bytes);
+                    }
                     ByteBuffer buf = ByteBuffer.allocate(len);
                     buf.put(bytes);
 

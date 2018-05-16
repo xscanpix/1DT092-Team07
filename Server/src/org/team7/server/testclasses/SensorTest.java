@@ -1,8 +1,8 @@
 package org.team7.server.testclasses;
 
-import org.team7.server.sensor.SensorMessage;
-import org.team7.server.sensor.SensorMessageReadings;
-import org.team7.server.sensor.SensorMessageSetup;
+import org.team7.server.sensor.sensormessage.SensorMessage;
+import org.team7.server.sensor.sensormessage.SensorMessageReadings;
+import org.team7.server.sensor.sensormessage.SensorMessageSetup;
 
 import java.io.*;
 import java.net.Socket;
@@ -89,7 +89,9 @@ public class SensorTest {
                 int len = in.readByte();
                 buf = ByteBuffer.allocate(len);
                 byte[] bytes = new byte[len];
-                in.read(bytes);
+                {
+                    int read = in.read(bytes);
+                }
                 buf.put(bytes);
             } catch (IOException e) {
                 e.printStackTrace();

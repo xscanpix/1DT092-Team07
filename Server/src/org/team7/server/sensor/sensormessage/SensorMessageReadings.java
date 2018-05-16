@@ -1,4 +1,4 @@
-package org.team7.server.sensor;
+package org.team7.server.sensor.sensormessage;
 
 import java.nio.ByteBuffer;
 
@@ -10,7 +10,10 @@ public class SensorMessageReadings extends SensorMessage {
     private static final int READING2_BYTES = 4;
 
     public SensorMessageReadings(int sensorID, int reading1, int reading2) {
-        super(sensorID, reading1, reading2);
+        super();
+        values.put("ID", sensorID);
+        values.put("R1", reading1);
+        values.put("R2", reading2);
     }
 
     @Override
@@ -27,14 +30,14 @@ public class SensorMessageReadings extends SensorMessage {
         ByteBuffer buf = ByteBuffer.allocate(len);
 
         buf.putInt(OPCODE);
-        buf.putInt(getSensorID());
-        buf.putInt(getVal1());
-        buf.putInt(getVal2());
+        buf.putInt((Integer) values.get("ID"));
+        buf.putInt((Integer) values.get("R1"));
+        buf.putInt((Integer) values.get("R2"));
 
         return buf;
     }
 
     public String toString() {
-        return "[SensorMessage] Op: " + OPCODE + " ID: " + getSensorID() + " Reading1: " + getVal1() + " Reading2: " + getVal2();
+        return "[SensorMessage] Op: " + OPCODE + " ID: " + values.get("ID") + " Reading1: " + values.get("R1") + " Reading2: " + values.get("R2");
     }
 }

@@ -1,10 +1,9 @@
 package org.team7.server.server;
 
 import org.team7.server.robot.RobotControl;
-import org.team7.server.robot.RobotMessage;
+import org.team7.server.robot.robotmessage.RobotMessage;
 import org.team7.server.sensor.SensorControl;
-import org.team7.server.sensor.SensorMessage;
-import org.team7.server.sensor.SensorMessageReadings;
+import org.team7.server.sensor.sensormessage.SensorMessage;
 
 import java.util.List;
 

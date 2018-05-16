@@ -1,19 +1,15 @@
-package org.team7.server.sensor;
+package org.team7.server.sensor.sensormessage;
 
-import java.io.DataInputStream;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class SensorMessage {
 
-    protected static final int OPCODE_BYTES = 4;
-    protected static final int SENSOR_ID_BYTES = 4;
+    static final int OPCODE_BYTES = 4;
+    static final int SENSOR_ID_BYTES = 4;
 
-    public enum OPS {
-        NOT_USED, SETUP, READINGS
-    }
+    Map<String, Object> values;
 
     public static Map<String, Integer> ops = new HashMap<>();
 
@@ -22,31 +18,13 @@ public abstract class SensorMessage {
         ops.put("READINGS", 2);
     }
 
-    private int sensorID;
-    private int val1;
-    private int val2;
-
-    public SensorMessage(int sensorID, int val1, int val2) {
-        this.sensorID = sensorID;
-        this.val1 = val1;
-        this.val2 = val2;
+    public SensorMessage() {
+        this.values = new HashMap<>();
     }
 
     public abstract int getOp();
 
-    protected int getSensorID() {
-        return sensorID;
-    }
-
-    protected int getVal1() {
-        return val1;
-    }
-
-    protected int getVal2() {
-        return val2;
-    }
-
-    protected static boolean opIsNotValid(int op) {
+    private static boolean opIsNotValid(int op) {
         return !ops.containsValue(op);
     }
 
