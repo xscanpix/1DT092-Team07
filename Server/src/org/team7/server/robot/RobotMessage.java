@@ -28,7 +28,7 @@ public class RobotMessage {
      * @param op   the operation
      * @param data the data
      */
-    RobotMessage(int op, String data) {
+    public RobotMessage(int op, String data) {
         this.op = op;
         this.data = data;
     }
@@ -56,7 +56,7 @@ public class RobotMessage {
      * @return The buffered bytes
      * @throws RobotMessageException .
      */
-    static ByteBuffer encodeMessage(RobotMessage message) throws RobotMessageException {
+    public static ByteBuffer encodeMessage(RobotMessage message) throws RobotMessageException {
         if (opIsNotValid(message.getOp())) {
             throw new RobotMessageException("Operation is not valid");
         }

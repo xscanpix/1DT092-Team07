@@ -1,19 +1,16 @@
 package org.team7.server.sensor;
 
-import java.net.Socket;
+public abstract class Sensor {
 
-public class Sensor {
+    protected int id;
+    protected int x;
+    protected int y;
 
-    private int x;
-    private int y;
-    private boolean online;
-    private Socket socket;
+    Sensor() {
+    }
 
-    Sensor(int x, int y, boolean online, Socket socket) {
-        this.x = x;
-        this.y = y;
-        this.online = online;
-        this.socket = socket;
+    public int getId() {
+        return id;
     }
 
     public int getX() {
@@ -24,15 +21,21 @@ public class Sensor {
         return y;
     }
 
-    public boolean isOnline() {
-        return online;
+    public abstract boolean isConnected();
+
+    public abstract SensorMessageReadings getReadings();
+
+    public abstract Thread start();
+
+    public boolean equals(Sensor obj) {
+        if (this.id == obj.id) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public void setOnline(boolean online) {
-        this.online = online;
-    }
-
-    public float getReadings() {
-        return 0;
+    public int hashCode() {
+        return Integer.valueOf(this.id).hashCode();
     }
 }

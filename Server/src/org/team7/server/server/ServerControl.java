@@ -1,4 +1,6 @@
-package org.team7.server;
+package org.team7.server.server;
+
+import org.team7.server.server.Server;
 
 import java.util.Scanner;
 
