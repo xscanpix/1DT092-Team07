@@ -44,9 +44,6 @@ public class Server {
     public Thread start() {
         alive = true;
 
-        /*
-         * Test thread that polls the queue in org.team7.server.robot control for queueFromSensor from robots.
-         * */
         Thread thread = new Thread(() -> {
             while(alive) {
                 try {

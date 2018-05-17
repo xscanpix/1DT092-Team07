@@ -15,17 +15,15 @@ import java.util.concurrent.TimeUnit;
 
 public class Robot {
     private static int ROBOTID = 0;
-
+    public int id;
     private BlockingQueue<RobotMessage> queueFromRobot;
-    private BlockingQueue<RobotMessage> queueToRobot;
 
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
-
+    private BlockingQueue<RobotMessage> queueToRobot;
     private int x;
     private int y;
-    public int id;
 
     Robot(Socket socket) {
         id = ROBOTID++;

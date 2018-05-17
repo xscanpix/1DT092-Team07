@@ -9,28 +9,19 @@ public abstract class SensorMessage {
     static final int OPCODE_BYTES = 4;
     static final int SENSOR_ID_BYTES = 4;
 
-    public Map<String, Integer> values;
-
-    public static Map<String, Integer> ops = new HashMap<>();
-
     static {
         ops.put("SETUP", 0);
         ops.put("SETUPREPLY", 1);
         ops.put("READINGS", 2);
     }
 
+    public static Map<String, Integer> ops = new HashMap<>();
+
+    public Map<String, Integer> values;
+
     public SensorMessage() {
         this.values = new HashMap<>();
     }
-
-    public abstract int getOpCode();
-    public abstract String getOpName();
-
-    private static boolean opIsNotValid(int op) {
-        return !ops.containsValue(op);
-    }
-
-    public abstract ByteBuffer encodeMessage();
 
     public static SensorMessage decodeMessage(ByteBuffer buffer) throws SensorMessageException {
         buffer.rewind();
@@ -53,6 +44,16 @@ public abstract class SensorMessage {
 
         return msg;
     }
+
+    public abstract int getOpCode();
+
+    private static boolean opIsNotValid(int op) {
+        return !ops.containsValue(op);
+    }
+
+    public abstract ByteBuffer encodeMessage();
+
+    public abstract String getOpName();
 
     public String toString() {
         return "[Sensor message] ID: " + values.get("ID") + " Op: " + getOpName() + " ";
