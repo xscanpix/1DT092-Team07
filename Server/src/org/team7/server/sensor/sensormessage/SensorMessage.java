@@ -9,7 +9,7 @@ public abstract class SensorMessage {
     static final int OPCODE_BYTES = 4;
     static final int SENSOR_ID_BYTES = 4;
 
-    public Map<String, Object> values;
+    public Map<String, Integer> values;
 
     public static Map<String, Integer> ops = new HashMap<>();
 
@@ -23,7 +23,8 @@ public abstract class SensorMessage {
         this.values = new HashMap<>();
     }
 
-    public abstract int getOp();
+    public abstract int getOpCode();
+    public abstract String getOpName();
 
     private static boolean opIsNotValid(int op) {
         return !ops.containsValue(op);
@@ -38,15 +39,15 @@ public abstract class SensorMessage {
 
         int op = buffer.getInt();
 
-        if (opIsNotValid(op)) {
+        if(opIsNotValid(op)) {
             throw new SensorMessageException("Operation is not valid: " + op);
         }
 
-        if (op == ops.get("SETUP")) {
+        if(op == ops.get("SETUP")) {
             msg = new SensorMessageSetup(buffer.getInt());
-        } else if (op == ops.get("SETUPREPLY")) {
+        } else if(op == ops.get("SETUPREPLY")) {
             msg = new SensorMessageSetupReply(buffer.getInt(), buffer.getInt(), buffer.getInt());
-        } else if (op == ops.get("READINGS")) {
+        } else if(op == ops.get("READINGS")) {
             msg = new SensorMessageReadings(buffer.getInt(), buffer.getInt(), buffer.getInt());
         }
 
@@ -54,6 +55,6 @@ public abstract class SensorMessage {
     }
 
     public String toString() {
-        return "[Sensor " + values.get("ID") + " message] Op: " + getOp() + " ";
+        return "[Sensor message] ID: " + values.get("ID") + " Op: " + getOpName() + " ";
     }
 }

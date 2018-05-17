@@ -2,12 +2,10 @@ package org.team7.server.robot;
 
 import org.team7.server.robot.robotmessage.RobotMessage;
 import org.team7.server.robot.robotmessage.RobotMessageException;
-import org.team7.server.robot.robotmessage.RobotMessageMove;
 import org.team7.server.robot.robotmessage.RobotMessageSetup;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 import java.nio.ByteBuffer;
@@ -16,8 +14,10 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 public class Robot {
-    private BlockingQueue<RobotMessage> queueIn;
-    private BlockingQueue<RobotMessage> queueOut;
+    private static int ROBOTID = 0;
+
+    private BlockingQueue<RobotMessage> queueFromRobot;
+    private BlockingQueue<RobotMessage> queueToRobot;
 
     private Socket socket;
     private DataInputStream in;
@@ -25,20 +25,17 @@ public class Robot {
 
     private int x;
     private int y;
-
-    private static int ID = 0;
-
     public int id;
 
     Robot(Socket socket) {
-        id = ID++;
-        this.queueIn = new ArrayBlockingQueue<>(100);
-        this.queueOut = new ArrayBlockingQueue<>(100);
+        id = ROBOTID++;
+        this.queueFromRobot = new ArrayBlockingQueue<>(50);
+        this.queueToRobot = new ArrayBlockingQueue<>(50);
         this.socket = socket;
         try {
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
     }
@@ -60,7 +57,7 @@ public class Robot {
         new Thread(() -> {
             sendMessage(new RobotMessageSetup(id).encodeMessage());
 
-            while (true) {
+            while(true) {
                 try {
                     int len;
                     byte[] bytes;
@@ -69,7 +66,7 @@ public class Robot {
 
                     len = in.readByte();
 
-                    bytes = new byte[len];
+                    bytes = new byte[ len ];
                     {
                         int read = in.read(bytes);
                     }
@@ -78,11 +75,11 @@ public class Robot {
 
                     msg = RobotMessage.decodeMessage(buf);
 
-                    queueIn.offer(msg, 100, TimeUnit.MILLISECONDS);
+                    queueFromRobot.offer(msg, 100, TimeUnit.MILLISECONDS);
 
-                } catch (RobotMessageException | IOException e) {
+                } catch(RobotMessageException | IOException e) {
                     break;
-                } catch (InterruptedException e) {
+                } catch(InterruptedException e) {
                     e.printStackTrace();
                 }
             }
@@ -93,8 +90,8 @@ public class Robot {
         RobotMessage msg = null;
 
         try {
-            msg = queueIn.poll(100, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
+            msg = queueFromRobot.poll(100, TimeUnit.MILLISECONDS);
+        } catch(InterruptedException e) {
             e.printStackTrace();
         }
 
@@ -103,13 +100,13 @@ public class Robot {
 
     public void sendMessage(ByteBuffer buf) {
         int len = buf.remaining();
-        byte[] bytes = new byte[len];
+        byte[] bytes = new byte[ len ];
         buf.get(bytes);
 
         try {
             out.writeByte(len);
             out.write(bytes);
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
     }

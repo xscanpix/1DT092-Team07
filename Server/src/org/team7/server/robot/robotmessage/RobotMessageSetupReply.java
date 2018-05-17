@@ -15,20 +15,18 @@ public class RobotMessageSetupReply extends RobotMessage {
 
     @Override
     public int getOp() {
-        return RobotMessage.ops.get("SETUPREPLY");
+        return ops.get("SETUPREPLY");
     }
 
     @Override
     public ByteBuffer encodeMessage() {
-        int op = getOp();
-
         int len = RobotMessage.OPCODE_BYTES + ROBOT_ID_BYTES + X_BYTES + Y_BYTES;
 
         ByteBuffer buf = ByteBuffer.allocate(len);
         buf.putInt(getOp());
-        buf.putInt((Integer) values.get("ID"));
-        buf.putInt((Integer) values.get("X"));
-        buf.putInt((Integer) values.get("Y"));
+        buf.putInt(values.get("ID"));
+        buf.putInt(values.get("X"));
+        buf.putInt(values.get("Y"));
 
         buf.rewind();
 
