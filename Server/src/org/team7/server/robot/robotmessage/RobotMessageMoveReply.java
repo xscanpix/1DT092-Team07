@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 
 public class RobotMessageMoveReply extends RobotMessage {
 
-    private static final int VALUE_BYTES = 4;
+    private static final int REPLY_BYTES = 4;
 
     public static final int OKAY = 0;
     public static final int NOT_OKAY = 1;
@@ -16,14 +16,12 @@ public class RobotMessageMoveReply extends RobotMessage {
 
     @Override
     public int getOp() {
-        return RobotMessage.ops.get("MOVEREPLY");
+        return ops.get("MOVEREPLY");
     }
 
     @Override
     public ByteBuffer encodeMessage() {
-        int op = getOp();
-
-        int len = RobotMessage.OPCODE_BYTES + ROBOT_ID_BYTES + VALUE_BYTES;
+        int len = RobotMessage.OPCODE_BYTES + ROBOT_ID_BYTES + REPLY_BYTES;
 
         ByteBuffer buf = ByteBuffer.allocate(len);
         buf.putInt(getOp());

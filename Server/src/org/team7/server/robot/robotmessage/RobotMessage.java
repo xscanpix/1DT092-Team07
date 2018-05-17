@@ -5,29 +5,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class for handling messages from and to robots.
+ * Class for handling queueFromSensor from and to robots.
  */
 public abstract class RobotMessage {
 
     /**
      * Variables defining how many bytes the variable should be sent as.
      */
-    protected static final int OPCODE_BYTES = 4;
-    protected static final int ROBOT_ID_BYTES = 4;
+    static final int OPCODE_BYTES = 4;
+    static final int ROBOT_ID_BYTES = 4;
 
     /**
      * Map for putting the variables in.
      */
-    public Map<String, Object> values;
+    public Map<String, Integer> values;
 
     /**
      * Static map for which operations exist.
      */
     public static Map<String, Integer> ops = new HashMap<>();
 
-    /**
-     * Add the operations here.
-     */
     static {
         ops.put("SETUP", 0);
         ops.put("SETUPREPLY", 1);
@@ -40,6 +37,10 @@ public abstract class RobotMessage {
     }
 
     public abstract int getOp();
+
+    public int getValue(String identifier) {
+        return values.get(identifier);
+    }
 
     private static boolean opIsNotValid(int op) {
         return !ops.containsValue(op);
@@ -61,22 +62,23 @@ public abstract class RobotMessage {
 
         int op = buffer.getInt();
 
-        if (opIsNotValid(op)) {
+        if(opIsNotValid(op)) {
             throw new RobotMessageException("Operation is not valid: " + op);
         }
 
-        if (op == RobotMessage.ops.get("SETUP")) {
+        if(op == RobotMessage.ops.get("SETUP")) {
             msg = new RobotMessageSetup(buffer.getInt());
-        } else if (op == RobotMessage.ops.get("SETUPREPLY")) {
+        } else if(op == RobotMessage.ops.get("SETUPREPLY")) {
             msg = new RobotMessageSetupReply(buffer.getInt(), buffer.getInt(), buffer.getInt());
-        } else if (op == RobotMessage.ops.get("MOVE")) {
+        } else if(op == RobotMessage.ops.get("MOVE")) {
             msg = new RobotMessageMove(buffer.getInt(), buffer.getInt());
         }
+
 
         return msg;
     }
 
     public String toString() {
-        return "[Robot " + values.get("ID") + " message] Op: " + getOp() + " ";
+        return "[Robot message] ID: " + values.get("ID") + " Op: " + getOp() + " ";
     }
 }
