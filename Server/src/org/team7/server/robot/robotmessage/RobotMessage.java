@@ -15,16 +15,6 @@ public abstract class RobotMessage {
     static final int OPCODE_BYTES = 4;
     static final int ROBOT_ID_BYTES = 4;
 
-    /**
-     * Map for putting the variables in.
-     */
-    public Map<String, Integer> values;
-
-    /**
-     * Static map for which operations exist.
-     */
-    public static Map<String, Integer> ops = new HashMap<>();
-
     static {
         ops.put("SETUP", 0);
         ops.put("SETUPREPLY", 1);
@@ -32,21 +22,21 @@ public abstract class RobotMessage {
         ops.put("MOVEREPLY", 3);
     }
 
+    /**
+     * Static map for which operations exist.
+     */
+    public static Map<String, Integer> ops = new HashMap<>();
+
+    /**
+     * Map for putting the variables in.
+     */
+    public Map<String, Integer> values;
+
     public RobotMessage() {
         this.values = new HashMap<>();
     }
 
     public abstract int getOp();
-
-    public int getValue(String identifier) {
-        return values.get(identifier);
-    }
-
-    private static boolean opIsNotValid(int op) {
-        return !ops.containsValue(op);
-    }
-
-    public abstract ByteBuffer encodeMessage();
 
     /**
      * Decodes the buffer of bytes and creates the correct RobotMessage object.
@@ -76,6 +66,16 @@ public abstract class RobotMessage {
 
 
         return msg;
+    }
+
+    private static boolean opIsNotValid(int op) {
+        return !ops.containsValue(op);
+    }
+
+    public abstract ByteBuffer encodeMessage();
+
+    public int getValue(String identifier) {
+        return values.get(identifier);
     }
 
     public String toString() {

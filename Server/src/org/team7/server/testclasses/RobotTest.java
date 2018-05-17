@@ -4,7 +4,9 @@ import org.team7.server.robot.robotmessage.RobotMessage;
 import org.team7.server.robot.robotmessage.RobotMessageException;
 import org.team7.server.robot.robotmessage.RobotMessageSetupReply;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
@@ -49,13 +51,13 @@ public class RobotTest {
     public void start(int msBetweenSend) {
         new Thread(() -> {
 
-            while (true) {
+            while(true) {
                 try {
                     ByteBuffer buf = receive();
 
                     RobotMessage msg = RobotMessage.decodeMessage(buf);
 
-                    if (msg.getOp() == RobotMessage.ops.get("SETUP")) {
+                    if(msg.getOp() == RobotMessage.ops.get("SETUP")) {
                         send(new RobotMessageSetupReply((Integer) msg.values.get("ID"), x, y).encodeMessage());
                     }
 
@@ -70,7 +72,7 @@ public class RobotTest {
         try {
             out.writeByte(message.array().length);
             out.write(message.array());
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
     }
@@ -80,12 +82,12 @@ public class RobotTest {
         try {
             int len = in.readByte();
             buf = ByteBuffer.allocate(len);
-            byte[] bytes = new byte[len];
+            byte[] bytes = new byte[ len ];
             {
                 int read = in.read(bytes);
             }
             buf.put(bytes);
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
         return buf;

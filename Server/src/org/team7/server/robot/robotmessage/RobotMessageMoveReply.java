@@ -4,10 +4,9 @@ import java.nio.ByteBuffer;
 
 public class RobotMessageMoveReply extends RobotMessage {
 
-    private static final int REPLY_BYTES = 4;
-
     public static final int OKAY = 0;
     public static final int NOT_OKAY = 1;
+    private static final int REPLY_BYTES = 4;
 
     public RobotMessageMoveReply(int robotId, int reply) {
         values.put("ID", robotId);
