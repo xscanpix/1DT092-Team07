@@ -9,13 +9,13 @@ public abstract class SensorMessage {
     static final int OPCODE_BYTES = 4;
     static final int SENSOR_ID_BYTES = 4;
 
+    public static Map<String, Integer> ops = new HashMap<>();
+
     static {
         ops.put("SETUP", 0);
         ops.put("SETUPREPLY", 1);
         ops.put("READINGS", 2);
     }
-
-    public static Map<String, Integer> ops = new HashMap<>();
 
     public Map<String, Integer> values;
 

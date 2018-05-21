@@ -15,17 +15,17 @@ public abstract class RobotMessage {
     static final int OPCODE_BYTES = 4;
     static final int ROBOT_ID_BYTES = 4;
 
+    /**
+     * Static map for which operations exist.
+     */
+    public static Map<String, Integer> ops = new HashMap<>();
+
     static {
         ops.put("SETUP", 0);
         ops.put("SETUPREPLY", 1);
         ops.put("MOVE", 2);
         ops.put("MOVEREPLY", 3);
     }
-
-    /**
-     * Static map for which operations exist.
-     */
-    public static Map<String, Integer> ops = new HashMap<>();
 
     /**
      * Map for putting the variables in.
