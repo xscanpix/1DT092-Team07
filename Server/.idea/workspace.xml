@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6d2bca23-e2ec-4dba-9cb5-6c487c9d4ceb" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessage.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -68,7 +70,6 @@
         <option value="$PROJECT_DIR$/src/org/team7/server/testclasses/RobotTest.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/Runner.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/robot/Robot.java" />
-        <option value="$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessage.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessageMove.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessageMoveReply.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessageSetup.java" />
@@ -76,7 +77,6 @@
         <option value="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageReadings.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageSetup.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessageSetupReply.java" />
-        <option value="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessage.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/sensor/OnlineSensor.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/testclasses/SensorTest.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/sensor/Sensor.java" />
@@ -84,6 +84,8 @@
         <option value="$PROJECT_DIR$/src/org/team7/server/sensor/SensorControl.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/robot/RobotControl.java" />
         <option value="$PROJECT_DIR$/src/org/team7/server/server/Server.java" />
+        <option value="$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessage.java" />
+        <option value="$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessage.java" />
       </list>
     </option>
   </component>
@@ -312,7 +314,7 @@
       <workItem from="1525951310505" duration="6000" />
       <workItem from="1525951720834" duration="24768000" />
       <workItem from="1526206824904" duration="41894000" />
-      <workItem from="1526895570708" duration="985000" />
+      <workItem from="1526895570708" duration="1493000" />
     </task>
     <task id="LOCAL-00001" summary="Implementing networking">
       <created>1525702742773</created>
@@ -489,29 +491,37 @@
       <option name="project" value="LOCAL" />
       <updated>1526896286644</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Cleaned up and improved">
+      <created>1526896566228</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1526896566228</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="110974000" />
+    <option name="totallyTimeSpent" value="111482000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32768363" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32904148" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32768363" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="7" visible="true" weight="0.32768363" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.37429377" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14832215" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14832215" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -526,7 +536,6 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32768363" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32768363" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Palette" order="3" />
@@ -613,6 +622,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="42" lean-forward="true" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -743,6 +755,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-17">
           <caret line="57" column="67" lean-forward="true" selection-start-line="57" selection-start-column="67" selection-end-line="57" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -750,13 +765,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="75" column="8" selection-start-line="75" selection-start-column="8" selection-end-line="75" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -845,13 +853,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
-          <caret line="57" column="79" selection-start-line="57" selection-start-column="79" selection-end-line="57" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/OnlineSensor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="430">
@@ -907,6 +908,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
           <caret line="78" selection-start-line="78" selection-end-line="78" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -919,6 +923,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Server.iml">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/team7/server/robot/robotmessage/RobotMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="20" column="35" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/team7/server/sensor/sensormessage/SensorMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="44" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1531#1532#0" expanded="true" />
+            <element signature="e#1626#1627#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">
