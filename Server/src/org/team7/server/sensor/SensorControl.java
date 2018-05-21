@@ -7,64 +7,86 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SensorControl {
     private TcpServerAdapter adapter;
 
-    private List<Sensor> sensors;
+    private Map<Integer, Sensor> sensors;
+    private BlockingQueue<SensorMessage> queueFromSensor;
 
     private int port;
     private boolean alive;
 
     public SensorControl(int port) {
         this.port = port;
-        sensors = new ArrayList<>();
+        queueFromSensor = new ArrayBlockingQueue<>(50);
+        sensors = new ConcurrentHashMap<>();
     }
 
     public void initialize() {
         try {
             adapter = new TcpServerAdapter(port);
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void createOfflineSensor(int id, int x, int y) {
-        Sensor sensor = new OfflineSensor(id, x, y);
-        sensors.add(sensor);
     }
 
     private void waitForConnection() {
         try {
             Socket socket = adapter.accept();
             Sensor sensor = new OnlineSensor(socket);
-            sensors.add(sensor);
+            sensors.put(sensor.id, sensor);
             sensor.start(2000);
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void addOfflineSensor(Sensor sensor) {
-        sensors.add(sensor);
+    public List<SensorMessage> pollMessages() {
+        List<SensorMessage> list = new ArrayList<>();
+
+        queueFromSensor.drainTo(list);
+
+        return list;
     }
 
-    public List<SensorMessage> pollMessages() {
-        List<SensorMessage> messages = new ArrayList<>();
+    public Sensor getSensor(int ID) {
+        return sensors.get(ID);
+    }
 
-        for (Sensor sensor : sensors) {
-            messages.add(sensor.getMessage());
-        }
-
-        return messages;
+    public Sensor createOfflineSensor(int x, int y) {
+        Sensor sensor = new OfflineSensor(x, y);
+        sensors.put(sensor.id, sensor);
+        return sensor;
     }
 
     public void start() {
         alive = true;
 
         new Thread(() -> {
-            while (alive) {
+            while(alive) {
                 waitForConnection();
+            }
+        }).start();
+
+        new Thread(() -> {
+            while(true) {
+                for(Map.Entry<Integer, Sensor> entry : sensors.entrySet()) {
+                    SensorMessage msg = entry.getValue().pollMessage();
+                    if(msg != null) {
+                        queueFromSensor.offer(msg);
+                    }
+                }
+
+                try {
+                    Thread.sleep(500);
+                } catch(InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
     }

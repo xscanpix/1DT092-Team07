@@ -4,39 +4,29 @@ import java.nio.ByteBuffer;
 
 public class SensorMessageSetup extends SensorMessage {
 
-    private static final int OPCODE = 0;
-
-    private static final int X_BYTES = 4;
-    private static final int Y_BYTES = 4;
-
-    public SensorMessageSetup(int sensorID, int x, int y) {
-        super();
+    public SensorMessageSetup(int sensorID) {
         values.put("ID", sensorID);
-        values.put("X", x);
-        values.put("Y", y);
     }
 
     @Override
-    public int getOp() {
-        return OPCODE;
+    public int getOpCode() {
+        return ops.get("SETUP");
+    }
+
+    @Override
+    public String getOpName() {
+        return "SETUP";
     }
 
     @Override
     public ByteBuffer encodeMessage() {
-        int len = 0;
-
-        len += (OPCODE_BYTES + SENSOR_ID_BYTES + X_BYTES + Y_BYTES);
+        int len = (OPCODE_BYTES + SENSOR_ID_BYTES);
 
         ByteBuffer buf = ByteBuffer.allocate(len);
 
-        buf.putInt(OPCODE);
-        buf.putInt((Integer) values.get("X"));
-        buf.putInt((Integer) values.get("Y"));
+        buf.putInt(getOpCode());
+        buf.putInt(values.get("ID"));
 
         return buf;
-    }
-
-    public String toString() {
-        return super.toString() + " X: " + values.get("X") + " Y: " + values.get("Y");
     }
 }

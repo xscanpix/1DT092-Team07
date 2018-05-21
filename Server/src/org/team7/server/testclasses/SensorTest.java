@@ -1,10 +1,13 @@
 package org.team7.server.testclasses;
 
 import org.team7.server.sensor.sensormessage.SensorMessage;
+import org.team7.server.sensor.sensormessage.SensorMessageException;
 import org.team7.server.sensor.sensormessage.SensorMessageReadings;
-import org.team7.server.sensor.sensormessage.SensorMessageSetup;
+import org.team7.server.sensor.sensormessage.SensorMessageSetupReply;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.util.Random;
@@ -13,17 +16,19 @@ import java.util.Random;
  * A test class for simulating a sensor.
  */
 public class SensorTest {
+
+    private STATES state = STATES.SETUP;
+    private int id;
+
     private Socket socket;
 
     private DataInputStream in;
     private DataOutputStream out;
 
-    private int id;
     private int x;
     private int y;
 
-    public SensorTest(int id, int x, int y) {
-        this.id = id;
+    public SensorTest(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -33,72 +38,65 @@ public class SensorTest {
             socket = new Socket(host, port);
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void disconnect() {
-        try {
-            in.close();
-            out.close();
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    public void start(int msBetweenSend) {
+        new Thread(() -> {
 
-    public Thread start(int msBetweenSend) {
-        Thread thread = new Thread(() -> {
+            while(true) {
+                if(state == STATES.SETUP) {
+                    ByteBuffer buf = receive();
 
-            send(new SensorMessageSetup(id, x, y).encodeMessage());
-
-            while (socket.isConnected()) {
-                SensorMessage msg = new SensorMessageReadings(id, new Random().nextInt(), new Random().nextInt());
-
-                send(msg.encodeMessage());
+                    try {
+                        SensorMessage msg = SensorMessage.decodeMessage(buf);
+                        if(msg.getOpCode() == SensorMessage.ops.get("SETUP")) {
+                            id = msg.values.get("ID");
+                            send(new SensorMessageSetupReply(msg.values.get("ID"), x, y).encodeMessage());
+                            state = STATES.READY;
+                        }
+                    } catch(SensorMessageException e) {
+                        e.printStackTrace();
+                    }
+                } else if(state == STATES.READY) {
+                    send(new SensorMessageReadings(id, new Random().nextInt(500), new Random().nextInt(500)).encodeMessage());
+                }
 
                 try {
                     Thread.sleep(msBetweenSend);
-                } catch (InterruptedException e) {
+                } catch(InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-
-            disconnect();
-        });
-
-        thread.start();
-
-        return thread;
+        }).start();
     }
 
     private void send(ByteBuffer message) {
-        if (socket != null && socket.isConnected()) {
-            try {
-                out.writeByte(message.array().length);
-                out.write(message.array());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            out.writeByte(message.array().length);
+            out.write(message.array());
+        } catch(IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public ByteBuffer receive() {
+    private ByteBuffer receive() {
         ByteBuffer buf = null;
-        if (socket != null && socket.isConnected()) {
-            try {
-                int len = in.readByte();
-                buf = ByteBuffer.allocate(len);
-                byte[] bytes = new byte[len];
-                {
-                    int read = in.read(bytes);
-                }
-                buf.put(bytes);
-            } catch (IOException e) {
-                e.printStackTrace();
+        try {
+            int len = in.readByte();
+            buf = ByteBuffer.allocate(len);
+            byte[] bytes = new byte[ len ];
+            {
+                int read = in.read(bytes);
             }
+            buf.put(bytes);
+        } catch(IOException e) {
+            e.printStackTrace();
         }
         return buf;
     }
+
+    private enum STATES {SETUP, READY}
 }
