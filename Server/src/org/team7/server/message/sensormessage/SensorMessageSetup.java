@@ -1,4 +1,4 @@
-package org.team7.server.sensor.sensormessage;
+package org.team7.server.message.sensormessage;
 
 import java.nio.ByteBuffer;
 
@@ -8,9 +8,8 @@ public class SensorMessageSetup extends SensorMessage {
         values.put("ID", sensorID);
     }
 
-    @Override
-    public int getOpCode() {
-        return ops.get("SETUP");
+    public int getOp() {
+        return operations.get("SETUP");
     }
 
     @Override
@@ -20,11 +19,11 @@ public class SensorMessageSetup extends SensorMessage {
 
     @Override
     public ByteBuffer encodeMessage() {
-        int len = (OPCODE_BYTES + SENSOR_ID_BYTES);
+        int len = (OPCODE_BYTES + SOURCE_ID_BYTES);
 
         ByteBuffer buf = ByteBuffer.allocate(len);
 
-        buf.putInt(getOpCode());
+        buf.putInt(getOp());
         buf.putInt(values.get("ID"));
 
         return buf;

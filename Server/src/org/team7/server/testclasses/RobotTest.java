@@ -1,8 +1,8 @@
 package org.team7.server.testclasses;
 
-import org.team7.server.robot.robotmessage.RobotMessage;
-import org.team7.server.robot.robotmessage.RobotMessageException;
-import org.team7.server.robot.robotmessage.RobotMessageSetupReply;
+import org.team7.server.message.robotmessage.RobotMessage;
+import org.team7.server.message.robotmessage.RobotMessageException;
+import org.team7.server.message.robotmessage.RobotMessageSetupReply;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -57,7 +57,7 @@ public class RobotTest {
 
                     RobotMessage msg = RobotMessage.decodeMessage(buf);
 
-                    if(msg.getOp() == RobotMessage.ops.get("SETUP")) {
+                    if(msg.getOp() == RobotMessage.operations.get("SETUP")) {
                         send(new RobotMessageSetupReply((Integer) msg.values.get("ID"), x, y).encodeMessage());
                     }
 

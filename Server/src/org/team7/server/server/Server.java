@@ -1,11 +1,11 @@
 package org.team7.server.server;
 
+import org.team7.server.message.robotmessage.RobotMessage;
+import org.team7.server.message.sensormessage.SensorMessage;
 import org.team7.server.robot.Robot;
 import org.team7.server.robot.RobotControl;
-import org.team7.server.robot.robotmessage.RobotMessage;
 import org.team7.server.sensor.Sensor;
 import org.team7.server.sensor.SensorControl;
-import org.team7.server.sensor.sensormessage.SensorMessage;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class Server {
 
                     for(RobotMessage rmessage : rmessages) {
                         if(rmessage != null) {
-                            if(rmessage.getOp() == RobotMessage.ops.get("SETUPREPLY")) {
+                            if(rmessage.getOp() == RobotMessage.operations.get("SETUPREPLY")) {
                                 Robot robot = robotControl.getRobot(rmessage.values.get("ID"));
                                 robot.setPos(rmessage.values.get("X"), rmessage.values.get("Y"));
                             }
@@ -62,7 +62,7 @@ public class Server {
 
                     for(SensorMessage smessage : smessages) {
                         if(smessage != null) {
-                            if(smessage.getOpCode() == SensorMessage.ops.get("SETUPREPLY")) {
+                            if(smessage.getOp() == SensorMessage.operations.get("SETUPREPLY")) {
                                 Sensor sensor = sensorControl.getSensor(smessage.values.get("ID"));
                                 sensor.setPos(smessage.values.get("X"), smessage.values.get("Y"));
                             }

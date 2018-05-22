@@ -1,7 +1,7 @@
 package org.team7.server.sensor;
 
 import org.team7.server.network.TcpServerAdapter;
-import org.team7.server.sensor.sensormessage.SensorMessage;
+import org.team7.server.message.sensormessage.SensorMessage;
 
 import java.io.IOException;
 import java.net.Socket;

@@ -1,7 +1,7 @@
 package org.team7.server.robot;
 
 import org.team7.server.network.TcpServerAdapter;
-import org.team7.server.robot.robotmessage.RobotMessage;
+import org.team7.server.message.robotmessage.RobotMessage;
 
 import java.io.IOException;
 import java.net.Socket;
