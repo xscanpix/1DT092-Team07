@@ -1,9 +1,9 @@
 package org.team7.server.testclasses;
 
-import org.team7.server.sensor.sensormessage.SensorMessage;
-import org.team7.server.sensor.sensormessage.SensorMessageException;
-import org.team7.server.sensor.sensormessage.SensorMessageReadings;
-import org.team7.server.sensor.sensormessage.SensorMessageSetupReply;
+import org.team7.server.message.sensormessage.SensorMessage;
+import org.team7.server.message.sensormessage.SensorMessageException;
+import org.team7.server.message.sensormessage.SensorMessageReadings;
+import org.team7.server.message.sensormessage.SensorMessageSetupReply;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -52,7 +52,7 @@ public class SensorTest {
 
                     try {
                         SensorMessage msg = SensorMessage.decodeMessage(buf);
-                        if(msg.getOpCode() == SensorMessage.ops.get("SETUP")) {
+                        if(msg.getOp() == SensorMessage.operations.get("SETUP")) {
                             id = msg.values.get("ID");
                             send(new SensorMessageSetupReply(msg.values.get("ID"), x, y).encodeMessage());
                             state = STATES.READY;

@@ -1,4 +1,4 @@
-package org.team7.server.robot.robotmessage;
+package org.team7.server.message.robotmessage;
 
 import java.nio.ByteBuffer;
 
@@ -16,12 +16,15 @@ public class RobotMessageMove extends RobotMessage {
     }
 
     public int getOp() {
-        return ops.get("MOVE");
+        return operations.get("MOVE");
     }
 
-    @Override
+    public String getOpName() {
+        return "MOVE";
+    }
+
     public ByteBuffer encodeMessage() {
-        int len = OPCODE_BYTES + ROBOT_ID_BYTES + DIRECTION_BYTES;
+        int len = OPCODE_BYTES + SOURCE_ID_BYTES + DIRECTION_BYTES;
 
         ByteBuffer buf = ByteBuffer.allocate(len);
         buf.putInt(getOp());

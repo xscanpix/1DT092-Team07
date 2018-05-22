@@ -1,8 +1,8 @@
 package org.team7.server.sensor;
 
-import org.team7.server.sensor.sensormessage.SensorMessage;
-import org.team7.server.sensor.sensormessage.SensorMessageException;
-import org.team7.server.sensor.sensormessage.SensorMessageSetup;
+import org.team7.server.message.sensormessage.SensorMessage;
+import org.team7.server.message.sensormessage.SensorMessageException;
+import org.team7.server.message.sensormessage.SensorMessageSetup;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

@@ -1,6 +1,6 @@
 package org.team7.server.sensor;
 
-import org.team7.server.sensor.sensormessage.SensorMessageReadings;
+import org.team7.server.message.sensormessage.SensorMessageReadings;
 
 import java.nio.ByteBuffer;
 import java.util.Random;

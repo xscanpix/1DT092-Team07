@@ -1,6 +1,6 @@
 package org.team7.server.sensor;
 
-import org.team7.server.sensor.sensormessage.SensorMessage;
+import org.team7.server.message.sensormessage.SensorMessage;
 
 import java.nio.ByteBuffer;
 import java.util.concurrent.ArrayBlockingQueue;
