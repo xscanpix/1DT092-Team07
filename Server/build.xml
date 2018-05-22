@@ -2,9 +2,7 @@
 <project name="server" default="all">
 
     <target name="compile">
-        <delete dir="bin"/>
-        <mkdir dir="bin"/>
-        <javac srcdir="src" destdir="bin" fork="true"/>
+        <javac srcdir="src" destdir="bin" classpath="lib/json-simple-1.1.jar" fork="true"/>
     </target>
 
     <target name="all" depends="compile"/>
