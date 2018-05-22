@@ -1,7 +1,8 @@
 package org.team7.server.sensor;
 
-import org.team7.server.network.TcpServerAdapter;
+import org.team7.server.message.Message;
 import org.team7.server.message.sensormessage.SensorMessage;
+import org.team7.server.network.TcpServerAdapter;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -46,10 +47,10 @@ public class SensorControl {
         }
     }
 
-    public List<SensorMessage> pollMessages() {
-        List<SensorMessage> list = new ArrayList<>();
+    public List<Message> pollReadings(int num) {
+        List<Message> list = new ArrayList<>();
 
-        queueFromSensor.drainTo(list);
+        queueFromSensor.drainTo(list, num);
 
         return list;
     }
