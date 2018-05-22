@@ -1,10 +1,10 @@
 package org.team7.server.server;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.team7.server.client.ClientControl;
 import org.team7.server.message.Message;
 import org.team7.server.message.robotmessage.RobotMessage;
-import org.team7.server.message.sensormessage.SensorMessage;
 import org.team7.server.robot.Robot;
 import org.team7.server.robot.RobotControl;
 import org.team7.server.sensor.Sensor;
@@ -49,7 +49,28 @@ public class Server {
         return sensorControl.createOfflineSensor(x, y);
     }
 
-    public List<JSONObject> getSensorReadingsAsJSON(int num) {
+    public String getPackageInformationAsJSON() {
+        JSONObject obj = new JSONObject();
+
+        JSONObject p = new JSONObject();
+        p.put("ID", 1);
+        p.put("Location", List.of(1, 1));
+
+        obj.put("Packages", List.of(p, p, p, p, p, p, p));
+
+        return obj.toJSONString();
+    }
+
+    public String getRobotInformationAsJSON() {
+        JSONObject obj = new JSONObject();
+
+        obj.put("Position", JSONArray.toJSONString(List.of(1, 1)));
+        obj.put("Direction", "Up");
+
+        return obj.toJSONString();
+    }
+
+    public String getSensorReadingsAsJSON(int num) {
         List<Message> messages = sensorControl.pollReadings(num);
 
         List<JSONObject> objects = new ArrayList<>();
@@ -62,7 +83,7 @@ public class Server {
             objects.add(obj);
         }
 
-        return objects;
+        return JSONArray.toJSONString(objects);
     }
 
     public Thread start() {
