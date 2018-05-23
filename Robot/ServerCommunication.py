@@ -70,6 +70,22 @@ def main():
                 bf.turn90Left()
             elif(dir == 5):
                 fl.followLine(2)
+            elif(dir == 6):
+                fl.turnRight()
+            elif(dir == 7):
+                fl.turnLeft()
+            elif(dir == 8):
+                bf.turn180Right()
+            elif(dir == 9):
+                fl.goForwardIntersection()
+            elif(dir == 10):
+                bf.trolleyUp()
+            elif(dir == 11):
+                bf.trolleyDown()
+            elif(dir == 12):
+                fl.takeLoads()
+            elif(dir == 13):
+                fl.leaveLoad()
 
 
 if __name__ == "__main__":
