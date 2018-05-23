@@ -1,9 +1,10 @@
 package org.team7.server.message.robotmessage;
 
+import org.team7.server.message.Message;
+
 import java.nio.ByteBuffer;
 
 public class RobotMessageMove extends RobotMessage {
-    private static final int DIRECTION_BYTES = 4;
 
     public static final int FORWARD = 1;
     public static final int BACKWARD = 2;
@@ -27,9 +28,10 @@ public class RobotMessageMove extends RobotMessage {
         int len = OPCODE_BYTES + SOURCE_ID_BYTES + DIRECTION_BYTES;
 
         ByteBuffer buf = ByteBuffer.allocate(len);
-        buf.putInt(getOp());
-        buf.putInt(values.get("ID"));
-        buf.putInt(values.get("DIR"));
+
+        Message.putBytes(buf, getOp(), OPCODE_BYTES);
+        Message.putBytes(buf, getValue("ID"), SOURCE_ID_BYTES);
+        Message.putBytes(buf, getValue("DIR"), DIRECTION_BYTES);
 
         buf.rewind();
 

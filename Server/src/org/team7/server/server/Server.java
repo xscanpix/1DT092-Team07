@@ -57,7 +57,6 @@ public class Server {
         p.put("Location", List.of(1, 1));
 
         obj.put("Packages", List.of(p, p, p, p, p, p, p));
-
         return obj.toJSONString();
     }
 

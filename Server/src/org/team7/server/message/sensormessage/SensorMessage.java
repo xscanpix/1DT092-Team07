@@ -20,18 +20,18 @@ public abstract class SensorMessage extends Message {
 
         SensorMessage msg = null;
 
-        int op = buffer.getInt();
+        int op = Message.getInt(buffer, OPCODE_BYTES);
 
         if(opIsNotValid(op)) {
             throw new SensorMessageException("Operation is not valid: " + op);
         }
 
         if(op == operations.get("SETUP")) {
-            msg = new SensorMessageSetup(buffer.getInt());
+            msg = new SensorMessageSetup(Message.getInt(buffer, SOURCE_ID_BYTES));
         } else if(op == operations.get("SETUPREPLY")) {
-            msg = new SensorMessageSetupReply(buffer.getInt(), buffer.getInt(), buffer.getInt());
+            msg = new SensorMessageSetupReply(Message.getInt(buffer, SOURCE_ID_BYTES), Message.getInt(buffer, X_BYTES), Message.getInt(buffer, Y_BYTES));
         } else if(op == operations.get("READINGS")) {
-            msg = new SensorMessageReadings(buffer.getInt(), buffer.getInt(), buffer.getInt());
+            msg = new SensorMessageReadings(Message.getInt(buffer, SOURCE_ID_BYTES), Message.getInt(buffer, READING1_BYTES), Message.getInt(buffer, READING2_BYTES));
         }
 
         return msg;

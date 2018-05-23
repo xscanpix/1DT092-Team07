@@ -31,24 +31,23 @@ public abstract class RobotMessage extends Message {
 
         RobotMessage msg = null;
 
-        int op = buffer.getInt();
+        int op = Message.getInt(buffer, OPCODE_BYTES);
 
         if(opIsNotValid(op)) {
             throw new RobotMessageException("Operation is not valid: " + op);
         }
 
         if(op == RobotMessage.operations.get("SETUP")) {
-            msg = new RobotMessageSetup(buffer.getInt());
+            msg = new RobotMessageSetup(Message.getInt(buffer, SOURCE_ID_BYTES));
         } else if(op == RobotMessage.operations.get("SETUPREPLY")) {
-            msg = new RobotMessageSetupReply(buffer.getInt(), buffer.getInt(), buffer.getInt());
+            msg = new RobotMessageSetupReply(Message.getInt(buffer, SOURCE_ID_BYTES), Message.getInt(buffer, X_BYTES), Message.getInt(buffer, Y_BYTES));
         } else if(op == RobotMessage.operations.get("MOVE")) {
-            msg = new RobotMessageMove(buffer.getInt(), buffer.getInt());
+            msg = new RobotMessageMove(Message.getInt(buffer, SOURCE_ID_BYTES), Message.getInt(buffer, DIRECTION_BYTES));
         }
-
 
         return msg;
     }
-    
+
     public String toString() {
         return "[Robot message] ID: " + values.get("ID") + " Op: " + getOp() + " ";
     }

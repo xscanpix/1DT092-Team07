@@ -1,5 +1,7 @@
 package org.team7.server.message.robotmessage;
 
+import org.team7.server.message.Message;
+
 import java.nio.ByteBuffer;
 
 public class RobotMessageSetupReply extends RobotMessage {
@@ -28,10 +30,11 @@ public class RobotMessageSetupReply extends RobotMessage {
         int len = RobotMessage.OPCODE_BYTES + SOURCE_ID_BYTES + X_BYTES + Y_BYTES;
 
         ByteBuffer buf = ByteBuffer.allocate(len);
-        buf.putInt(getOp());
-        buf.putInt(values.get("ID"));
-        buf.putInt(values.get("X"));
-        buf.putInt(values.get("Y"));
+
+        Message.putBytes(buf, getOp(), OPCODE_BYTES);
+        Message.putBytes(buf, getValue("ID"), SOURCE_ID_BYTES);
+        Message.putBytes(buf, getValue("X"), X_BYTES);
+        Message.putBytes(buf, getValue("Y"), Y_BYTES);
 
         buf.rewind();
 

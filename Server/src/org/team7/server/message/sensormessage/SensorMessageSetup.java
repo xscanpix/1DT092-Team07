@@ -1,5 +1,7 @@
 package org.team7.server.message.sensormessage;
 
+import org.team7.server.message.Message;
+
 import java.nio.ByteBuffer;
 
 public class SensorMessageSetup extends SensorMessage {
@@ -23,8 +25,8 @@ public class SensorMessageSetup extends SensorMessage {
 
         ByteBuffer buf = ByteBuffer.allocate(len);
 
-        buf.putInt(getOp());
-        buf.putInt(values.get("ID"));
+        Message.putBytes(buf, getOp(), OPCODE_BYTES);
+        Message.putBytes(buf, values.get("ID"), SOURCE_ID_BYTES);
 
         return buf;
     }

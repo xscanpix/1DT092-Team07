@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="server" default="all">
     <target name="compile">
-        <javac srcdir="src" destdir="bin" classpath="lib/json-simple-1.1.jar" fork="true"/>
+        <javac srcdir="src" destdir="bin" classpath="lib/json-simple-1.1.jar" fork="true" includeantruntime="true"/>
     </target>
 
     <target name="clean">

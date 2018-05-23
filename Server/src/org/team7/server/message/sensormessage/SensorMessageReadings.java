@@ -1,11 +1,12 @@
 package org.team7.server.message.sensormessage;
 
+import org.team7.server.message.Message;
+
 import java.nio.ByteBuffer;
 
 public class SensorMessageReadings extends SensorMessage {
 
-    private static final int READING1_BYTES = 4;
-    private static final int READING2_BYTES = 4;
+
 
     public SensorMessageReadings(int sensorID, int reading1, int reading2) {
         values.put("ID", sensorID);
@@ -28,10 +29,10 @@ public class SensorMessageReadings extends SensorMessage {
 
         ByteBuffer buf = ByteBuffer.allocate(len);
 
-        buf.putInt(getOp());
-        buf.putInt(values.get("ID"));
-        buf.putInt(values.get("R1"));
-        buf.putInt(values.get("R2"));
+        Message.putBytes(buf, getOp(), OPCODE_BYTES);
+        Message.putBytes(buf, getValue("ID"), SOURCE_ID_BYTES);
+        Message.putBytes(buf, getValue("R1"), READING1_BYTES);
+        Message.putBytes(buf, getValue("R2"), READING2_BYTES);
 
         return buf;
     }

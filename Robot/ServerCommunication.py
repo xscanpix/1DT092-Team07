@@ -1,6 +1,6 @@
 import socket
 import struct
-import BasicFunctions as bs
+#import BasicFunctions as bs
 
 
 class Robot:
