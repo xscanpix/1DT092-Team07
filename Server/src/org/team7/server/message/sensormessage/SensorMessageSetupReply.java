@@ -1,11 +1,10 @@
 package org.team7.server.message.sensormessage;
 
+import org.team7.server.message.Message;
+
 import java.nio.ByteBuffer;
 
 public class SensorMessageSetupReply extends SensorMessage {
-
-    private static final int X_BYTES = 4;
-    private static final int Y_BYTES = 4;
 
     public SensorMessageSetupReply(int sensorId, int x, int y) {
         values.put("ID", sensorId);
@@ -28,10 +27,10 @@ public class SensorMessageSetupReply extends SensorMessage {
 
         ByteBuffer buf = ByteBuffer.allocate(len);
 
-        buf.putInt(getOp());
-        buf.putInt(values.get("ID"));
-        buf.putInt(values.get("X"));
-        buf.putInt(values.get("Y"));
+        Message.putBytes(buf, getOp(), OPCODE_BYTES);
+        Message.putBytes(buf, getValue("ID"), SOURCE_ID_BYTES);
+        Message.putBytes(buf, getValue("X"), X_BYTES);
+        Message.putBytes(buf, getValue("Y"), Y_BYTES);
 
         return buf;
     }
