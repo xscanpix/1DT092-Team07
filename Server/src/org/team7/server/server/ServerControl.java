@@ -73,19 +73,19 @@ class ServerControl {
         frame.add(text);
         frame.add(pickup);
         frame.add(leave);
-        frame.add(forward);
-        frame.add(backward);
-        frame.add(right);
-        frame.add(left);
-        frame.add(followLine);
-        frame.add(right90);
-        frame.add(left90);
-        frame.add(right180);
-        frame.add(forwardintersect);
-        frame.add(trolleyUp);
-        frame.add(trolleyDown);
-        frame.add(takeLoad);
-        frame.add(leaveLoad);
+        //frame.add(forward);
+        //frame.add(backward);
+        //frame.add(right);
+        //frame.add(left);
+        //frame.add(followLine);
+        //frame.add(right90);
+        //frame.add(left90);
+        //frame.add(right180);
+        //frame.add(forwardintersect);
+        //frame.add(trolleyUp);
+        //frame.add(trolleyDown);
+        //frame.add(takeLoad);
+        //frame.add(leaveLoad);
         frame.add(stop);
 
         pickup.addActionListener(new ActionListener() {

@@ -48,6 +48,51 @@ public class Warehouse {
             moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
             moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
             moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT180));
+        } else if(zoneID == 3) {
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
+
+            if(pickUp) {
+                moves.add(new RobotMessageMove(0, RobotMessageMove.TAKELOAD));
+            } else {
+                moves.add(new RobotMessageMove(0, RobotMessageMove.LEAVELOAD));
+            }
+        } else if(zoneID == 4) {
+            if(pickUp) {
+                moves.add(new RobotMessageMove(0, RobotMessageMove.TAKELOAD));
+            } else {
+                moves.add(new RobotMessageMove(0, RobotMessageMove.LEAVELOAD));
+            }
+        } else if(zoneID == 5) {
+            if(pickUp) {
+                moves.add(new RobotMessageMove(0, RobotMessageMove.TAKELOAD));
+            } else {
+                moves.add(new RobotMessageMove(0, RobotMessageMove.LEAVELOAD));
+            }
+        } else if(zoneID == 6) {
+            if(pickUp) {
+                moves.add(new RobotMessageMove(0, RobotMessageMove.TAKELOAD));
+            } else {
+                moves.add(new RobotMessageMove(0, RobotMessageMove.LEAVELOAD));
+            }
+        } else if(zoneID == 7) {
+            if(pickUp) {
+                moves.add(new RobotMessageMove(0, RobotMessageMove.TAKELOAD));
+            } else {
+                moves.add(new RobotMessageMove(0, RobotMessageMove.LEAVELOAD));
+            }
+        } else if(zoneID == 8) {
+            if(pickUp) {
+                moves.add(new RobotMessageMove(0, RobotMessageMove.TAKELOAD));
+            } else {
+                moves.add(new RobotMessageMove(0, RobotMessageMove.LEAVELOAD));
+            }
+        } else if(zoneID == 9) {
+            if(pickUp) {
+                moves.add(new RobotMessageMove(0, RobotMessageMove.TAKELOAD));
+            } else {
+                moves.add(new RobotMessageMove(0, RobotMessageMove.LEAVELOAD));
+            }
         }
 
         return moves;

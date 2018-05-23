@@ -66,15 +66,15 @@ def main():
             elif(dir == 2):
                 bf.goBackward()
             elif(dir == 3):
-                bf.turnRight()
+                fl.turnRight()
             elif(dir == 4):
-                bf.turnLeft()
+                fl.turnLeft()
             elif(dir == 5):
                 result = fl.followLine(2)
             elif(dir == 6):
-                fl.turn90Right()
+                bf.turn90Right()
             elif(dir == 7):
-                fl.turn90Left()
+                bf.turn90Left()
             elif(dir == 8):
                 bf.turn180Right()
             elif(dir == 9):
