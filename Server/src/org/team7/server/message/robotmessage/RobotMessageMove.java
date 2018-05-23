@@ -33,8 +33,6 @@ public class RobotMessageMove extends RobotMessage {
         Message.putBytes(buf, getValue("ID"), SOURCE_ID_BYTES);
         Message.putBytes(buf, getValue("DIR"), DIRECTION_BYTES);
 
-        buf.rewind();
-
         return buf;
     }
 

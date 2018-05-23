@@ -13,8 +13,8 @@ public class Runner {
         Thread serverThread = server.start();
 
         RobotTest robotTest = new RobotTest(1, 1);
-        robotTest.connect("localhost", 5555);
-        robotTest.start(500);
+        //robotTest.connect("localhost", 5555);
+        //robotTest.start(500);
 
         SensorTest sensorTest = new SensorTest(1, 1);
         SensorTest sensorTest2 = new SensorTest(2, 2);

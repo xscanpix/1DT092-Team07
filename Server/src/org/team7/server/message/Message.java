@@ -13,6 +13,7 @@ public abstract class Message {
     public static final int DIRECTION_BYTES = 2;
     public static final int READING1_BYTES = 2;
     public static final int READING2_BYTES = 2;
+    public static final int REPLY_BYTES = 2;
 
     public static Map<String, Integer> operations = new HashMap<>();
 
