@@ -1,7 +1,10 @@
 package org.team7.server.server;
 
 import org.team7.server.message.robotmessage.RobotMessageMove;
+import org.team7.server.message.Message;
+import org.team7.server.warehouse.Warehouse;
 
+import java.util.List;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +21,9 @@ class ServerControl {
 
     private JFrame frame;
 
-    private JTextArea text;
+    private JTextField text;
+    private JButton pickup;
+    private JButton leave;
     private JButton forward;
     private JButton backward;
     private JButton right;
@@ -46,7 +51,9 @@ class ServerControl {
             }
         });
         frame.setMinimumSize(new Dimension(400, 400));
-        text = new JTextArea();
+        text = new JTextField();
+        pickup = new JButton("Pickup");
+        leave = new JButton("Leave");
         forward = new JButton("Forward");
         backward = new JButton("Backward");
         right = new JButton("Right");
@@ -64,6 +71,8 @@ class ServerControl {
 
         frame.setLayout(new GridLayout(0, 4));
         frame.add(text);
+        frame.add(pickup);
+        frame.add(leave);
         frame.add(forward);
         frame.add(backward);
         frame.add(right);
@@ -79,88 +88,110 @@ class ServerControl {
         frame.add(leaveLoad);
         frame.add(stop);
 
+        pickup.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int zone = Integer.parseInt(text.getText());
+                System.out.println(zone);
+                List<Message> moves = Warehouse.generateMovesTo(zone, true);
+                for(Message msg : moves) {
+                    server.getRobot().sendMessage(msg.encodeMessage());
+                }
+            }
+        });
+        leave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int zone = Integer.parseInt(text.getText());
+                System.out.println(zone);
+                List<Message> moves = Warehouse.generateMovesTo(zone, false);
+                for(Message msg : moves) {
+                    server.getRobot().sendMessage(msg.encodeMessage());
+                }
+            }
+        });
         forward.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot().sendMessage(new RobotMessageMove(0, 1).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, RobotMessageMove.FORWARD).encodeMessage());
             }
         });
         backward.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot().sendMessage(new RobotMessageMove(0, 2).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, RobotMessageMove.BACKWARD).encodeMessage());
             }
         });
         right.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot().sendMessage(new RobotMessageMove(0, 3).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, RobotMessageMove.RIGHT).encodeMessage());
             }
         });
         left.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot().sendMessage(new RobotMessageMove(0, 4).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, RobotMessageMove.LEFT).encodeMessage());
             }
         });
         followLine.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot().sendMessage(new RobotMessageMove(0, 5).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE).encodeMessage());
             }
         });
         right90.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot().sendMessage(new RobotMessageMove(0, 6).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, RobotMessageMove.RIGHT90).encodeMessage());
             }
         });
         left90.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot().sendMessage(new RobotMessageMove(0, 7).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, RobotMessageMove.LEFT90).encodeMessage());
             }
         });
         right180.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot().sendMessage(new RobotMessageMove(0, 8).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, RobotMessageMove.RIGHT180).encodeMessage());
             }
         });
         forwardintersect.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot().sendMessage(new RobotMessageMove(0, 9).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, RobotMessageMove.FORWARDINTERSECTION).encodeMessage());
             }
         });
         trolleyUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot().sendMessage(new RobotMessageMove(0, 10).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, RobotMessageMove.TROLLEYUP).encodeMessage());
             }
         });
         trolleyDown.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot().sendMessage(new RobotMessageMove(0, 11).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, RobotMessageMove.TROLLEYDOWN).encodeMessage());
             }
         });
         takeLoad.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot().sendMessage(new RobotMessageMove(0, 12).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, RobotMessageMove.TAKELOAD).encodeMessage());
             }
         });
         leaveLoad.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot().sendMessage(new RobotMessageMove(0, 13).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, RobotMessageMove.LEAVELOAD).encodeMessage());
             }
         });
         stop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot().sendMessage(new RobotMessageMove(0, 14).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, RobotMessageMove.STOP).encodeMessage());
             }
         });
 
