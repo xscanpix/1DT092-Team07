@@ -178,12 +178,12 @@ def motorSpeed(la1,no1,sp,op,la2,no2):
 
 # Motors A and D are activated at the speed 1F (maximum for this mode).
 def goForward():
-    motorSpeed(0,9,31,166,0,9)
+    motorSpeed(0,9,20,166,0,9)
 
 
 # Miror symetrie of goForward()
 def goBackward():
-    motorSpeed(0,9,32,166,0,9)
+    motorSpeed(0,9,42,166,0,9)
 
 
 # It stops the motor you want (1 for left wheel, 8 for right wheel, 2 for the trolley)
@@ -229,6 +229,9 @@ def trolleyDown():
     time.sleep(0.1)
     stop(2)
 
+trolleyUp()
+time.sleep(5)
+trolleyDown()
 
 # Reading type and mode of a sensor
 def type(port):
@@ -238,7 +241,7 @@ def type(port):
 # answer is : \len(2)\cnt(2)\rs\ty\mo\  
 
 """
-type(19)
+type(2)
 """
 
 # https://le-www-live-s.legocdn.com/sc/media/files/ev3-developer-kit/lego%20mindstorms%20ev3%20firmware%20developer%20kit-7be073548547d99f7df59ddfd57c0088.pdf?la=en-us
@@ -257,32 +260,44 @@ type(19)
 
 
 # reading the actual position of a motor / value of a sensor
-def read(port, typ):
-    message=[28, 0, port, typ, 0, 1, 96]
+def read(port, typ, mode):
+    message=[28, 0, port, typ, mode, 1, 96]
     answer =my_ev3.send_cmd(DIRECT_COMMAND_REPLY, 153, 0, 4, bytes(message))
     return answer
 # question is :  \len(2)\cnt(2)\ty\hd(2)\op\cd\la\no\ty\mo\  
 # answer is : \len(2)\cnt(2)\rs\ty\mo\  
 
 """
-read(16, 7)
+read(16, 7, 0)
 """
 
 
-# The displayed value is in percentage. 
+# Give the intensity of the colour, the displayed value is in percentage. 
 def readColour():
-    colour= read(2, 29)
-    print("colour is", colour[5], "%")
+    colour= read(2, 29, 0)
+    print("colour percentage is", colour[5], "%")
     return colour[5]
 
-"""
-readColour()
-"""
+
+# Give what colour is looked at
+# 1 is black
+# 2 is blue
+# 3 is green
+# 4 is yellow
+# 5 is red
+# 6 is white
+def readNameColour():
+    colour= read(2, 29, 2)
+    print("colour is", colour[5])
+    return colour[5]
+
+
+
 
 
 # The displayed value is in milimeters. Limit is 2 meters.
 def readDistance():
-    distance=read(3, 30)
+    distance=read(3, 30, 0)
     print("distance is", distance[5]+distance[6]*256, "mm")
     return distance[5]+distance[6]*256 
 """
@@ -291,7 +306,7 @@ readDistance()
 
 # The displayed value is in degrees.
 def readGyro():
-    angle=read(1, 32)
+    angle=read(1, 32, 0)
     degrees=angle[5]+angle[6]*256+angle[7]*65536+angle[8]*16777216
     if degrees>30000:
         degrees=degrees-16777216*256
@@ -319,7 +334,6 @@ def turn90Right():
             goSlowSpeedRight()
             time.sleep(0.1)
             stop(9)
-
 
 def turn90Left():
     Gyro=readGyro()
@@ -352,6 +366,3 @@ goForward()
 time.sleep(0.5)
 stop(9)
 """
-
-
-readColour()
