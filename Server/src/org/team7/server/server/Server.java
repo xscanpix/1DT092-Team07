@@ -5,7 +5,6 @@ import org.json.simple.JSONObject;
 import org.team7.server.client.ClientControl;
 import org.team7.server.message.Message;
 import org.team7.server.message.robotmessage.RobotMessage;
-import org.team7.server.message.robotmessage.RobotMessageMove;
 import org.team7.server.robot.Robot;
 import org.team7.server.robot.RobotControl;
 import org.team7.server.sensor.Sensor;
@@ -104,6 +103,11 @@ public class Server {
                             if(rmessage.getOp() == RobotMessage.operations.get("SETUPREPLY")) {
                                 Robot robot = robotControl.getRobot();
                                 robot.setPos(rmessage.values.get("X"), rmessage.values.get("Y"));
+                            }
+                            if(rmessage.getOp() == RobotMessage.operations.get("MOVEREPLY")) {
+                                Robot robot = robotControl.getRobot();
+                                robot.setPos(2, 2);
+                                serverControl.setText("[RobotControl] Robot done with follow lines: " + rmessage);
                             }
                             serverControl.setText("[RobotControl] Message from Robot: " + rmessage);
                         }

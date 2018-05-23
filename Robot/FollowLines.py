@@ -39,7 +39,7 @@ def followLine(seconds):
                 fct.stop(9)
         fct.stop(9)
         break
-
+    return True
 
 
 def turnRight():

@@ -60,6 +60,7 @@ def main():
             comm.mysend(msg)
         elif(op == 2):  # Move message
             dir = int.from_bytes(msg[4:6], byteorder='big')
+            result = False
             if(dir == 1):
                 bf.goForward()
             elif(dir == 2):
@@ -69,7 +70,7 @@ def main():
             elif(dir == 4):
                 bf.turn90Left()
             elif(dir == 5):
-                fl.followLine(2)
+                result = fl.followLine(2)
             elif(dir == 6):
                 fl.turnRight()
             elif(dir == 7):
@@ -88,6 +89,9 @@ def main():
                 fl.leaveLoad()
             elif(dir == 14):
                 bf.stop()
+
+            if(result == True):
+                comm.mysend(struct.pack('hhh', 3, r.id, 0))
 
 if __name__ == "__main__":
     main()
