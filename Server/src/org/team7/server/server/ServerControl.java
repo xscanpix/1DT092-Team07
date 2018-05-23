@@ -32,6 +32,7 @@ class ServerControl {
     private JButton trolleyDown;
     private JButton leaveLoad;
     private JButton takeLoad;
+    private JButton stop;
 
     ServerControl(Server server) {
         this.server = server;
@@ -59,6 +60,7 @@ class ServerControl {
         trolleyDown = new JButton("TrolleyDown");
         takeLoad = new JButton("TakeLoad");
         leaveLoad = new JButton("LeaveLoad");
+        stop = new JButton("Stop");
 
         frame.setLayout(new GridLayout(0, 4));
         frame.add(text);
@@ -75,6 +77,7 @@ class ServerControl {
         frame.add(trolleyDown);
         frame.add(takeLoad);
         frame.add(leaveLoad);
+        frame.add(stop);
 
         forward.addActionListener(new ActionListener() {
             @Override
@@ -152,6 +155,12 @@ class ServerControl {
             @Override
             public void actionPerformed(ActionEvent e) {
                 server.getRobot().sendMessage(new RobotMessageMove(0, 13).encodeMessage());
+            }
+        });
+        stop.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                server.getRobot().sendMessage(new RobotMessageMove(0, 14).encodeMessage());
             }
         });
 
