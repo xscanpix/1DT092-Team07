@@ -1,6 +1,7 @@
 import socket
 import struct
 import BasicFunctions as bf
+import FollowLines as fl
 
 
 class Robot:
@@ -67,6 +68,8 @@ def main():
                 bf.turn90Right()
             elif(dir == 4):
                 bf.turn90Left()
+            elif(dir == 5):
+                fl.followLine()
 
 
 if __name__ == "__main__":
