@@ -100,6 +100,7 @@ def leaveLoad():
 def goForwardIntersection():
     fct.goForward()
     time.sleep(1.5)
+    fct.stop(9)
 
 
 fct.stop()
