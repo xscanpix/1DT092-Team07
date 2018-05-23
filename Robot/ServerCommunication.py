@@ -1,6 +1,6 @@
 import socket
 import struct
-#import BasicFunctions as bs
+import BasicFunctions as bf
 
 
 class Robot:
@@ -59,7 +59,14 @@ def main():
             comm.mysend(msg)
         elif(op == 2):  # Move message
             dir = int.from_bytes(msg[4:6], byteorder='big')
-            print("Dir: " + str(dir))
+            if(dir == 1):
+                bf.goForward()
+            elif(dir == 2):
+                bf.goBackward()
+            elif(dir == 3):
+                bf.turn90Right()
+            elif(dir == 4):
+                bf.turn90Left()
 
 
 if __name__ == "__main__":
