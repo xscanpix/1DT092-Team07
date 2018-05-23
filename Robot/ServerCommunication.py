@@ -69,7 +69,7 @@ def main():
             elif(dir == 4):
                 bf.turn90Left()
             elif(dir == 5):
-                fl.followLine()
+                fl.followLine(2)
 
 
 if __name__ == "__main__":
