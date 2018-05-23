@@ -10,7 +10,7 @@ import BasicFunctions as fct
 # red is 5 and 100
 # 1 and 13% for black
 
-fct.stop()
+fct.readGyro()
 def followLine(seconds):
     timeOut=time.time()+seconds
     while time.time()<timeOut:
@@ -39,7 +39,7 @@ def followLine(seconds):
                 fct.stop(9)
         fct.stop(9)
         break
-    return True
+
 
 
 def turnRight():
@@ -96,9 +96,15 @@ def leaveLoad():
     fct.stop(9)
     fct.trolleyUp()
     followLine(10000)
-"""
-fct.stop()
 
+def goForwardIntersection():
+    fct.goForward()
+    time.sleep(1.5)
+    fct.stop(9)
+
+
+fct.stop()
+'''
 fct.trolleyUp()
 followLine(10000)
 turnRight()
@@ -110,8 +116,7 @@ takeLoads()
 fct.turn180Right()
 followLine(10000)
 
-fct.goForward()
-time.sleep(1.5)
+goForwardIntersection()
 
 followLine(10000)
 
@@ -121,7 +126,7 @@ leaveLoad()
 turnLeft()
 followLine(10000)
 fct.trolleyDown()
-"""
+'''
 
 #fct.readColour()
 #fct.readNameColour()
