@@ -35,7 +35,7 @@ String rec;
 void setup() {
   // open the serial port:
   Serial.begin(9600);
-  // initialize control over the keyboard:
+  // Change the baudrate depending on your module's baudrate
   bluetooth.begin(9600);
   dht.begin();
 }
@@ -43,12 +43,12 @@ void setup() {
 void loop() {
     if (bluetooth.available()) {
       rec = bluetooth.readString();
-      if (rec=="ASN"){
+      if (rec=="ASN1"){ //You need to send ASN1 from PC's serial to the arduino to get answer back.  
         float hum = dht.readHumidity();
         Serial.println("Test");
         float temp= dht.readTemperature();
-        bluetooth.print("Temperature: "+String(hum)+" Humidity: "+String(temp)+"\r\n");
-        Serial.print("Temperature: "+String(hum)+" Humidity: "+String(temp)+"\r\n");
+        bluetooth.print("Temperature: "+String(temp)+" Humidity: "+String(hum)+"\r\n");
+        Serial.print("Temperature: "+String(temp)+" Humidity: "+String(hum)+"\r\n");
         }
     }
 }
