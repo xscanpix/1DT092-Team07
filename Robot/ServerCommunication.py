@@ -86,7 +86,8 @@ def main():
                 fl.takeLoads()
             elif(dir == 13):
                 fl.leaveLoad()
-
+            elif(dir == 14):
+                bf.stop()
 
 if __name__ == "__main__":
     main()
