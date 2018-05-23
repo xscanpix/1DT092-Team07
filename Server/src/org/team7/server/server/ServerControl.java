@@ -23,6 +23,7 @@ class ServerControl {
     private JButton backward;
     private JButton right;
     private JButton left;
+    private JButton followLine;
 
     ServerControl(Server server) {
         this.server = server;
@@ -41,12 +42,14 @@ class ServerControl {
         backward = new JButton("Backward");
         right = new JButton("Right");
         left = new JButton("Left");
+        left = new JButton("FollowLine");
         frame.setLayout(new GridLayout(0, 2));
         frame.add(text);
         frame.add(forward);
         frame.add(backward);
         frame.add(right);
         frame.add(left);
+        frame.add(followLine);
         forward.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -69,6 +72,12 @@ class ServerControl {
             @Override
             public void actionPerformed(ActionEvent e) {
                 server.getRobot(0).sendMessage(new RobotMessageMove(0, 4).encodeMessage());
+            }
+        });
+        followLine.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                server.getRobot(0).sendMessage(new RobotMessageMove(0, 5).encodeMessage());
             }
         });
 

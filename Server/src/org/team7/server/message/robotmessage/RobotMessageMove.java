@@ -10,6 +10,8 @@ public class RobotMessageMove extends RobotMessage {
     public static final int BACKWARD = 2;
     public static final int RIGHT = 3;
     public static final int LEFT = 4;
+    public static final int FOLLOWLINE = 5;
+
 
     public RobotMessageMove(int robotID, int direction) {
         values.put("ID", robotID);
