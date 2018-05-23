@@ -51,12 +51,19 @@ public class Warehouse {
         } else if(zoneID == 3) {
             moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
             moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
-
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
             if(pickUp) {
                 moves.add(new RobotMessageMove(0, RobotMessageMove.TAKELOAD));
             } else {
                 moves.add(new RobotMessageMove(0, RobotMessageMove.LEAVELOAD));
             }
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT180));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT180));
         } else if(zoneID == 4) {
             if(pickUp) {
                 moves.add(new RobotMessageMove(0, RobotMessageMove.TAKELOAD));
