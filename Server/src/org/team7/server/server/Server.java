@@ -46,6 +46,10 @@ public class Server {
         clientControl.start();
     }
 
+    public Robot getRobot(int id) {
+        return robotControl.getRobot(id);
+    }
+
     public Sensor createOfflineSensor(int x, int y) {
         return sensorControl.createOfflineSensor(x, y);
     }
@@ -66,6 +70,7 @@ public class Server {
 
         obj.put("Position", JSONArray.toJSONString(List.of(1, 1)));
         obj.put("Direction", "Up");
+        obj.put("Speed", 30);
 
         return obj.toJSONString();
     }
