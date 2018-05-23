@@ -24,6 +24,14 @@ class ServerControl {
     private JButton right;
     private JButton left;
     private JButton followLine;
+    private JButton right90;
+    private JButton left90;
+    private JButton right180;
+    private JButton forwardintersect;
+    private JButton trolleyUp;
+    private JButton trolleyDown;
+    private JButton leaveLoad;
+    private JButton takeLoad;
 
     ServerControl(Server server) {
         this.server = server;
@@ -43,13 +51,31 @@ class ServerControl {
         right = new JButton("Right");
         left = new JButton("Left");
         followLine = new JButton("FollowLine");
-        frame.setLayout(new GridLayout(0, 3));
+        right90 = new JButton("Right90");
+        left90 = new JButton("Left90");
+        right180 = new JButton("Right180");
+        forwardintersect = new JButton("ForwardInter");
+        trolleyUp = new JButton("TrolleyUp");
+        trolleyDown = new JButton("TrolleyDown");
+        takeLoad = new JButton("TakeLoad");
+        leaveLoad = new JButton("LeaveLoad");
+
+        frame.setLayout(new GridLayout(0, 4));
         frame.add(text);
         frame.add(forward);
         frame.add(backward);
         frame.add(right);
         frame.add(left);
         frame.add(followLine);
+        frame.add(right90);
+        frame.add(left90);
+        frame.add(right180);
+        frame.add(forwardintersect);
+        frame.add(trolleyUp);
+        frame.add(trolleyDown);
+        frame.add(takeLoad);
+        frame.add(leaveLoad);
+
         forward.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,6 +104,54 @@ class ServerControl {
             @Override
             public void actionPerformed(ActionEvent e) {
                 server.getRobot().sendMessage(new RobotMessageMove(0, 5).encodeMessage());
+            }
+        });
+        right90.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                server.getRobot().sendMessage(new RobotMessageMove(0, 6).encodeMessage());
+            }
+        });
+        left90.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                server.getRobot().sendMessage(new RobotMessageMove(0, 7).encodeMessage());
+            }
+        });
+        right180.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                server.getRobot().sendMessage(new RobotMessageMove(0, 8).encodeMessage());
+            }
+        });
+        forwardintersect.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                server.getRobot().sendMessage(new RobotMessageMove(0, 9).encodeMessage());
+            }
+        });
+        trolleyUp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                server.getRobot().sendMessage(new RobotMessageMove(0, 10).encodeMessage());
+            }
+        });
+        trolleyDown.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                server.getRobot().sendMessage(new RobotMessageMove(0, 11).encodeMessage());
+            }
+        });
+        takeLoad.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                server.getRobot().sendMessage(new RobotMessageMove(0, 12).encodeMessage());
+            }
+        });
+        leaveLoad.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                server.getRobot().sendMessage(new RobotMessageMove(0, 13).encodeMessage());
             }
         });
 
