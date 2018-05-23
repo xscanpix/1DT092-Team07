@@ -53,31 +53,31 @@ class ServerControl {
         forward.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot(0).sendMessage(new RobotMessageMove(0, 1).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, 1).encodeMessage());
             }
         });
         backward.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot(0).sendMessage(new RobotMessageMove(0, 2).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, 2).encodeMessage());
             }
         });
         right.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot(0).sendMessage(new RobotMessageMove(0, 3).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, 3).encodeMessage());
             }
         });
         left.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot(0).sendMessage(new RobotMessageMove(0, 4).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, 4).encodeMessage());
             }
         });
         followLine.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server.getRobot(0).sendMessage(new RobotMessageMove(0, 5).encodeMessage());
+                server.getRobot().sendMessage(new RobotMessageMove(0, 5).encodeMessage());
             }
         });
 

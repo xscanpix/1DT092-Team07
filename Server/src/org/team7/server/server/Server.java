@@ -46,8 +46,8 @@ public class Server {
         clientControl.start();
     }
 
-    public Robot getRobot(int id) {
-        return robotControl.getRobot(id);
+    public Robot getRobot() {
+        return robotControl.getRobot();
     }
 
     public Sensor createOfflineSensor(int x, int y) {
@@ -102,7 +102,7 @@ public class Server {
                     for(RobotMessage rmessage : rmessages) {
                         if(rmessage != null) {
                             if(rmessage.getOp() == RobotMessage.operations.get("SETUPREPLY")) {
-                                Robot robot = robotControl.getRobot(rmessage.values.get("ID"));
+                                Robot robot = robotControl.getRobot();
                                 robot.setPos(rmessage.values.get("X"), rmessage.values.get("Y"));
                             }
                             serverControl.setText("[RobotControl] Message from Robot: " + rmessage);

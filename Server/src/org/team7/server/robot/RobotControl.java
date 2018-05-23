@@ -1,21 +1,19 @@
 package org.team7.server.robot;
 
-import org.team7.server.network.TcpServerAdapter;
 import org.team7.server.message.robotmessage.RobotMessage;
+import org.team7.server.network.TcpServerAdapter;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class RobotControl {
     private TcpServerAdapter adapter;
 
-    private Map<Integer, Robot> robots;
+    private Robot robot;
     private BlockingQueue<RobotMessage> queueFromRobot;
 
     private int port;
@@ -24,7 +22,6 @@ public class RobotControl {
     public RobotControl(int port) {
         this.port = port;
         queueFromRobot = new ArrayBlockingQueue<>(50);
-        robots = new ConcurrentHashMap<>();
     }
 
     public void initialize() {
@@ -39,7 +36,7 @@ public class RobotControl {
         try {
             Socket socket = adapter.accept();
             Robot robot = new Robot(socket);
-            robots.put(robot.id, robot);
+            this.robot = robot;
             robot.start();
         } catch(IOException e) {
             e.printStackTrace();
@@ -54,8 +51,8 @@ public class RobotControl {
         return list;
     }
 
-    public Robot getRobot(int ID) {
-        return robots.get(ID);
+    public Robot getRobot() {
+        return robot;
     }
 
     public void start() {
@@ -70,8 +67,8 @@ public class RobotControl {
         new Thread(() -> {
             while(true) {
                 try {
-                    for(Map.Entry<Integer, Robot> entry : robots.entrySet()) {
-                        RobotMessage msg = entry.getValue().getMessage();
+                    if(robot != null) {
+                        RobotMessage msg = robot.getMessage();
                         if(msg != null) {
                             queueFromRobot.offer(msg);
                         }
