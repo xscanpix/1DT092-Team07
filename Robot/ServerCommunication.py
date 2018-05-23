@@ -31,9 +31,14 @@ class Communication:
             totalsent = totalsent + sent
 
     def myreceive(self):
-        rec = self.sock.recv(2)  # Receive length of message
-        length = int.from_bytes(rec, byteorder='little')
-        rec = self.sock.recv(length)  # Receive message
+
+        rec = self.sock.recv(1)
+        l = int.from_bytes(rec, byteorder='little')
+    
+        m = b''
+        while len(m) < l:
+            rec = self.sock.recv(l - len(m))
+            m = m + rec
         return rec
 
 
@@ -41,17 +46,20 @@ def main():
     comm = Communication()
     comm.connect('127.0.0.1', 5555)
 
-    msg = comm.myreceive()
+    while(True):
+        msg = comm.myreceive()
+        print('Received message: ' + str(msg))
 
-    op = int.from_bytes(msg[:2], byteorder='big')
-
-    if(op == 0):  # Setup message
-        id = int.from_bytes(msg[2:], byteorder='big')
-        r = Robot(comm, id, 1, 1)
-        msg = struct.pack('hhhh', 1, r.id, r.x, r.y)
-        comm.mysend(msg)
-    elif(op == 2):  # Move message
-        print(1)
+        op = int.from_bytes(msg[:2], byteorder='big')
+        id = int.from_bytes(msg[2:4], byteorder='big')
+    
+        if(op == 0):  # Setup message
+            r = Robot(comm, id, 1, 1)
+            msg = struct.pack('hhhh', 1, r.id, r.x, r.y)
+            comm.mysend(msg)
+        elif(op == 2):  # Move message
+            dir = int.from_bytes(msg[4:6], byteorder='big')
+            print("Dir: " + str(dir))
 
 
 if __name__ == "__main__":
