@@ -37,7 +37,6 @@ public class Warehouse {
         List<Message> moves = new ArrayList<>();
 
         if(zoneID == 2) {
-            moves.add(new RobotMessageMove(0, RobotMessageMove.TROLLEYUP));
             moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
             moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
             if(pickUp) {
@@ -67,7 +66,6 @@ public class Warehouse {
             moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
             moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT180));
         } else if(zoneID == 4) {
-            moves.add(new RobotMessageMove(0, RobotMessageMove.TROLLEYUP));
             moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
             moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
             moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
@@ -78,11 +76,11 @@ public class Warehouse {
             }
             moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT180));
             moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FORWARDINTERSECTION));
             moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
             moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
             moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT180));
         } else if(zoneID == 5) {
-            moves.add(new RobotMessageMove(0, RobotMessageMove.TROLLEYUP));
             moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
             moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
             moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
@@ -103,7 +101,6 @@ public class Warehouse {
             moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
             moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT180));
         } else if(zoneID == 6) {
-            moves.add(new RobotMessageMove(0, RobotMessageMove.TROLLEYUP));
             moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
             moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
             moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
@@ -122,23 +119,72 @@ public class Warehouse {
             moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
             moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT180));
         } else if(zoneID == 7) {
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
             if(pickUp) {
                 moves.add(new RobotMessageMove(0, RobotMessageMove.TAKELOAD));
             } else {
                 moves.add(new RobotMessageMove(0, RobotMessageMove.LEAVELOAD));
             }
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT180));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT180));
         } else if(zoneID == 8) {
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
             if(pickUp) {
                 moves.add(new RobotMessageMove(0, RobotMessageMove.TAKELOAD));
             } else {
                 moves.add(new RobotMessageMove(0, RobotMessageMove.LEAVELOAD));
             }
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT180));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT180));
         } else if(zoneID == 9) {
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
             if(pickUp) {
                 moves.add(new RobotMessageMove(0, RobotMessageMove.TAKELOAD));
             } else {
                 moves.add(new RobotMessageMove(0, RobotMessageMove.LEAVELOAD));
             }
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT180));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.FOLLOWLINE));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.LEFT));
+            moves.add(new RobotMessageMove(0, RobotMessageMove.RIGHT180));
         }
 
         return moves;
