@@ -42,7 +42,7 @@ class ServerControl {
         backward = new JButton("Backward");
         right = new JButton("Right");
         left = new JButton("Left");
-        left = new JButton("FollowLine");
+        followLine = new JButton("FollowLine");
         frame.setLayout(new GridLayout(0, 2));
         frame.add(text);
         frame.add(forward);
