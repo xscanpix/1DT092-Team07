@@ -217,21 +217,25 @@ def goSlowSpeedRight():
 
 
 
-# Motor 2 is switch on at full power to lift 
+# Motor 2 is switch on at weak power to lift 
+def trolleyLoaded():
+    motorOn(0, 2, [129,40], 166, 0, 2)
+    time.sleep(0.2)
+    stop(2)
+    motorSpeed(0,2,0,166,0,2)
+
+# Motor 2 is switch on at higher power to lift 
 def trolleyUp():
-    motorOn(0, 2, [129,100], 166, 0, 2)
+    motorOn(0, 2, [129,60], 166, 0, 2)
     time.sleep(0.2)
     stop(2)
     motorSpeed(0,2,0,166,0,2)
 
 def trolleyDown():
-    motorSpeed(0,2,32,166,0,2)
+    motorSpeed(0,2,45,166,0,2)
     time.sleep(0.1)
     stop(2)
 
-trolleyUp()
-time.sleep(5)
-trolleyDown()
 
 # Reading type and mode of a sensor
 def type(port):
@@ -300,9 +304,8 @@ def readDistance():
     distance=read(3, 30, 0)
     print("distance is", distance[5]+distance[6]*256, "mm")
     return distance[5]+distance[6]*256 
-"""
-readDistance()
-"""
+
+
 
 # The displayed value is in degrees.
 def readGyro():
@@ -346,12 +349,24 @@ def turn90Left():
         time.sleep(0.01)
         if (readGyro()-Gyro)<-90:
             goSlowSpeedRight()
-            time.sleep(0.02)
+            time.sleep(0.03)
             stop(9)
         if (readGyro()-Gyro)>-90:
             goSlowSpeedLeft()
-            time.sleep(0.02)
+            time.sleep(0.03)
             stop(9)
+
+
+
+
+# When the Gyro reach
+def turn180Right():
+    turn90Right()
+    goForward()
+    time.sleep(1)
+    stop(9)
+    turn90Right()
+
 
 """
 goForward()
