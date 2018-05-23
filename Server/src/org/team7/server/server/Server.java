@@ -104,7 +104,6 @@ public class Server {
                             if(rmessage.getOp() == RobotMessage.operations.get("SETUPREPLY")) {
                                 Robot robot = robotControl.getRobot(rmessage.values.get("ID"));
                                 robot.setPos(rmessage.values.get("X"), rmessage.values.get("Y"));
-                                robot.sendMessage(new RobotMessageMove(robot.id, 1).encodeMessage());
                             }
                             serverControl.setText("[RobotControl] Message from Robot: " + rmessage);
                         }

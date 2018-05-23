@@ -7,7 +7,7 @@ $( document ).ready(function() {
                 var data = JSON.parse(result);
                 console.log(data)
                 var temp = data.Direction;
-                var speed = data.Direction;
+                var speed = data.Speed;
 
                 $('#temp_display').html(temp);
                 $('#speed_display').html(speed);
