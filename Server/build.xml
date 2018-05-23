@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="server" default="all">
-
     <target name="compile">
+        <javac srcdir="src" destdir="bin" classpath="lib/json-simple-1.1.jar" fork="true"/>
+    </target>
+
+    <target name="clean">
         <delete dir="bin"/>
         <mkdir dir="bin"/>
-        <javac srcdir="src" destdir="bin" fork="true"/>
     </target>
 
-    <target name="all" depends="compile"/>
+    <target name="all" depends="clean, compile"/>
 
     <target name="run">
-        <java classpath="bin" classname="org.team7.server.Runner" fork="true">
+        <java classpath="bin;lib/json-simple-1.1.jar" classname="org.team7.server.Runner" fork="true">
         </java>
     </target>
-
 </project>
