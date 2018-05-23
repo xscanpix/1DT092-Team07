@@ -36,8 +36,6 @@ public class RobotMessageSetupReply extends RobotMessage {
         Message.putBytes(buf, getValue("X"), X_BYTES);
         Message.putBytes(buf, getValue("Y"), Y_BYTES);
 
-        buf.rewind();
-
         return buf;
     }
 

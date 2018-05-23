@@ -29,8 +29,6 @@ public class RobotMessageSetup extends RobotMessage {
         Message.putBytes(buf, getOp(), OPCODE_BYTES);
         Message.putBytes(buf, getValue("ID"), SOURCE_ID_BYTES);
 
-        buf.rewind();
-
         return buf;
     }
 }

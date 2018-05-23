@@ -8,7 +8,6 @@ public class RobotMessageMoveReply extends RobotMessage {
 
     public static final int OKAY = 0;
     public static final int NOT_OKAY = 1;
-    private static final int REPLY_BYTES = 4;
 
     public RobotMessageMoveReply(int robotId, int reply) {
         values.put("ID", robotId);
@@ -34,8 +33,6 @@ public class RobotMessageMoveReply extends RobotMessage {
         Message.putBytes(buf, getOp(), OPCODE_BYTES);
         Message.putBytes(buf, getValue("ID"), SOURCE_ID_BYTES);
         Message.putBytes(buf, getValue("REPLY"), REPLY_BYTES);
-
-        buf.rewind();
 
         return buf;
     }

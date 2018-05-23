@@ -63,11 +63,19 @@ public class Robot {
                     RobotMessage msg;
 
                     len = in.readByte();
+                    System.out.println(len);
+
+                    if(len == 0) {
+                        continue;
+                    }
 
                     bytes = new byte[ len ];
                     {
                         int read = in.read(bytes);
                     }
+
+                    System.out.println(" ");
+
                     buf = ByteBuffer.allocate(len);
                     buf.put(bytes);
 
@@ -97,6 +105,8 @@ public class Robot {
     }
 
     public void sendMessage(ByteBuffer buf) {
+        buf.rewind();
+
         int len = buf.remaining();
         byte[] bytes = new byte[ len ];
         buf.get(bytes);
