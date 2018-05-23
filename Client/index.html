@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-success">
+    <div class="container">
+    <a class="navbar-brand text-white" href="index.html">Team 07</a>
+        <a class="navbar-brand text-white" href="index.html">Home</a>
+        <a class="navbar-brand text-white" href="map.html">Map Visualization</a>
+    </div>
+</nav>
+
+<div class="container py-3">
+    <div id="result"></div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-center">
+            <h2>Robot Information</h2>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-9 pull-right">
+                    <div class="card py-2">
+                        <img class="card-img-top img-fluid" src="robot.png" alt="Card image cap">
+                        <div class="card-body mt-3">
+                            <table class="table text-center list-group-item-primary">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Name:</th>
+                                    <th scope="col">Robot carrier</th>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Developer:</th>
+                                    <th scope="col">Team 7</th>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Status:</th>
+                                    <th scope="col">Active</th>
+                                </tr>
+                                <tr>
+                                    <th scope="col" class="align-middle">
+                                        Feature:
+                                    </th>
+                                    <th scope="col">
+                                        <ul style="text-align: justify;">
+                                            <li>Moving</li>
+                                            <li>Product carrying</li>
+                                            <li>Light censoring</li>
+                                            <li>Temperature censoring</li>
+                                        </ul>
+                                    </th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="map.html">
+                                <button class="btn btn-success">Virsualize</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12 text-center">
+            <h2>Map Information</h2>
+            <img src="board.png" width="80%" height="80%">
+            <table class="table text-center list-group-item-primary mt-4">
+                <thead>
+                <tr>
+                    <th scope="col">Width:</th>
+                    <th scope="col">50 cm</th>
+                </tr>
+                <tr>
+                    <th scope="col">Height:</th>
+                    <th scope="col">100 cm</th>
+                </tr>
+                </thead>
+            </table>
+            <!--<canvas id="canvas" width="500" height="500"></canvas>-->
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
